@@ -1,22 +1,23 @@
 ---
 layout: post
-title-short: Snowplow 84 Stellers Sea Eagle
-title: "Snowplow 84 Stellers Sea Eagle released with Elasticsearch 2.x support"
+title-short: "Snowplow 84 Steller's Sea Eagle"
+title: "Snowplow 84 Steller's Sea Eagle released with Elasticsearch 2.x support"
 tags: [snowplow, kinesis, real-time, elasticsearch]
 author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 84 Stellers Sea Eagle] [snowplow-release]. This release brings support for Elasticsearch 2.x to the Kinesis Elasticsearch Sink for both Transport and HTTP clients.
+We are pleased to announce the release of [Snowplow 84 Steller's Sea Eagle] [snowplow-release]. This release brings support for Elasticsearch 2.x to the Kinesis Elasticsearch Sink for both Transport and HTTP clients.
 
-1. [Elasticsearch 2.x support](/blog/2016/09/28/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#elasticsearch-2-x)
-2. [Elasticsearch Sink buffer](/blog/2016/09/28/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#sink-buffer)
-3. [Override the network_id cookie with nuid param](/blog/2016/09/28/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#nuid-cookie)
-4. [Hardcoded cookie path](/blog/2016/09/28/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#cookie-path)
-5. [Other changes](/blog/2016/09/28/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#other)
-6. [Upgrading](/blog/2016/09/28/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#upgrading)
-7. [Roadmap](/blog/2016/09/28/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#roadmap)
-8. [Getting help](/blog/2016/09/28/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#help)
+1. [Elasticsearch 2.x support](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#elasticsearch-2-x)
+2. [Elasticsearch Sink buffer](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#sink-buffer)
+3. [Override the network_id cookie with nuid param](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#nuid-cookie)
+4. [Hardcoded cookie path](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#cookie-path)
+5. [Migrating Redshift assets to Iglu Central](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#iglu-central)
+6. [Other changes](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#other)
+7. [Upgrading](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#upgrading)
+8. [Roadmap](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#roadmap)
+9. [Getting help](/blog/2016/10/02/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#help)
 
 ![stellers-sea-eagle][stellers-sea-eagle]
 
@@ -24,13 +25,11 @@ We are pleased to announce the release of [Snowplow 84 Stellers Sea Eagle] [snow
 
 <h2 id="elasticsearch-2-x">1. Elasticsearch 2.x support</h2>
 
-This release brings full support for Elasticsearch 2.x for both the HTTP and Transport clients.  This will allow you to take advantage of the AWS Elasticsearch Service running ES 2.3 as well as being able to update your own clusters to take advantage of all the latests features Elasticsearch has to offer - along with being able to use the latest Kibana.
+This release brings full support for Elasticsearch 2.x for both the HTTP and Transport clients. This lets you use the AWS Elasticsearch Service running ES 2.3, or indeed upgrade your self-hosted Elasticsearch cluster to version 2.x.
 
-This is being supported by dynamically building a binary for each version, simply use the one appended by `_1x` or `_2x` for the level you wish to use.
+We delivered this by dynamically building a Kinesis Elasticsearch Sink binary for both Elasticsearch versions - you'll choose the binary appended by `_1x` or `_2x` as appropriate.
 
-The upgrade process should be fairly painless, however there is one change that could cause issues during migration - which is that field names cannot contain dots any longer.  The core Snowplow field names and shredded selfdescribing events events have always abided by this rule throughout our 1.x support - however it was possible that if a fieldname within your event data JSON contained dots this was loaded as is.
-
-To illustrate consider the following SelfDescribingJson:
+One important thing to flag is that Elasticsearch 2.x no longer allows field names to contain periods (`.`). While we never used periods within Snowplow or Iglu Central property names, your team may have created some, like so:
 
 {% highlight json %}
 {
@@ -41,64 +40,72 @@ To illustrate consider the following SelfDescribingJson:
 }
 {% endhighlight %}
 
-This would be loaded into Elasticsearch like so:
+Previously, this would have loaded into Elasticsearch like so:
 
+{% highlight code %}
 > com_acme_event_1: [{"field.with.dots": value}]
+{% endhighlight %}
 
-Elasticsearch 2.x requires it as follows:
+From this release on, we are automatically converting the field name's periods to underscores, whether you are loading Elasticsearch 1.x or 2.x:
 
+{% highlight code %}
 > com_acme_event_1: [{"field_with_dots": value}]
+{% endhighlight %}
 
-This should be quite a rare scenario as it is quite uncommon to include dots within fieldnames.  For more information ([#2894][2894]).
-
-__NOTE__: From this release onwards these fieldnames will be automatically converted to use underscores in place of dots for both 1.x and 2.x.
+For more information please see [issue #2894] [2894].
 
 <h2 id="sink-buffer">2. Elasticsearch Sink buffer</h2>
 
-Thanks to community member [Stephane Maarek][simplesteph] we realised that the buffer settings were not being correctly applied to the outbound queue of the Elasticsearch Emitter.  
+Via community member [Stephane Maarek][simplesteph] we realised that the buffer settings were not being correctly applied to the outbound queue of the Elasticsearch Sink's Emitter.  
 
-This has now been patched so that the `record` and `byte` limits are adherred to for the emission of events to the cluster - the `time` limit is ignored however.  This is to avoid a situation where we build yet another in-memory queue but more importantly to avoid a situation where we checkpoint (acknowledge that the event has been sent along) before we actually send it.  If we were to checkpoint greedily and the application were to crash we would lose the events!
+This has now been patched so that the `record` and `byte` limits are respected - however the `time` limit is still ignored currently. We are still exploring if a time limit could be respected without running the risk of checkpointing before events have been safely written to Elasticsearch.
 
 The new buffer settings work as follows:
 
-* The Emitter receives a buffer of events from the Kinesis
-* This buffer is split based on your buffer settings
+* The Emitter receives a buffer of events from the Kinesis stream
+* This buffer is split based on your `record` and `byte` buffer settings
 * Each slice of the buffer is sent in succession
 * Once all slices are processed the application checkpoints
 
-It is important that you tune your record and byte limits to match the cluster you are pushing events to.  If the limits are set too high you might not be able to emit successfully very often but if your limits are too low then your event emission is very inefficient.
+It is important that you tune your record and byte limits to match the cluster you are pushing events to. If the limits are set too high you might not be able to emit successfully very often; if your limits are too low then your event emission is very inefficient.
 
-For more information on this bug and the corresponding commit ([#2895][2895]).
+For more information on this bug and the corresponding commit please see [issue #2895] [2895].
 
-<h2 id="other">3. Override the network_id cookie with nuid param</h2>
+<h2 id="nuid-cookie">3. Override the network_id cookie with nuid param</h2>
 
-This release adds the ability to update your collector cookies value with the `nuid` or `network_user_id` parameter.  If a `nuid` value is available within the querystring of your request this value will then be used to update the cookies value.  
+This release adds the ability to update your Scala Stream Collector's cookie's value with the `nuid` a.k.a. `network_user_id` parameter.  If a `nuid` value is available within the querystring of your request, this value will then be used to update the cookie's value.  
 
-This feature is only available through a querystring parameter lookup so will only work for GET requests at the present.
+This feature is only available through a querystring parameter lookup, so only works for `GET` requests at the present.
 
-__NOTE__: This is not a configurable feature and cannot be turned off.
+Many thanks to [Christoph Buente][christoph-buente] from Snowplow user [LiveIntent][live-intent] for this contribution!
 
-Many thanks to [Christoph Buente][christoph-buente] from [LiveIntent][live-intent] for this contribution!
-
-For more information and the reasoning behind this update ([#2512][2512]).
+For more information and the reasoning behind this update please see [issue #2512] [2512].
 
 <h2 id="other">4. Hardcoded cookie path</h2>
 
-To ensure that the cookie path is always valid we have updated the Tracker to statically set the cookie path to "/".  This is to avoid situations where a path resource such as "/r/tp2" results in the cookie path ending up at "/r".  Endpoints such as "/i" do not suffer from this issue.
+To ensure that the cookie path is always valid we have updated the Scala Stream Collector to statically set the cookie path to "/".  This is to avoid situations where a path resource such as "/r/tp2" results in the cookie path ending up at "/r". Endpoints such as "/i" do not suffer from this issue.
 
 Thanks again to [Christoph Buente][christoph-buente] for this contribution!
 
-For more information please see ([#2524][2524]).
+For more information on this please see issue [#2524] [2524].
 
-<h2 id="changes">5. Other changes</h2>
+<h2 id="iglu-central">5. [Migrating Redshift assets to Iglu Central</h2>
+
+An Iglu schema registry typically consists of schemas, Redshift table definitions and JSON Paths files - see our [Iglu example schema registry] [iglu-eg-schema-registry] for an example.
+
+When we originally started building out [Iglu Central] [iglu-central], we diverted from this approach and stored the Redshift table definitions for Iglu Central schemas, plus the associated JSON Paths files, in the main Snowplow repository, [snowplow/snowplow] [snowplow-snowplow]. You'll see from the [Snowplow CHANGELOG] [snowplow-changelog] that many Snowplow releases have contained Redshift and JSON Paths files, to complement specific schemas in new Iglu Central releases.
+
+In hindsight splitting the Iglu Central resources across two separate repositories was a mistake. XXXX
+
+<h2 id="changes">6. Other changes</h2>
 
 This release also contains further changes such as:
 
-* Allowing the HTTP client timeouts for the Kinesis Elasticsearch Sink to be configured from the HOCON ([#2897][2897])
-* Adding environment variable resolution to the Scala Stream Collector, Stream Enrich and the Kinesis Elasticsearch Sink through `Config.resolver()`
-* Upgrading Stream Enrich to the latest version of Scala Common Enrich to ensure all the latest updates are available for batch and real-time
+* Allowing the HTTP client timeouts for the Kinesis Elasticsearch Sink to be configured from the HOCON configuration file ([issue #2897][2897])
+* Adding environment variable resolution to the Scala Stream Collector, Stream Enrich and the Kinesis Elasticsearch Sink through `Config.resolver()`. Many thanks to community member XXX for contributing this
+* Upgrading Stream Enrich to the latest version of Scala Common Enrich to make available all of the new features and latest bug fixes
 
-<h2 id="upgrading">6. Upgrading</h2>
+<h2 id="upgrading">7. Upgrading</h2>
 
 The Kinesis apps for R84 Stellers Sea Eagle are available in the following zipfiles:
 
@@ -154,17 +161,16 @@ Then:
 * Update your supervisor process to point to the new Kinesis Elasticsearch Sink app
 * Restart the supervisor process on each server running the sink
 
-<h2 id="roadmap">7. Roadmap</h2>
+<h2 id="roadmap">8. Roadmap</h2>
 
 We have renamed the upcoming milestones for Snowplow to be more flexible around the ultimate sequencing of releases. Upcoming Snowplow releases, in no particular order, include:
 
 * [R8x [HAD] 4 webhooks] [r8x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
-* [R8x [HAD] Spark data modeling] [r8x-spark], which will allow arbitrary Spark jobs to be added to the EMR jobflow to perform data modeling prior to (or instead of) Redshift
 * [R8x [HAD] Synthetic dedupe] [r8x-dedupe], which will deduplicate event_ids with different event_fingerprints (synthetic duplicates) in Hadoop Shred
 
 Note that these releases are always subject to change between now and the actual release date.
 
-<h2 id="help">8. Getting help</h2>
+<h2 id="help">9. Getting help</h2>
 
 For more details on this release, please check out the [release notes] [snowplow-release] on GitHub.
 
@@ -183,8 +189,11 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [2895]: https://github.com/snowplow/snowplow/issues/2895
 [2897]: https://github.com/snowplow/snowplow/issues/2897
 
+[snowplow-snowplow]: https://github.com/snowplow/snowplow
+[iglu-central]: https://github.com/snowplow/iglu-central
+[iglu-eg-schema-registry]: https://github.com/snowplow/iglu-example-schema-registry
+
 [r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
-[r8x-spark]: https://github.com/snowplow/snowplow/milestone/127
 [r8x-dedupe]: https://github.com/snowplow/snowplow/milestone/132
 
 [issues]: https://github.com/snowplow/snowplow/issues/new

@@ -170,10 +170,10 @@ If you want to understand the architecture of Kinesis Tee, perhaps with a view t
 
 We see Kinesis Tee as a fundamental building block for assembling asynchronous micro-service architectures on top of Kinesis. We have big plans for Kinesis Tee, including but not limited to:
 
-* Allowing users to write arbitrary JavaScript transformation functions (similar to the existing filter functions) ([#9](https://github.com/snowplow/kinesis-tee/issues/9))
-* Adding daisychaining of transformation and filtering steps - allowing for multiple transformations, and filters based on each transformation ([#18](https://github.com/snowplow/kinesis-tee/issues/18))
-* Adding routing, so that a given event can end up in one or more target streams ([#8](https://github.com/snowplow/kinesis-tee/issues/8))
-* Adding better error handling, so that processing failures can be properly captured in a "bad stream" ([#11](https://github.com/snowplow/kinesis-tee/issues/11))
+* Allowing users to write arbitrary JavaScript transformation functions (similar to the existing filter functions) ([issue #9](https://github.com/snowplow/kinesis-tee/issues/9))
+* Adding daisychaining of transformation and filtering steps - allowing for multiple transformations, and filters based on each transformation ([issue #18](https://github.com/snowplow/kinesis-tee/issues/18))
+* Adding routing, so that a given event can end up in one or more target streams ([issue #8](https://github.com/snowplow/kinesis-tee/issues/8))
+* Adding better error handling, so that processing failures can be properly captured in a "bad stream" ([issue #11](https://github.com/snowplow/kinesis-tee/issues/11))
 
 <h2 id="help">7. Getting help</h2>
 

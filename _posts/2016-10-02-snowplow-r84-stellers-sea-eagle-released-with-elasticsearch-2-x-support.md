@@ -56,9 +56,9 @@ For more information please see [issue #2894] [2894].
 
 <h2 id="sink-buffer">2. Elasticsearch Sink buffer</h2>
 
-Via community member [Stephane Maarek][simplesteph] we realised that the buffer settings were not being correctly applied to the outbound queue of the Elasticsearch Sink's Emitter.  
+Via community member [Stephane Maarek][simplesteph] we realised that the buffer settings were not being correctly applied to the outbound queue of the Elasticsearch Sink's Emitter.  This is due to an underlying problem within the Kinesis Connectors Library in that every record in a `GetRecords` call is added to the buffer - without checking between additions whether or not the buffer is full.  In the case that your Sink has to catch-up on huge numbers of records and your `maxRecords` setting is set to 10000 this can result in issues with the sinks ability to emit to Elasticsearch as the buffer will simply be too large to send successfully.
 
-This has now been patched so that the `record` and `byte` limits are respected - however the `time` limit is still ignored currently. We are still exploring if a time limit could be respected without running the risk of checkpointing before events have been safely written to Elasticsearch.
+This has now been patched so that the `record` and `byte` limits are respected by splitting the buffer into slices if the above condition occurs, these slices are then sent individually rather than as a single POST.
 
 The new buffer settings work as follows:
 

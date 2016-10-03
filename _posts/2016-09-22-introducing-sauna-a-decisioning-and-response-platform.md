@@ -99,8 +99,8 @@ Under the hood the SendGrid Responder uses SendGrid's [Contacts API] [sendgrid-c
 
 For more information on the SendGrid Responder, please check out:
 
-* [The SendGrid Responder setup guide] [sendgrid-responder-setup], for analysts
-* [The SendGrid Responder usage guide] [sendgrid-responder-guide], for devops
+* [The SendGrid Responder setup guide] [sendgrid-responder-setup], for devops
+* [The SendGrid Responder usage guide] [sendgrid-responder-guide], for analysts
 
 <h2 id="optimizely">5. Using Sauna with Optimizely</h2>
 
@@ -117,8 +117,8 @@ Under the hood, Sauna makes use of Optimizely's [Targeting List] [optimizely-tar
 
 For more information on the Optimizely Responder, please check out:
 
-* [The Optimizely Responder setup guide] [optimizely-responder-setup], for analysts
-* [The Optimizely Responder usage guide] [optimizely-responder-guide], for devops
+* [The Optimizely Responder setup guide] [optimizely-responder-setup], for devops
+* [The Optimizely Responder usage guide] [optimizely-responder-guide], for analysts
 
 <h2 id="setup">6. Setting up Sauna</h2>
 
@@ -130,7 +130,7 @@ You'll find all the necessary documentation on the [Setting up Sauna] [sauna-set
 
 We're taking a very explorative, iterative approach with Sauna - the first release is deliberately narrow, being focused on just two marketing platforms and only supporting relatively "batchy" source data.
 
-However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj Rajandrakumar has been working on an additional responders for [Urban Airship] [urban-airship], which we hope to release soon (here is a [sneak peak] [urban-airship-responder-guide] of the users guide).
+However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj Rajandrakumar has been working on an additional responders for [Urban Airship] [urban-airship], which we hope to release soon (here is a [sneak peek] [urban-airship-responder-guide] of the users guide).
 
 Looking to the future, we are also very interested in extending Sauna to be able to respond to decisions in near-real-time. Our current thinking is to use JSON Schema (or Avro) to define specific commands (e.g. "send email", "raise PagerDuty incident"), and for Sauna to then be able to read those commands from [Amazon Kinesis] [kinesis] or [Apache Kafka] [kafka] streams. This would involve adding new observers for Kinesis and Kafka, as well as defining the new command schemas, which is discussed in [Command schema: design (issue #54)] [issue-54].
 

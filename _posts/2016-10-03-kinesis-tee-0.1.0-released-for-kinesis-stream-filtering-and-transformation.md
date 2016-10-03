@@ -17,13 +17,13 @@ Kinesis Tee is like Unix [tee] [unix-tee], but for Kinesis streams. You can use 
 
 In the rest of this post we will cover:
 
-1. [Introducing Kinesis Tee](/blog/2016/09/16/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#intro)
-2. [Example: mirroring a Kinesis stream to another account](/blog/2016/09/16/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#eg-mirror)
-3. [Example: converting Snowplow enriched events to nested JSON](/blog/2016/09/16/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#eg-snowplow-json)
-4. [Example: filtering records in real time](/blog/2016/09/16/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#eg-filters)
-5. [Documentation](/blog/2016/09/16/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#docs)
-6. [Roadmap](/blog/2016/09/16/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#roadmap)
-7. [Getting help](/blog/2016/09/16/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#help)
+1. [Introducing Kinesis Tee](/blog/2016/10/03/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#intro)
+2. [Example: mirroring a Kinesis stream to another account](/blog/2016/10/03/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#eg-mirror)
+3. [Example: converting Snowplow enriched events to nested JSON](/blog/2016/10/03/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#eg-snowplow-json)
+4. [Example: filtering records in real time](/blog/2016/10/03/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#eg-filters)
+5. [Documentation](/blog/2016/10/03/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#docs)
+6. [Roadmap](/blog/2016/10/03/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#roadmap)
+7. [Getting help](/blog/2016/10/03/kinesis-tee-0.1.0-released-for-kinesis-stream-filtering-and-transformation/#help)
 
 <!--more-->
 

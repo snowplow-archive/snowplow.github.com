@@ -103,7 +103,7 @@ Built in to Kinesis Tee is a "Snowplow to nested JSON" transformer. This convert
 
 Currently only the `SNOWPLOW_TO_NESTED_JSON` transformation, or `null` for no transformations, are supported; however we are planning to add support for arbitrary JavaScript-powered transformations in the future.
 
-<h2 id="eg-filters">3. Example: filtering records in real time</h2>
+<h2 id="eg-filters">4. Example: filtering records in real time</h2>
 
 Imagine we have a Kinesis stream consisting of JSON monitoring events emitted by all the machines on a factory floor. The events look like this:
 
@@ -156,7 +156,7 @@ This filter will only send a record from the Kinesis source stream into the sink
 
 All other records will be silently discarded by Kinesis Tee.
 
-<h2 id="docs-setup">6. Documentation</h2>
+<h2 id="docs-setup">5. Documentation</h2>
 
 Kinesis Tee uses Snowplow community member Jorge Bastida's excellent [Gordon](https://github.com/jorgebastida/gordon) project for deployment. Find out more on setting up Kinesis Tee, plus more configuration examples, in:
 

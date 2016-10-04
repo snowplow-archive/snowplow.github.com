@@ -180,7 +180,7 @@ We see Kinesis Tee as a fundamental building block for assembling asynchronous m
 We hope that you find Kinesis Tee useful - of course, this is only its first release, so don't be afraid to [get in touch][talk-to-us] or [raise an issue] [kinesis-tee-issues] on GitHub!
 
 [kinesis-tee-repo]: https://github.com/snowplow/kinesis-tee
-[unix-tee]: (https://en.wikipedia.org/wiki/Tee_(command))
+[unix-tee]: https://en.wikipedia.org/wiki/Tee_(command)
 
 [kinesis-tee-issues]: https://github.com/snowplow/kinesis-tee/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

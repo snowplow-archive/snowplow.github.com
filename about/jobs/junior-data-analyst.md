@@ -35,6 +35,7 @@ We're looking for a candidate who:
 * Is self-motivated: happy to figure stuff out with minimal direction
 * Is a clear thinker who is comfortable explaining her / his thinking, discussing and challenging different approaches and working collaboratively and creatively to identify new approaches
 * Is hands on - like to deliver: commit code, draw concrete insights
+* Is able to travel 25-50% of the time
 
 Technically we want you to have a high level of proficiency in performing data analysis in spreadsheets and other tools. A basic understanding of statistics and familiarity with SQL, R and Python and any kind of programmatic analysis is valuable but not necessary.
 

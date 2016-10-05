@@ -257,11 +257,11 @@ END TRANSACTION;
 
 <h2 id="publish-to-s3">2. Publish schemas and JSON Path files to S3</h2>
 
-Previously Igluctl enabled users to publish schemas stored locally to a remote Iglu static server repo using the `igluctl static push` command.
+Previously Igluctl enabled users to publish schemas stored locally to a remote Iglu registry using the `igluctl static push` command.
 
-However, users that wanted to publish schemas to S3 backed static server repos, or publish JSON Path files to S3 so they can be used to load event and context data into Redshift, had to use another tool to do so. (Most commonly Amazon's excellent [AWS CLI][aws-cli]).
+However, users that wanted to publish schemas to S3-backed static registries, or publish JSON Path files to S3 so they can be used to load event and context data into Redshift, had to use another tool to do so. (Most commonly Amazon's excellent [AWS CLI][aws-cli]).
 
-Igluctl now has a new command: `s3cp`, for copying files locally to S3. This means that you can publish JSON Schemas to S3-backed static server repos:
+Igluctl now has a new command: `s3cp`, for copying files locally to S3. This means that you can publish JSON Schemas to S3-backed static registries:
 
 {% highlight bash %}
 $ /path/to/igluctl static s3cp ./schemas snowplow-com-mycompany-iglu-schemas-bucket --accessKeyId ABCDEF --secretAccessKey GHIJKILM/12345XYZ --region us-east-1

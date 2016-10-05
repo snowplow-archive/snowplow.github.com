@@ -25,7 +25,7 @@ Snowplow users will define JSON Schemas for event and context types, and then us
 
 Often, a JSON Schema might be entirely valid. However, it is not precise enough to fully determine the corresponding Redshift table definition. Two examples:
 
-<h3 id="severity-numeric-type">1a. Determining the correct numeric type in Redshift</h2>
+<h3 id="severity-numeric-type">1a. Determining the correct numeric type in Redshift</h3>
 
 If you have a schema that defines a numeric field e.g.
 
@@ -148,7 +148,7 @@ SORTKEY (root_tstamp);
 COMMENT ON TABLE atomic.com_example_company_example_event_1 IS 'iglu:com.example_company/example_event/jsonschema/1-0-0';
 {% endhighlight %}
 
-<h3 id="severity-string-types">1b. Determining the correct string types in Redshift</h2>
+<h3 id="severity-string-types">1b. Determining the correct string types in Redshift</h3>
 
 The same issue of a JSON Schema field definition under-determining the associated Redshift column type occurs for string fields. If we have the following schema, for example:
 

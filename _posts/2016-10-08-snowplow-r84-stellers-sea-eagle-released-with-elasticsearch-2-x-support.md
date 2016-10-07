@@ -105,8 +105,8 @@ In hindsight, splitting the Iglu Central resources across two separate code repo
 
 Therefore, in this release we have moved all Redshift table definitions and JSON Paths files from the main Snowplow repository into Iglu Central, specifically in these paths:
 
-* [xxx] [iglu-central-redshift-ddl]
-* [xxx] [iglu-central-json-paths]
+* [iglu-central/sql] [iglu-central-redshift-ddl]
+* [iglu-central/jsonpaths] [iglu-central-json-paths]
 
 Our hosting of these files for the correct operation of Snowplow is unchanged, and the Snowpow repository continues to hold current and previous definitions of the `atomic.events` table, plus corresponding migration scripts.
 
@@ -206,8 +206,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [iglu-central]: https://github.com/snowplow/iglu-central
 [iglu-eg-schema-registry]: https://github.com/snowplow/iglu-example-schema-registry
 
-[iglu-central-redshift-ddl]: xxx
-[iglu-central-json-paths]: xxx
+[iglu-central-redshift-ddl]: https://github.com/snowplow/iglu-central/tree/master/sql
+[iglu-central-json-paths]: https://github.com/snowplow/iglu-central/tree/master/jsonpaths
 
 [shin-nien]: https://github.com/shin-nien
 

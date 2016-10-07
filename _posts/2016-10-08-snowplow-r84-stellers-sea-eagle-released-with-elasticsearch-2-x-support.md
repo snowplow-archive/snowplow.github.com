@@ -9,15 +9,15 @@ category: Releases
 
 We are pleased to announce the release of [Snowplow 84 Steller's Sea Eagle] [snowplow-release]. This release brings support for Elasticsearch 2.x to the Kinesis Elasticsearch Sink for both Transport and HTTP clients.
 
-1. [Elasticsearch 2.x support](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#elasticsearch-2-x)
-2. [Elasticsearch Sink buffer](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#sink-buffer)
-3. [Override the network_id cookie with nuid param](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#nuid-cookie)
-4. [Hardcoded cookie path](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#cookie-path)
-5. [Migrating Redshift assets to Iglu Central](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#iglu-central)
-6. [Other changes](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#other)
-7. [Upgrading](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#upgrading)
-8. [Roadmap](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#roadmap)
-9. [Getting help](/blog/2016/10/06/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#help)
+1. [Elasticsearch 2.x support](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#elasticsearch-2-x)
+2. [Elasticsearch Sink buffer](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#sink-buffer)
+3. [Override the network_id cookie with nuid param](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#nuid-cookie)
+4. [Hardcoded cookie path](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#cookie-path)
+5. [Migrating Redshift assets to Iglu Central](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#iglu-central)
+6. [Other changes](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#other)
+7. [Upgrading](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#upgrading)
+8. [Roadmap](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#roadmap)
+9. [Getting help](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#help)
 
 ![stellers-sea-eagle] [stellers-sea-eagle]
 
@@ -115,7 +115,7 @@ Our hosting of these files for the correct operation of Snowplow is unchanged, a
 This release also contains further changes, notably:
 
 * Allowing the HTTP client timeouts for the Kinesis Elasticsearch Sink to be configured from the HOCON configuration file ([issue #2897] [2897])
-* Adding environment variable resolution to the Scala Stream Collector, Stream Enrich and the Kinesis Elasticsearch Sink through `Config.resolver()`. Many thanks to community member XXX for contributing this
+* Adding environment variable resolution to the Scala Stream Collector, Stream Enrich and the Kinesis Elasticsearch Sink through `Config.resolver()`. Many thanks to community member [Shin] [shin-nien] for contributing this
 * Upgrading Stream Enrich to the latest version of Scala Common Enrich to make available all of the new features and latest bug fixes
 
 <h2 id="upgrading">7. Upgrading</h2>
@@ -208,6 +208,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [iglu-central-redshift-ddl]: xxx
 [iglu-central-json-paths]: xxx
+
+[shin-nien]: https://github.com/shin-nien
 
 [r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
 [r8x-dedupe]: https://github.com/snowplow/snowplow/milestone/132

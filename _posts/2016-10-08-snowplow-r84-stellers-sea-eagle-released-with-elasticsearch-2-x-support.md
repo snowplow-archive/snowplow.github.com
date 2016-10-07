@@ -189,7 +189,7 @@ For more details on this release, please check out the [release notes] [snowplow
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-[stellers-sea-eagle]: /assets/img/blog/2016/10/stellers-sea-eagle.png
+[stellers-sea-eagle]: /assets/img/blog/2016/10/stellers-sea-eagle.jpg
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r84-stellers-sea-eagle
 
 [simplesteph]: https://github.com/simplesteph

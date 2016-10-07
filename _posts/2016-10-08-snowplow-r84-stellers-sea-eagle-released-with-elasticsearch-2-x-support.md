@@ -91,7 +91,7 @@ Thanks again to [Christoph Buente] [christoph-buente] for this contribution!
 
 For more information on this please see issue [#2524] [2524].
 
-<h2 id="iglu-central">5. [Migrating Redshift assets to Iglu Central</h2>
+<h2 id="iglu-central">5. Migrating Redshift assets to Iglu Central</h2>
 
 An Iglu schema registry typically consists of schemas, Redshift table definitions and JSON Paths files - see our [Iglu example schema registry] [iglu-eg-schema-registry] for an example.
 
@@ -189,7 +189,7 @@ For more details on this release, please check out the [release notes] [snowplow
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-[stellers-sea-eagle]: /assets/img/blog/2016/09/stellers-sea-eagle.png
+[stellers-sea-eagle]: /assets/img/blog/2016/10/stellers-sea-eagle.png
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r84-stellers-sea-eagle
 
 [simplesteph]: https://github.com/simplesteph

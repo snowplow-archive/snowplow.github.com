@@ -122,9 +122,10 @@ This release also contains further changes, notably:
 
 The Kinesis apps for R84 Stellers Sea Eagle are available in the following zipfiles:
 
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_stream_collector_0.8.0.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_scala_stream_collector_0.8.0.zip
     http://dl.bintray.com/snowplow/snowplow-generic/snowplow_stream_enrich_0.9.0.zip
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_elasticsearch_sink_0.8.0.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_elasticsearch_sink_0.8.0_1x.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_elasticsearch_sink_0.8.0_2x.zip
 
 Or you can download all of the apps together in this zipfile:
 

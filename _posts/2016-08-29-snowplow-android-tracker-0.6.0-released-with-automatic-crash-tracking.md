@@ -213,6 +213,8 @@ Tracker.init(new Tracker.TrackerBuilder(...)
 );
 {% endhighlight %}
 
+__Warning__: In past releases the `mobile_context` was included by attaching a Subject with an application context object.  However from 0.6.x we have changed this to be an explicit option in the Tracker builder.  We believe this provides much better clarity and control over what is actually attached to your event as it leaves the Tracker.  To ensure consistent behaviour between 0.5.x and 0.6.x please ensure that your Tracker builder contains `mobileContext(true)` as indicated above.
+
 __Note__: if you are building your application for API 24+, you will need to manually request the geolocation manifest permissions for the Tracker. For sample code please see the [technical documentation](https://github.com/snowplow/snowplow/wiki/Android-Tracker#322-geolocation_context).
 
 `Unstructured` events are now called `SelfDescribing` events, to reflect the fact that these events are in fact well-structured using JSON Schema. This is a breaking naming change and will need to be updated within your application

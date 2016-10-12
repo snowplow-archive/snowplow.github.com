@@ -25,7 +25,7 @@ Huge thanks to Snowplow user [Adam Griffiths][adam-griffiths] for contributing t
 
 <h2 id="python-3.4-3.5-support">1. Python 3.4 and 3.5 support</h2>
 
-The Python tracker now supports Python 3.4 and Python 3.5.
+The Python tracker now officially supports Python 3.4 and Python 3.5.
 
 <h2 id="new-event-types">2. First class support for 10(!) new event types</h2>
 

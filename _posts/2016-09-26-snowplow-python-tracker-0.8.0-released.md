@@ -88,21 +88,7 @@ Fast forward to the present and we have a very sophisticated approach to enablin
 
 As a result, the data that is sent via our `track_unstruct_event` method is highly structured: it is fully schema'd. So the method name is highly misleading.
 
-In this release, we've introduced a new (functionally equivalent) method called `track_self_describing_event`, that describes exactly what it does. In addition, we've introduced a new `SelfDescribingJson` class to make it easier to valid self-describing JSONs into Snowplow like so:
-
-{% highlight python %}
-from snowplow_tracker import SelfDescribingJson
-
-t.track_self_describing_event(SelfDescribingJson(
-  "iglu:com.example_company/save-game/jsonschema/1-0-2",
-  {
-    "save_id": "4321",
-    "level": 23,
-    "difficultyLevel": "HARD",
-    "dl_content": True
-  }
-))
-{% endhighlight %}
+In this release, we've introduced a new (functionally equivalent) method called `track_self_describing_event`, that describes exactly what it does. 
 
 <h2 id="more">5 And more...</h2>
 

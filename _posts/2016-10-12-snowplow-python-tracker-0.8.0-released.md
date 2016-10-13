@@ -7,17 +7,17 @@ author: Yali
 category: Releases
 ---
 
-We are delighted to release version 0.8.0 of the [Snowplow Python Tracker][python-tracker], for tracking events from your Python apps, services and games.
+We are delighted to release version 0.8.0 of the [Snowplow Python Tracker][python-tracker], for tracking events from your Python apps, services and games. This release adds Python 3.4-5 support, 10 new event types and much richer timestamp support.
 
 ![python-logo][python-logo]
 
-This release includes:
+Read on for:
 
 1. [Python 3.4 and 3.5 support](/blog/2016/10/12/snowplow-python-tracker-0.8.0-released/#python-3.4-3.5-support)
 2. [First class support for 10 new event types](/blog/2016/10/12/snowplow-python-tracker-0.8.0-released/#new-event-types)
 3. [Support for true timestamps and device sent timestamps](/blog/2016/10/12/snowplow-python-tracker-0.8.0-released/#timestamps)
 4. [Updated API for sending self-describing events](/blog/2016/10/12/snowplow-python-tracker-0.8.0-released/#self-describing-events)
-5. [And more...](/blog/2016/10/12/snowplow-python-tracker-0.8.0-released/#more)
+5. [Other changes](/blog/2016/10/12/snowplow-python-tracker-0.8.0-released/#more)
 
 Huge thanks to Snowplow user [Adam Griffiths][adam-griffiths] for contributing the Python 3.4 and 3.5 support, *and* the 10 new event types!
 
@@ -94,7 +94,7 @@ As a result, the data that is sent via our `track_unstruct_event` method is high
 
 In this release, we've introduced a new (functionally equivalent) method called `track_self_describing_event`, that describes exactly what it does. 
 
-<h2 id="more">5 And more...</h2>
+<h2 id="more">5. Other changes</h2>
 
 For a full list of updates in this release please see the [release notes for 0.8.0][release-notes].
 

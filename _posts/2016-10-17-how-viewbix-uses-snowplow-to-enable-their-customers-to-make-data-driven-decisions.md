@@ -7,21 +7,22 @@ author: Yali
 category: "Case study"
 ---
 
-*This is a guest post by Dani Waxman, Product Manager at Viewbix and long time Snowplow user. In this post, Dani describes that the Viewbix team went through in order to build a capability to enable their users to make data-driven decisions, how they came to use Snowplow and the role that Snowplow plays today at Viewbix.*
+*This is a guest post by Dani Waxman, Product Manager at Viewbix and long time Snowplow user. In this post, Dani describes the journey that the Viewbix team went through in order to enable their users to make data-driven decisions, how they came to use Snowplow and the role that Snowplow plays today at Viewbix.*
 
 ![viewbix][viewbix-img]
 
 <a href="http://corp.viewbix.com/"><img src="/assets/img/blog/2016/10/viewbix.png"></a>
 
-At Viewbix there are 2 things we are passionate about, our coffee and using analytics to help us and our customers drive core business decisions. We decide which Nespresso capsules to order based on detailed usage statistics backed up by years of data. If I am going out to visit customers for a few days in New York, that month’s order will include fewer Bukeela capsules since I drink 2.3 X of that flavor than other team members.  It’s not surprising that when it came time to for deploying an analytics stack we spent a lot of time and effort making sure we chose a product that would give us the flexibly and power we needed.
+At Viewbix there are two things we are passionate about, our coffee and using analytics to help us and our customers drive core business decisions. We decide which Nespresso capsules to order based on detailed usage statistics backed up by years of data. If I am going out to visit customers for a few days in New York, that month’s order will include fewer Bukeela capsules since I drink 2.3 X of that flavor than other team members.  It’s not surprising that when it came time to for deploying an analytics stack we spent a lot of time and effort making sure we chose a product that would give us the flexibly and power we needed.
 
 <!--more-->
 
-From day one we decided to collect more data from our interactive video platform than we would likely ever need. This was partially based on the fact that we were pioneers in the market of interactive video and while we had a good idea of what our users would expect us to report on- we were not sure. Better collect too much then too little.  Beyond the standard video metrics of impressions, plays, and quartiles viewed we needed to report on interactions that take place in the lifecycle of the video itself.  How many people are clicking on Call to Action buttons, logos, pre and pot rolls. How many users are submitting CRM data via the video and how many are using any of our 30 or so custom apps. These are all questions we knew we needed to answer.
+From day one we decided to collect more data from our interactive video platform than we would likely ever need. This was partially based on the fact that we were pioneers in the market of interactive video and while we had a good idea of what our users would expect us to report on, we were not sure. Better collect too much then too little.  Beyond the standard video metrics of impressions, plays, and quartiles viewed we needed to report on interactions that take place in the lifecycle of the video itself.  How many people are clicking on Call to Action buttons, logos, pre and pot rolls. How many users are submitting CRM data via the video and how many are using any of our 30 or so custom apps. These are all questions we knew we needed to answer.
 
 Beyond answering the question of “what” users were doing, we were super interested in the “when” users were taking action- because this helps answer the Holy Grail question of “why”. When we are able to go back to a customer and show him that 95% of actions taken during a video are happening between 0:30 and 0:35 seconds in, we have provided amazing value. The customer can in turn look at his video and learn what messaging is working, what isn’t, and make needed changes. We use analytics to show that small changes can drive significant increase in KPI.
 
 Because we made this strategic decision to capture all this data, the challenge for us was what our data pipeline would look like so that we can ingest, enrich, and process the data effectively and in a way that was easy to report back to our customer base.  
+
 To get up and running quickly we decided to go with the “roll your own” approach. We built a small tracker that emitted events and a fairly straight forward data model that sat on a single hosted server. All was well in testing but soon after we went out to production we signed on a major customer and our server began to buckle. We were sending in so many events that we flooded our network pipe and were choking at the Firewall.  In addition, we had not fully accounted for the volume of data we would be storing and our servers quickly were filling up on disk space. The scene was reminiscent of early successful web sites that crashed after being written up on Techcrunch (…which we were).
 
 Looking at a typical data pipeline model we were looking something like this:
@@ -43,7 +44,7 @@ We went to the whiteboard and drew up a proper requirements for our solution.
 * Given that the industry has still not put Flash video to bed we require both Javascript (for HTML5 video) and AS3 Flash trackers.
 * We require a flexible data-modeling procedure. Our business requirements, as well as our customers, are dynamic and we need to make changes quickly and efficiently without disrupting our pipeline.
 * We need to be able to report on raw data – we don’t want to sacrifice for granularity for speed.
-*	The end-to-end reporting needs to be fast and adjustable (real time if possible and when needed).
+*	The end-to-end reporting needs to be fast and adjustable (real-time if possible and when needed).
 * Since the data we are sending in is largely driven by our customers we can’t accurately predict the number of events we will be sending in a month. Any solution we look at can’t be driven by number of events. (We looked at a few solutions that when we calculated a per event pricing model would have cost upwards of $23,000/month.)
 * We needed to own the data. We couldn’t be sending events into a 3rd party SaaS system that could suddenly disappear one day.
 * Our customers need beautiful visualizations and charting capabilities.
@@ -56,7 +57,12 @@ Even though we opted for the Managed Service - Snowplow is hosted on our own AWS
 
 The Snowplow data-modeling is by far the most flexible we have seen. By defining a series of “custom contexts” that are sent with each event we are able to record all the relevant data for a specific event type in an organized way and keep our overall data clean by only sending in when relevant. You can think of this as custom enrichment for your data.  For example, we record every time a user clicks on a Call to Action button. There are several pieces of information for us to know about this event. What was the CTA text? What was the CTA button color? What was the time in video what this happened? Each of these questions help us answer the why did the user click question.
 
-We break this information into 2 parts – a) a player context which sends relevant information about static configurations in a player (like the text and color) b) a video context which has dynamic information like video id, and time in video the action (CTA click) occurred. By using this breakdown, we only need to send in a player context once a session while a video context may be attached with every action.  By only sending relevant contexts we cut down on the amount of data we need to send without losing the insights. On the database side each context and event is stored in a corresponding table schema making for an easy to read and understand the relationship of the data.
+We break this information into 2 parts:
+
+1. a player context which sends relevant information about static configurations in a player (like the text and color)
+2. a video context which has dynamic information like video id, and time in video the action (CTA click) occurred.
+
+By using this breakdown, we only need to send in a player context once a session while a video context may be attached with every action.  By only sending relevant contexts we cut down on the amount of data we need to send without losing the insights. On the database side each context and event is stored in a corresponding table schema making for an easy to read and understand the relationship of the data.
 
 Although we answered most of our needs based on the requirements we put together, and implemented Snowplow fairly quickly, the project was not without its expected hiccups.
 

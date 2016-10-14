@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Snowplow Python Tracker 0.8.0 released"
-title-short: Python Tracker 0.8.0 released
+title: "How Viewbix uses Snowplow to enable their customers to make data-driven decisions"
+title-short: "Case study: Snowplow at Viewbix"
 tags: [python, trackers]
 author: Yali
 category: "Case study"
@@ -10,6 +10,8 @@ category: "Case study"
 *This is a guest post by Dani Waxman, Product Manager at Viewbix and long time Snowplow user. In this post, Dani describes that the Viewbix team went through in order to build a capability to enable their users to make data-driven decisions, how they came to use Snowplow and the role that Snowplow plays today at Viewbix.*
 
 ![viewbix][viewbix-img]
+
+<a href="http://corp.viewbix.com/"><img src="/assets/img/blog/2016/10/viewbix.png"></a>
 
 At Viewbix there are 2 things we are passionate about, our coffee and using analytics to help us and our customers drive core business decisions. We decide which Nespresso capsules to order based on detailed usage statistics backed up by years of data. If I am going out to visit customers for a few days in New York, that month’s order will include fewer Bukeela capsules since I drink 2.3 X of that flavor than other team members.  It’s not surprising that when it came time to for deploying an analytics stack we spent a lot of time and effort making sure we chose a product that would give us the flexibly and power we needed.
 

@@ -42,13 +42,13 @@ One important thing to flag is that Elasticsearch 2.x no longer allows field nam
 
 Previously, this would have loaded into Elasticsearch like so:
 
-{% highlight code %}
+{% highlight javascript %}
 > com_acme_event_1: [{"field.with.dots": value}]
 {% endhighlight %}
 
 From this release on, we are automatically converting the field name's periods to underscores, whether you are loading Elasticsearch 1.x or 2.x:
 
-{% highlight code %}
+{% highlight javascript %}
 > com_acme_event_1: [{"field_with_dots": value}]
 {% endhighlight %}
 

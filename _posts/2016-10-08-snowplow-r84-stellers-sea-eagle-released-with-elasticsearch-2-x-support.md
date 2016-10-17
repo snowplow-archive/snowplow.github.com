@@ -206,6 +206,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [snowplow-snowplow]: https://github.com/snowplow/snowplow
 [iglu-central]: https://github.com/snowplow/iglu-central
 [iglu-eg-schema-registry]: https://github.com/snowplow/iglu-example-schema-registry
+[snowplow-changelog]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG
 
 [iglu-central-redshift-ddl]: https://github.com/snowplow/iglu-central/tree/master/sql
 [iglu-central-json-paths]: https://github.com/snowplow/iglu-central/tree/master/jsonpaths

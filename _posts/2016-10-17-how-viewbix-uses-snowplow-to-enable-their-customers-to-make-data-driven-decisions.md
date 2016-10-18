@@ -37,11 +37,11 @@ We had come a long way but our pipeline was not complete:
 
 ![second-pipeline-iteration][pipeline2]
 
-We went to the whiteboard and drew up a proper requirements for our solution.
+We went to the whiteboard and drew up a proper requirements document for our solution.
 
 * Given that the industry has still not put Flash video to bed we require both Javascript (for HTML5 video) and AS3 Flash trackers.
 * We require a flexible data-modeling procedure. Our business requirements, as well as our customers, are dynamic and we need to make changes quickly and efficiently without disrupting our pipeline.
-* We need to be able to report on raw data – we don’t want to sacrifice for granularity for speed.
+* We need to be able to report on raw data – we don’t want to sacrifice data granularity for speed.
 *	The end-to-end reporting needs to be fast and adjustable (real-time if possible and when needed).
 * Since the data we are sending in is largely driven by our customers we can’t accurately predict the number of events we will be sending in a month. Any solution we look at can’t be driven by number of events. (We looked at a few solutions that when we calculated a per event pricing model would have cost upwards of $23,000/month.)
 * We needed to own the data. We couldn’t be sending events into a 3rd party SaaS system that could suddenly disappear one day.
@@ -70,7 +70,7 @@ One of the early problems we ran into actually uncovered an unexpected benefit o
 
 We gave in and resorted to data summarization. Reporting on the raw data was not providing the response times we needed.  We probably could have thrown money at the problem and built larger and more powerful clusters on AWS but with the help of Snowplow data analysts we built a summarization process that meets our business needs and is flexible enough that we can add new data points at any time and have them quickly appear in our reports without having to resort to expensive and time consuming rebuilds from raw data.
 
-Snowplow is not a visualization platform and does not offer a graphics engine for building reports. Luckily, after many interviews we found our customers were much more interested in a flexible report writer then a visualization engine. Time after time we heard “let me export the data to Excel” as the business need.
+Snowplow is not a visualization platform and does not offer a graphics engine for building reports. Luckily, after many interviews we found our customers were much more interested in a flexible report writer then a visualization engine. Time after time we heard “let me export the data to Excel” as the business need. Instead of building out custom dashboards and graphs we built an API that allowed for flexible custom report building directly from Redshift.
 
 ## Conclusion
 

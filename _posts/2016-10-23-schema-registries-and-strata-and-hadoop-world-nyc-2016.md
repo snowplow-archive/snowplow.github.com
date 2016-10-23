@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Schema registries and Strata and Hadoop World NYC 2016
-title-short: Schema registries and Strata NYC
+title: Schema registries and Strata + Hadoop World NYC 2016
+title-short: Schema registries + Strata NYC
 tags: [snowplow, strata, hadoop, new york, nyc, iglu, schema registry, confluent]
 author: Alex
 category: Meetups
@@ -28,15 +28,15 @@ In my talk, I drew on the story of the Crimean War gunboats to argue that our da
 
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/LeI84nQBgoVdd3" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/alexanderdean/what-crimean-war-gunboats-teach-us-about-the-need-for-schema-registries" title="What Crimean War gunboats teach us about the need for schema registries" target="_blank">What Crimean War gunboats teach us about the need for schema registries</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/alexanderdean">Alexander Dean</a></strong> </div>
 
-My takeaway thought was that every organization should implement a schema registry, whether Iglu, Confluent Schema Registry or an in-house system. The schemas in this registry will provide a common language for all data processing throughout your organization; your registry will allow you to assemble your data pipeline from many smaller micro-services, like the Royal Navy's disparate machine shops before them.
+My closing thought was that every organization should implement a schema registry, whether Iglu, Confluent Schema Registry or an in-house system. The schemas in this registry will provide a common language for all data processing throughout your organization; your registry will allow you to assemble your data pipeline from many smaller micro-services, like the Royal Navy's disparate machine shops before them.
 
 I really enjoyed giving the talk, and appreciated the audience's in-depth questions afterwards. Putting the talk together also gave me the chance to step back and take a broader look at the whole schema technology landscape. I am increasingly convinced that Iglu's support for schema resolution across multiple schema registries (plus associated features such as schema URIs) is going to prove an essential feature in the future.
 
 <h2 id="alex-picks">2. Alex's session picks</h2>
 
-* Karthik Ramasamy from Twitter introduced [Heron, Twitter's Storm replacement, and Distributed Log, an alternative to Kafka] [karthik-talk]. It was a great talk, full of detail - such as on how lagging consumers in Kafka can badly impact on non-lagging consumers; it also inspired me to take a second look at [Heron] [heron], which was recently open-sourced 
-* [Maxime Beauchemin gave an engaging talk introducing Caravel] [maxime-talk], AirBnB's data engineer-friendly open source BI tool. Caravel's impressive traction and featureset should grow even faster with four additional AirBnB engineers joining Maximeto work on Caravel. To find out more on Caravel, check out Rob Kingston's great tutorial, [Visualise Snowplow data using Airbnb Caravel & Redshift] [caravel-tutorial]
-* Xavier Léauté reprised his Strata London talk on the [Kafka, Samza and Druid stack at Metamarkets] [xavier-talk]. Metamarkets scale (300 billion events a day) is certainly inspiring, and Xavier makes a great case for using Kafka, Samza, Druid and Spark at that scale. Metamarkets' Spark usage is particularly encouraging: they use Spark exclusively with S3 (no HDFS in sight), and on spot instances only
+* **Karthik Ramasamy** from Twitter introduced [Heron, Twitter's Storm replacement, and Distributed Log, an alternative to Kafka] [karthik-talk]. It was a great talk, full of detail - such as on how lagging consumers in Kafka can badly impact on non-lagging consumers; it also inspired me to take a second look at [Heron] [heron], which was recently open-sourced 
+* **Maxime Beauchemin** gave an [engaging talk introducing Caravel] [maxime-talk], AirBnB's data engineer-friendly open source BI tool. Caravel's impressive traction and featureset should grow even faster with four additional AirBnB engineers joining Maximeto work on Caravel. To find out more on Caravel, check out Rob Kingston's great tutorial, [Visualise Snowplow data using Airbnb Caravel & Redshift] [caravel-tutorial]
+* **Xavier Léauté** reprised his Strata London talk on the [Kafka, Samza and Druid stack at Metamarkets] [xavier-talk]. Metamarkets scale (300 billion events a day) is certainly inspiring, and Xavier makes a great case for using Kafka, Samza, Druid and Spark at that scale. Metamarkets' Spark usage is particularly encouraging: they use Spark exclusively with S3 (no HDFS in sight), and on spot instances only
 
 <h2 id="christophe-picks">3. Christophe's session picks</h2>
 
@@ -46,7 +46,7 @@ Coming soon!
 
 It was great to attend our first Strata + Hadoop World in New York - we will definitely be coming back. It's an impressive event - bigger and more diverse than the London one. All the major players and vendors are there, and it's a good opportunity to catch up with big data's big personalities!
 
-In terms of big trends: the general buzz around Spark seems to be dying down - presumably because Spark usage is so pervasive now, and the platform is maturing. Kafka talks were plentiful and well-attended, with a lot of user appetite to understand how to get the best out of the tool. It was also nice to see the Apache Flink project gaining mind share.
+In terms of big trends: the general buzz around Spark seems to be dying down - presumably because Spark usage is so pervasive now, and the platform is maturing. Kafka talks were plentiful and well-attended, with a lot of user appetite to understand how to get the best out of the tool. It was also nice to see the Apache Flink project steadily gaining mind share.
 
 [strata-nyc-2016]: http://conferences.oreilly.com/strata/hadoop-big-data-ny/
 [alex-talk]: http://conferences.oreilly.com/strata/hadoop-big-data-ny/public/schedule/detail/51526

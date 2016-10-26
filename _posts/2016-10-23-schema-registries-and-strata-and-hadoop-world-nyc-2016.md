@@ -43,12 +43,6 @@ I really enjoyed giving the talk, and appreciated the audience's in-depth questi
 * **Neha Narkhede** from Confluent gave a talk on [Apache Kafka and the rise of real-time data and stream processing][neha-kafka]. Neha is an engaging speaker and her presentation served as a good overview of the current state of real-time.
 * **Slava Chernyak** from Google presented on [time and progress in Apache Beam][slava-talk]. I learnt a lot about both Apache Beam and the challenges in delivering on the promise of correct low-latency results in streaming systems.
 
-
-Explore a practical set of tools for understanding watermarks and time in out-of-order stream processing pipelines
-
-
-gave an [engaging talk introducing Caravel] [maxime-talk], AirBnB's data engineer-friendly open source BI tool. Caravel's impressive traction and featureset should grow even faster with four additional AirBnB engineers joining Maximeto work on Caravel. To find out more on Caravel, check out Rob Kingston's great tutorial, [Visualise Snowplow data using Airbnb Caravel & Redshift] [caravel-tutorial]
-
 <h2 id="conclusion">4. Some closing thoughts</h2>
 
 It was great to attend our first Strata + Hadoop World in New York - we will definitely be coming back. It's an impressive event - bigger and more diverse than the London one. All the major players and vendors are there, and it's a good opportunity to catch up with big data's big personalities!

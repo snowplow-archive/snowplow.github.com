@@ -7,29 +7,33 @@ author: Yali
 category: Meetups
 ---
 
-On September 22nd, the second Snowplow Meetup London took place at the fabulous [Canary][canary] in Manhatten.
+On September 22nd, the second Snowplow Meetup London took place at the fabulous [Canary][canary] office in Manhatten.
 
-I wasn't able to make the event but I'm very lucky that Alex, Idan and Christophe made sure the talks were filmed! You can view them below.
+I wasn't able to make the event but I'm very lucky that Alex, Idan and Christophe made sure the talks were filmed. You can view them below:
 
-1. [Introducing Sauna: our new decisioning and response platform](#sauna)
-2. [Snowplow at Canary: why and how Snowplow is used at Canary](#canary)
-3. [Using Snowplow to enable product analytics at Animoto](#animoto)
-4. [Event data modeling](#event-data-modeling)
-5. [Huge thank you to Tiernan, Stevie, Lincoln and the Canary team for hosting us!](#thank-yous)
+1. [Introducing Sauna: our new decisioning and response platform](/blog/2016/10/27/snowplow-meetup-new-york-number-2-a-recap/#sauna)
+2. [Snowplow at Canary: why and how Snowplow is used at Canary](/blog/2016/10/27/snowplow-meetup-new-york-number-2-a-recap/#canary)
+3. [Using Snowplow to enable product analytics at Animoto](/blog/2016/10/27/snowplow-meetup-new-york-number-2-a-recap/#animoto)
+4. [Event data modeling](/blog/2016/10/27/snowplow-meetup-new-york-number-2-a-recap/#event-data-modeling)
+5. [Huge thank you to Tiernan, Stevie, Lincoln and the Canary team for hosting us!](/blog/2016/10/27/snowplow-meetup-new-york-number-2-a-recap/#thank-yous)
 
 <h2 id="sauna">1. Introducing Sauna: our new decisioning and response platform</h2>
 
-[Alex][alex] opened the event with a talk introducing [Sauna][sauna]: our new decisioning and response platform.
+[Alex][alex] opened the event with an introduction to [Sauna][sauna]: our new decisioning and response platform.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yp0XszZeh58" frameborder="0" allowfullscreen></iframe>
+
+You can read more about Sauna [here][sauna] and checkout the repo [here][sauna-repo].
 
 <!--more-->
 
 <h2 id="canary">2. Snowplow at Canary: why and how Snowplow is used at Canary</h2>
 
-Canary is a unique proposition in the home security space with a very distinctive set of analytics requirements. In this talk, Tiernan Kennedy describes some of Canary's unique analytics requirements, before explaining how that led them from Google Analytics to Snowplow, and then how their usage of Snowplow has evolved as Canary has grown.
+Canary has a unique proposition in the home security space with a very distinctive set of analytics requirements. In this talk, Tiernan Kennedy describes some of Canary's unique analytics requirements, before explaining how that led them from Google Analytics to Snowplow, and then how their usage of Snowplow has evolved as Canary has grown.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7zgP8O2rSm8" frameborder="0" allowfullscreen></iframe>
+
+Ensuring that analytics stacks can evolve with businesses as they evolve is a really important topic and something I believe Snowplow excels at. This is a topic I explored in my [presentation][ys-presentation-tv] at last July's meetup in Tel-Aviv.
 
 <h2 id="animoto">3. Using Snowplow to enable product analytics at Animoto</h2>
 
@@ -49,9 +53,13 @@ Our own [Christophe Bogaert][christophe] rounded off the event with an interacti
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/a_lv-JuVYiI" frameborder="0" allowfullscreen></iframe>
 
+If you are interested in learning more about event data modeling there is a wealth of material on our [discourse forum][discourse-event-data-modeling].
+
 <h2 id="thank-yous">5. Thank yous!</h2>
 
-Huge thank you to Tiernan, Stevie, Lincoln, Alex and Christophe for four excellent talks. And enormous thank you to the [Canary][canary] team for hosting the event and making sure everyone had plenty to eat and drink.
+Our vision for the Snowplow Meetups has always been that they become forums where some of the most analytically sophisticated companies share challenges, approaches and best practices around event analytics. It is great to watch the these videos and see the high level of conversation that was had at the event.
+
+Huge thanks for that must go too Tiernan, Stevie, Lincoln, Alex and Christophe for four excellent talks, and everyone who attended and participated. Enormous thank you to the [Canary][canary] team for hosting the event and making sure everyone had plenty to eat and drink.
 
 We plan to be back in New York in the next couple of months for the third Snowplow Meetup NYC. [Sign up to our mailing list][mailing-list] to keep up to date with the latest Snowplow news including events around the world!
 
@@ -63,3 +71,6 @@ We plan to be back in New York in the next couple of months for the third Snowpl
 [animoto]: http://animoto.com/
 [christophe]: /blog/authors/christophe/
 [mailing-list]: http://eepurl.com/b0yEgz
+[sauna-repo]: https://github.com/snowplow/sauna
+[ys-presentation-tv]: http://www.slideshare.net/yalisassoon/snowplow-the-evolving-data-pipeline?ref=http://snowplowanalytics.com/blog/2016/08/05/a-roundup-of-recent-snowplow-meetups-in-berlin-amsterdam-tel-aviv-and-london/
+[discourse-event-data-modeling]: http://discourse.snowplowanalytics.com/search?q=data%20modeling

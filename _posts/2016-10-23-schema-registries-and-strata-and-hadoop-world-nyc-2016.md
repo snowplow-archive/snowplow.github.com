@@ -40,7 +40,14 @@ I really enjoyed giving the talk, and appreciated the audience's in-depth questi
 
 <h2 id="christophe-picks">3. Christophe's session picks</h2>
 
-Coming soon!
+* **Neha Narkhede** from Confluent gave a talk on [Apache Kafka and the rise of real-time data and stream processing][neha-kafka]. Neha is an engaging speaker and her presentation served as a good overview of the current state of real-time.
+* **Slava Chernyak** from Google presented on [time and progress in Apache Beam][slava-talk]. I learnt a lot about both Apache Beam and the challenges in delivering on the promise of correct low-latency results in streaming systems.
+
+
+Explore a practical set of tools for understanding watermarks and time in out-of-order stream processing pipelines
+
+
+gave an [engaging talk introducing Caravel] [maxime-talk], AirBnB's data engineer-friendly open source BI tool. Caravel's impressive traction and featureset should grow even faster with four additional AirBnB engineers joining Maximeto work on Caravel. To find out more on Caravel, check out Rob Kingston's great tutorial, [Visualise Snowplow data using Airbnb Caravel & Redshift] [caravel-tutorial]
 
 <h2 id="conclusion">4. Some closing thoughts</h2>
 
@@ -53,6 +60,8 @@ In terms of big trends: the general buzz around Spark seems to be dying down - p
 [karthik-talk]: http://conferences.oreilly.com/strata/big-data-conference-ny-2015/public/schedule/detail/44632
 [maxime-talk]: http://conferences.oreilly.com/strata/hadoop-big-data-ny/public/schedule/detail/51368
 [xavier-talk]: http://conferences.oreilly.com/strata/hadoop-big-data-ny/public/schedule/detail/51152
+[neha-kafka]: http://conferences.oreilly.com/strata/hadoop-big-data-ny/public/schedule/detail/51552
+[slava-talk]: http://conferences.oreilly.com/strata/hadoop-big-data-ny/public/schedule/detail/51626
 [iglu]: https://github.com/snowplow/iglu
 [confluent-schema-registry]: https://github.com/confluentinc/schema-registry
 [heron]: https://github.com/twitter/heron

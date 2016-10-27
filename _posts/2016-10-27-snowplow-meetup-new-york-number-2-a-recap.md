@@ -44,7 +44,7 @@ Ensuring that analytics stacks can evolve with businesses as they evolve is a re
 The Animoto team has been using Snowplow for nearly two years now and it's clear that both Lincoln and Stevie have thought very deeply about how to perform product analytics. Amongst other things, in this talk they explored:
 
 * The trade-off between the power that moving from a 'page-view-centric' to an 'event-centric' approach to tracking users through a product: what that gains you in terms of power and flexibility, but the what it means in terms of the extra work involved in visualizing that data
-* The importance of the fundamental concepts like 'session' that evant analytics depends on, and hwo important it is for a company like Animoto to own the definitions of those core concepts and ensure that they fit their specific company's product proposition
+* The importance of the fundamental concepts like 'session' that evant analytics depends on, and how important it is for a company like Animoto to own the definitions of those core concepts and ensure that they fit their specific company's product proposition
 * The importance of treating your analytics stack as a product that needs to be managed and developed over time, with users, managers, integration tests and everything else that goes with that. As Lincoln points out in the discussion, this is not how most companies treat their analytics stacks.
 
 <h2 id="event-data-modeling">4. Event data modeling</h2>

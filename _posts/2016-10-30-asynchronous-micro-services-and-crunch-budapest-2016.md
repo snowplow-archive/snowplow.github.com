@@ -39,9 +39,9 @@ All in all, it was an exciting talk to give - trying to define and call out an e
 
 With so many great talks at Crunch it's hard to pick just a few talks, but I would certainly call out:
 
-1. **Shirshanka Das** provided a great overview of the big data infrastructure at LinkedIn. Shirshanka's talk introduced me to LinkedIn's [WheresHow] [whereshow] data registry system, which I hadn't been aware of
-2. **Jeff Magnusson** from StitchFix gave a great talk reprising his very popular blog post, [Engineers Shouldn’t Write ETL: A Guide to Building a High Functioning Data Science Department] [magnusson-blog]. Jeff argues convincingly for the rise of the "full stack data scientist", supported by a company-wide Data Platform team
-3. **Sean Braithwaite** gave an honest and thoughtful talk about the mechanics of building data pipelines at scale at SoundCloud; Sean's talk highlighted some of the challenges around data lineage and discoverability that we see at Snowplow 
+1. **Shirshanka Das** provided a great overview of the big data infrastructure at **LinkedIn**. Shirshanka's talk introduced me to LinkedIn's [WheresHow] [whereshow] data registry system, which I hadn't been aware of
+2. **Jeff Magnusson** from **StitchFix** gave a great talk reprising his very popular blog post, [Engineers Shouldn’t Write ETL: A Guide to Building a High Functioning Data Science Department] [magnusson-blog]. Jeff argues convincingly for the rise of the "full stack data scientist", supported by a company-wide Data Platform team
+3. **Sean Braithwaite** gave an honest and thoughtful talk about the mechanics of building data pipelines at scale at **SoundCloud**; Sean's talk highlighted some of the challenges around data lineage and discoverability that we see at Snowplow
 
 <h2 id="conclusion">3. Some closing thoughts</h2>
 

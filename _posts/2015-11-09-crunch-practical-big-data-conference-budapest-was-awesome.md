@@ -7,7 +7,7 @@ author: Yali
 category: Meetups
 ---
 
-A couple of weeks ago I was very lucky to attend, and speak at <a href="">Crunch Conference</a>, a practical big data conference in Budapest, organised by the folks at [Ustream][ustream] and [Prezi][prezi], and headlined by some of the titans of the data industry, including [Doug Cutting][dcutting], the creator of [Hadoop][hadoop] (not to mention Lucene and Nutch) and [Martin Kleppmann][mkleppmann], the creator of [Samza][samza].
+A couple of weeks ago I was very lucky to attend, and speak at [Crunch Conference] [crunchconf], a practical big data conference in Budapest, organised by the folks at [Ustream][ustream] and [Prezi][prezi], and headlined by some of the titans of the data industry, including [Doug Cutting][dcutting], the creator of [Hadoop][hadoop] (not to mention Lucene and Nutch) and [Martin Kleppmann][mkleppmann], the creator of [Samza][samza].
 
 ## Emerging best practices in event data pipelines
 

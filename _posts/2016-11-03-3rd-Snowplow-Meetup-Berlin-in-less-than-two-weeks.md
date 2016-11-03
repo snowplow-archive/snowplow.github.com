@@ -39,11 +39,11 @@ incuda BI is our Data Warehouse und Business Intelligence platform. It is based 
 
 Their approach of an industry specific, best practice-based platform with flexible customization options offers their customers a quick and cost effective way to use their data to be more successful.
 
-Their claim „DATA-DRIVE YOUR BUSINESS“ stands for the use of internal and external data sources, data driven decision processes, and for precision mananbgement of processes and product offering.
+Their claim "DATA-DRIVE YOUR BUSINESS" stands for the use of internal and external data sources, data driven decision processes, and for precision mananbgement of processes and product offering.
 
 
 [Berlin-pic]: /assets/img/blog/2016/11/Berlin.jpg
-[JustWatch]: http://https://www.justwatch.com
+[JustWatch]: https://www.justwatch.com
 [Incuda]: http://www.incuda.com/
 [alex]: /blog/authors/alex/
 [berlin-meetup]: http://www.meetup.com/Snowplow-Analytics-Berlin/events/233147132/

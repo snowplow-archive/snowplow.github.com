@@ -30,7 +30,9 @@ It going to be super interesting, [sign up today][berlin-meetup]!
 
 ### JustWatch:
 
-JustWatch is a new streaming search engine - to help you find out where to watch movies legally. What’s new on Netflix, Hulu or iTunes? Where to watch the movie you’ve been talking about? On JustWatch you can find all that in one app. To make the experience even more worthwhile, you can customize your individual settings and use easy and intuitive filters for providers (such as Google Play and Amazon Prime), many different genres or release year.
+For consumers, JustWatch is a streaming search engine that helps to find out where to watch movies and TV shows legally online and in theaters. It can search movie content across all major streaming providers like Netflix, HBO, Amazon Video, iTunes, Google Play, and many others in 21 countries.
+
+For clients like movie studios or Video on Demand providers, JustWatch is an international movie marketing company that collects anonymized data about purchase behavior and movie taste of fans worldwide from their consumer apps. They help studios to advertise their content to the right audience and make digital video advertising a lot more efficient in minimizing waste coverage.
 
 ### Incuda:
 Incuda was founded to give growing and established e-commerce und multi-channel retailer an easy entry into the world of data.

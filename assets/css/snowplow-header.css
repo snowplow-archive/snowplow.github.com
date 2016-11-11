@@ -6,7 +6,7 @@
     text-transform: uppercase;
     color: #DDD;
     font-size: 15px;
-    padding: 21px 0 13px 0;
+    padding: 47px 0;
     text-align: center;
 }
 
@@ -49,7 +49,7 @@ header nav {float: right}
 header .hack {clear: both}
 
 header .topnav {
-	padding: 9px 15px;
+	padding: 28px 15px;
 	font-weight: 300;
 	font-size: 0; /* because inline-block is used later on */
 	color: #343434;
@@ -62,10 +62,23 @@ header .topnav a:focus {
 	color: #343434;
 }
 
-header .logo img {height: 47px}
+header .logo img {
+	width: auto;
+	height: 43px;
+	display: block;
+}
+
+@media (max-width: 991px) {
+	header .logo  img{max-height: 31px} /* hide the menu toggle on larger screens */
+}
 
 @media (min-width: 768px) {
 	header .toggle {display: none} /* hide the menu toggle on larger screens */
+}
+
+header .navigation {
+	height: 43px;
+    padding: 10px 0;
 }
 
 header .collapse {display: none}
@@ -142,63 +155,75 @@ header .topnav.default a:focus {color: white}
 /* topbanner */
 
 header .topbanner {
-	background-color: #143666;
-	background-image: -webkit-linear-gradient(125deg, #773793, #143666);
-	background-image: -moz-linear-gradient(125deg, #773793, #143666);
-	background-image: -ms-linear-gradient(125deg, #773793, #143666);
-	background-image: -o-linear-gradient(125deg, #773793, #143666);
-	background-image: linear-gradient(125deg, #143666, #773793);
+	background-color: #34afe8;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url(../img/design/header-bg.png);
+	background-image: url(../img/design/header-bg.png), -webkit-linear-gradient(-140deg, #34afe8, #773793 80%);
+	background-image: url(../img/design/header-bg.png), -moz-linear-gradient(-140deg, #34afe8, #773793 80%);
+	background-image: url(../img/design/header-bg.png), -ms-linear-gradient(-140deg, #34afe8, #773793 80%);
+	background-image: url(../img/design/header-bg.png), -o-linear-gradient(-140deg, #34afe8, #773793 80%);
+	background-image: url(../img/design/header-bg.png), linear-gradient(-140deg, #34afe8, #773793 80%);
+
+
+// 	background: #773793;
+// background: -moz-linear-gradient(left,  #773793 0%, #34afe8 100%);
+// background: -webkit-linear-gradient(left,  #773793 0%,#34afe8 100%);
+// background: linear-gradient(to right,  #773793 0%,#34afe8 100%);
+// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#773793', endColorstr='#34afe8',GradientType=1 );
+
+
 	position: relative;
 	color: white;
 	clear: both;
 }
 
-header .topbanner .shape {
-	background-color: white;
-	opacity: 0.025;
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	top: 0;
-}
+// header .topbanner .shape {
+// 	background-color: white;
+// 	opacity: 0.025;
+// 	position: absolute;
+// 	height: 100%;
+// 	width: 100%;
+// 	top: 0;
+// }
 
 /* draw the shapes  */
 
-header .topbanner .shape.a {
-	-webkit-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
-	-moz-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
-	-ms-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
-	-o-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
-	clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
-}
+// header .topbanner .shape.a {
+// 	-webkit-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+// 	-moz-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+// 	-ms-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+// 	-o-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+// 	clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+// }
 
-@media (max-width: 991px) {
-	header .topbanner .shape.b {
-		-webkit-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
-		-moz-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
-		-ms-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
-		-o-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
-		clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
-	}
-}
+// @media (max-width: 991px) {
+// 	header .topbanner .shape.b {
+// 		-webkit-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+// 		-moz-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+// 		-ms-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+// 		-o-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+// 		clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+// 	}
+// }
 
-@media (min-width: 992px) {
-	header .topbanner .shape.b {
-		-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-		-moz-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-		-ms-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-		-o-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-		clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-	}
-}
+// @media (min-width: 992px) {
+// 	header .topbanner .shape.b {
+// 		-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+// 		-moz-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+// 		-ms-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+// 		-o-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+// 		clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+// 	}
+// }
 
-header .topbanner .shape.c {
-	-webkit-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
-	-moz-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
-	-ms-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
-	-o-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
-	clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
-}
+// header .topbanner .shape.c {
+// 	-webkit-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+// 	-moz-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+// 	-ms-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+// 	-o-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+// 	clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+// }
 
 /* series 90-56-34-21-13-8 */
 
@@ -208,22 +233,22 @@ header span.smallphones {margin-left: -3px} /* restore comma */
 @media (max-width: 350px) {header span.smallphones {display: none}}
 
 @media (max-width: 767px) {
-	header .topbanner {padding: 34px 0 21px 0}
+	header .topbanner {padding: 40px 0}
 	header .topbanner .content h1 {margin: 0 0 13px 0; font-size: 45px}
 	header .topbanner .content h2 {margin: 0 0 13px 0; font-size: 20px}
 	span.or {padding: 0 8px}
 }
 
 @media (min-width: 768px) {
-	header .topbanner {padding: 56px 0 34px 0}
+	header .topbanner {padding: 60px 0}
 	header .topbanner .content h1 {margin: 0 0 21px 0; font-size: 55px}
 	header .topbanner .content h2 {margin: 0 0 13px 0; font-size: 22px}
 	span.or {padding: 0 12px}
 }
 
 @media (min-width: 992px) {
-	header .topbanner {padding: 90px 0 56px 0}
-	header .topbanner .content h1 {margin: 0 0 34px 0; font-size: 65px}
+	header .topbanner {padding: 100px 0 }
+	header .topbanner .content h1 {margin: 0 0 15px 0; font-size: 65px}
 	header .topbanner .content h2 {margin: 0 0 21px 0; font-size: 25px}
 	span.or {padding: 0 12px}
 }
@@ -236,9 +261,12 @@ header span.smallphones {margin-left: -3px} /* restore comma */
 
 header .topbanner .content {position: relative; z-index: 1}
 
-header .topbanner .content h1,
+header .topbanner .content h1 {
+	font-weight: 300
+}
+
 header .topbanner .content h2 {
-	font-weight: 300;
+	font-weight: 500
 }
 
 header .topbanner .content h2 {

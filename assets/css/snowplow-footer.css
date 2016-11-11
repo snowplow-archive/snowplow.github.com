@@ -1,5 +1,8 @@
 
-footer {color: white}
+footer {
+	color: white;
+	text-align: center;
+}
 
 /* shared properties */
 
@@ -10,7 +13,7 @@ footer a:focus {
 	color: #AAA;
 }
 
-footer .bottom {padding: 54px 0 21px 0}
+footer .bottom {padding: 90px 0 60px 0}
 
 /* bottom banner */
 
@@ -35,32 +38,32 @@ footer .notice {
 	z-index: 1;
 }
 
-footer .shape {
-	position: absolute;
-	background-color: white;
-	opacity: 0.025;
-	height: 100%;
-	width: 100%;
-	top: 0;
-}
+// footer .shape {
+// 	position: absolute;
+// 	background-color: white;
+// 	opacity: 0.025;
+// 	height: 100%;
+// 	width: 100%;
+// 	top: 0;
+// }
 
-footer .shape.a {
-	-webkit-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
-	-moz-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
-	-ms-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
-	-o-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
-	clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
-}
+// footer .shape.a {
+// 	-webkit-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+// 	-moz-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+// 	-ms-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+// 	-o-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+// 	clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+// }
 
-footer .shape.b {
-	-webkit-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
-	-moz-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
-	-ms-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
-	-o-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
-	clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
-}
+// footer .shape.b {
+// 	-webkit-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+// 	-moz-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+// 	-ms-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+// 	-o-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+// 	clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+// }
 
-@media (max-width: 991px) {footer .shape {display: none}}
+// @media (max-width: 991px) {footer .shape {display: none}}
 
 /* bottom details: subscribe to our mailinglist */
 
@@ -106,16 +109,30 @@ footer input.button {
 
 /* bottom details: navigation */
 
-footer .navigation {margin-bottom: 34px}
+footer .navigation {
+	font-size:0;
+	line-height: 0;
+	margin-bottom: 90px
+}
 
-footer .list {float: left; margin-right: 60px}
+footer .list {
+	font-size: 16px;
+	text-align: left;
+	line-height: 1em;
+	vertical-align: top;
+	display: inline-block
+}
 
-@media (max-width: 750px) {footer .list {margin-right: 40px}}
-@media (max-width: 650px) {footer .list {margin-right: 30px}}
+footer .list + .list { margin-left: 60px }
+
+@media (max-width: 750px) {footer .list + .list {margin-left: 40px}}
+@media (max-width: 650px) {footer .list + .list {margin-left: 30px}}
 @media (max-width: 600px) {footer .list.a {display: none}}
 @media (max-width: 400px) {
-	footer .list {float: none}
+	footer .bottom {padding-top: 40px}
+	footer .list {display: block; text-align:center}
 	footer .list.c {margin-top: 34px}
+	footer .list + .list {margin-left:0}
 }
 
 footer h2 {

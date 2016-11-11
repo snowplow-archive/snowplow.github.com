@@ -164,15 +164,6 @@ header .topbanner {
 	background-image: url(../img/design/header-bg.png), -ms-linear-gradient(-140deg, #34afe8, #773793 80%);
 	background-image: url(../img/design/header-bg.png), -o-linear-gradient(-140deg, #34afe8, #773793 80%);
 	background-image: url(../img/design/header-bg.png), linear-gradient(-140deg, #34afe8, #773793 80%);
-
-
-// 	background: #773793;
-// background: -moz-linear-gradient(left,  #773793 0%, #34afe8 100%);
-// background: -webkit-linear-gradient(left,  #773793 0%,#34afe8 100%);
-// background: linear-gradient(to right,  #773793 0%,#34afe8 100%);
-// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#773793', endColorstr='#34afe8',GradientType=1 );
-
-
 	position: relative;
 	color: white;
 	clear: both;

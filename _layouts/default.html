@@ -60,8 +60,15 @@
   {% include snowplow/footer.html %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  <script src="{{ BASE_PATH }}/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  <script src="{{ BASE_PATH }}/assets/js/vendor/slick.min.js"></script>
   {% include snowplow/scripts/cookie-warning %}
+  
+  {% if page.custom_js %}
+    {% for js_file in page.custom_js %}
+    <script src='{{ BASE_PATH }}/assets/js/{{ js_file }}.js' type="text/javascript"></script>
+    {% endfor %}
+  {% endif %}
 
 </body>
 </html>

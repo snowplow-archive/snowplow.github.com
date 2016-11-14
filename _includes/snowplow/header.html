@@ -1,21 +1,23 @@
 <header>
   <div class="topnav {% if page.header == 'homepage' %}home{% elsif page.header == 'trial' %}trial{% else %}default{% endif %}">
-    <div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}" id="topnav-logo"><img src="{{ BASE_PATH }}/assets/img/design/logo-new-{% if page.header == 'homepage' %}blue{% elsif page.header == 'trial' %}blue{% else %}white{% endif %}-small.png"></a></div><!--<div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div>--></div>
-    <nav role="navigation">
-      <div class="toggle"><button type="button" class="toggle-menu" data-toggle="collapse" data-target="#nav-collapse">Menu</button></div>
-      <div class="nav-collapse collapse" id="nav-collapse">
-        <ul>
-          <li{% if page.group == 'product' %} class="active"{% endif %}><a href="/product" id="topnav-product">Product</a></li>
-          <li{% if page.group == 'services' %} class="active"{% endif %}><a href="/services" id="topnav-services">Services</a></li>
-          <!--<li{% if page.group == 'partners' %} class="active"{% endif %}><a href="/partners" id="topnav-partners">Partners</a></li>-->
-          <li{% if page.group == 'guides' %} class="active"{% endif %}><a href="/guides" id="topnav-guides">Guides</a></li>
-          <li{% if page.group == 'support' %} class="active"{% endif %}><a href="/support" id="topnav-support">Support</a></li>
-          <li{% if page.url contains 'blog' %} class="active"{% endif %}><a href="/blog" id="topnav-blog">Blog</a></li>
-          <li{% if page.group == 'trial' %} class="active"{% endif %}><a href="/trial" id="topnav-get-started" class="button">Request a demo</a></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="hack"></div><!-- could be replaced with :after -->
+    <div class="container">
+      <div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}" id="topnav-logo"><img src="{{ BASE_PATH }}/assets/img/design/logo-new-{% if page.header == 'homepage' %}blue{% elsif page.header == 'trial' %}blue{% else %}white{% endif %}-small.png"></a></div><!--<div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div>--></div>
+      <nav role="navigation">
+        <div class="toggle"><button type="button" class="toggle-menu" data-toggle="collapse" data-target="#nav-collapse">Menu</button></div>
+        <div class="nav-collapse collapse" id="nav-collapse">
+          <ul>
+            <li{% if page.group == 'product' %} class="active"{% endif %}><a href="/product" id="topnav-product">Product</a></li>
+            <li{% if page.group == 'services' %} class="active"{% endif %}><a href="/services" id="topnav-services">Services</a></li>
+            <!--<li{% if page.group == 'partners' %} class="active"{% endif %}><a href="/partners" id="topnav-partners">Partners</a></li>-->
+            <li{% if page.group == 'guides' %} class="active"{% endif %}><a href="/guides" id="topnav-guides">Guides</a></li>
+            <li{% if page.group == 'support' %} class="active"{% endif %}><a href="/support" id="topnav-support">Support</a></li>
+            <li{% if page.url contains 'blog' %} class="active"{% endif %}><a href="/blog" id="topnav-blog">Blog</a></li>
+            <li{% if page.group == 'trial' %} class="active"{% endif %}><a href="/trial" id="topnav-get-started" class="button">Request a demo</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="hack"></div><!-- could be replaced with :after -->
+    </div>
   </div>
 
 {% if page.header == 'homepage' %}{% include headers/homepage.html %}

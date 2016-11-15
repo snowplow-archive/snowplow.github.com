@@ -9,7 +9,7 @@ category: Releases
 
 We are pleased to announce the release of [Snowplow 85 Metamorphosis] [snowplow-release]. This release brings initial beta support for using [Apache Kafka] [kafka] with the Snowplow real-time pipeline, as an alternative to Amazon Kinesis.
 
-Metamorphosis is one of Franz Kafka's most famous books, and an apt codename for the release, as our first step towards an implementation of the full Snowplow platform that can be run off the Amazon cloud, on-premise.
+Metamorphosis is one of Franz Kafka's most famous books, and an apt codename for this release, as our first step towards an implementation of the full Snowplow platform that can be run off the Amazon cloud, on-premise.
 
 1. [Supporting Apache Kafka](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#kafka)
 2. [Scala Stream Collector and Kafka](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#ssc)
@@ -32,7 +32,7 @@ When we look at companies' **on-premise** data processing pipelines, we see a hu
 
 Adding support for Kafka to Snowplow has been a goal of ours for some time, and over the years we have had some great code contributions towards this, from community members such as [Greg] [gregorg]. Our thanks to all contributors!
 
-Finally, at our company hackathon in Berlin, Josh Beemster and I have had an opportunity to put together our first **beta** release of Apache Kafka support. We have kept this deliberately very minimal - the smallest useable subset that we could build and test in a single day. This comprises:
+Finally, at our company hackathon in Berlin, Josh Beemster and I have had an opportunity to put together our first **beta release** of Apache Kafka support. We have kept this deliberately very minimal - the smallest useable subset that we could build and test in a single day. This comprises:
 
 * Adding a Kafka sink to the Scala Stream Collector
 * Adding a Kafka source and a Kafka sink to Stream Enrich
@@ -207,7 +207,7 @@ Note that these releases are always subject to change between now and the actual
 
 <h2 id="help">8. Getting help</h2>
 
-This is an extremely beta release of Apache Kafka support for Snowplow  - we encourage you to test it out, and give us feedback on how we can improve it and extend it over the coming months. We are committed to building first-class support for Snowplow on Apache Kafka - and would love your help!
+This is an **extremely beta release** of Apache Kafka support for Snowplow  - we encourage you to test it out, and give us feedback on how we can improve it and extend it over the coming months. We are committed to building first-class support for Snowplow on Apache Kafka - and would love your help!
 
 For more details on this release, please check out the [release notes] [snowplow-release] on GitHub.
 
@@ -220,6 +220,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [kafka-quickstart-guide]: https://kafka.apache.org/quickstart
 
 [gregorg]: https://github.com/gregorg
+
+[2921]: https://github.com/snowplow/snowplow/issues/2921
 
 [r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
 [r8x-dedupe]: https://github.com/snowplow/snowplow/milestone/132

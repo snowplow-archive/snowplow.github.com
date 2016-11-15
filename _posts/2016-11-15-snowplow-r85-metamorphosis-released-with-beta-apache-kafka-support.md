@@ -45,13 +45,79 @@ In the next three sections we will set out what is available in this release, an
 
 <h2 id="ssc">2. Scala Stream Collector and Kafka</h2>
 
+This release brings support for a new sink target for our Scala Stream Collector in the form of a Kafka topic. This feature maps one-to-one in functionality with the current Kinesis offering.
+
+As a typical example if you have followed the Kafka quickstart guide you would update your config to have the following values:
+
+{% highlight json %}
+collector {
+  ...
+
+  sink {
+
+    enabled = "kafka"
+    ...
+
+    kafka {
+      brokers: "localhost:9092"
+
+      # Data will be stored in the following topics
+      topic {
+        good: "collector-payloads"
+        bad: "bad-1"
+      }
+    }
+
+    ...
+}
+{% endhighlight %}
+
+__Note__: This application assumes that you have created your topics ahead-of-time; just like with Kinesis streams.
+
+Launching the collector in this configuration will then start sinking raw events to your configured Kafka topic, allowing them to be picked up and consumed by other applications, including Stream Enrich.
 
 <h2 id="se">3. Stream Enrich and Kafka</h2>
 
+This component has also been updated to now support both a Kafka topic as a source, and as a sink. This feature maps one-to-one in functionality with the current Kinesis offering; in fact it also enables emergent configurations such as enriching from Kinesis to Kafka, or from Kafka to Kinesis!
+
+Following on from the Stream Collector section above, you can then configure your Stream Enrich application like so:
+
+{% highlight json %}
+enrich {
+  source = "kafka"
+  sink = "kafka"
+
+  ...
+
+  kafka {
+    brokers: "localhost:9092"
+  }
+
+  streams {
+    in: {
+      raw: "collector-payloads"
+
+      ...
+    }
+
+    out: {
+      enriched: "enriched-events"
+      bad: "bad-1"
+
+      ...
+    }
+
+  ...
+}
+{% endhighlight %}
+
+__Note__: This application assumes that you have created your topics ahead-of-time; just like with Kinesis.
+
+Events from the Stream Collector's raw topic will then start to be picked up and enriched before being dropped back into the `out` topic.
 
 <h2 id="kafka-docs">4. Kafka documentation</h2>
 
-As of this release, we have not yet updated the Snowplow documentation to cover our new Kafka support. This is a far-reaching change: we need to revise a lot of our documentation, which still discusses Snowplow as an AWS-only platform.
+As of this release, we have not yet updated the Snowplow documentation to cover our new Kafka support. Kafka support represents a far-reaching change for us: we need to revise a lot of our documentation, which still discusses Snowplow as an AWS-only platform.
 
 Over the next fortnight we will add in our Kafka documentation and revise the overall structure of our documentation; in the meantime please use this blog post as your guide for trialling Snowplow with Kafka.
 
@@ -128,7 +194,7 @@ enrich {
 }
 {% endhighlight %}
 
-__NOTE__: The app-name defined in your config will be used as your Kafka consumer group ID.
+__Note__: The app-name defined in your config will be used as your Kafka consumer group ID.
 
 <h2 id="roadmap">7. Roadmap</h2>
 
@@ -140,6 +206,8 @@ We have renamed the upcoming milestones for Snowplow to be more flexible around 
 Note that these releases are always subject to change between now and the actual release date.
 
 <h2 id="help">8. Getting help</h2>
+
+This is an extremely beta release of Apache Kafka support for Snowplow  - we encourage you to test it out, and give us feedback on how we can improve it and extend it over the coming months. We are committed to building first-class support for Snowplow on Apache Kafka - and would love your help!
 
 For more details on this release, please check out the [release notes] [snowplow-release] on GitHub.
 

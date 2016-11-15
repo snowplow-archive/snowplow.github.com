@@ -29,7 +29,7 @@ Metamorphosis is one of Franz Kafka's most famous books, and an apt codename for
 
 Support for running Snowplow on Apache Kafka has been one of our longest-standing feature requests - dating back almost as far as our original release of Amazon Kinesis support, in [Snowplow v0.9.0] [snowplow-090].
 
-When we look at companies' **on-premise** data processing pipelines, we see a huge amount of diversity in terms of stream processing frameworks, data storage systems, orchestration engines and similar. However, there is one near-constant across all these companies: Apache Kafka. Over the past few years, Apache Kafka has become the dominant on-premise unified log technology, mirroring the role that Amazon Kinesis plays on AWS.
+When we look at companies' **on-premise** data processing pipelines, we see a huge amount of diversity in terms of stream processing frameworks, data storage systems, orchestration engines and similar. However, there is one near-constant across all these companies: Apache Kafka. Over the past few years, Kafka has become the dominant on-premise unified log technology, mirroring the role that Amazon Kinesis plays on AWS.
 
 Adding support for Kafka to Snowplow has been a goal of ours for some time, and over the years we have had some great code contributions towards this, from community members such as [Greg] [gregorg]. Our thanks to all contributors!
 

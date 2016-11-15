@@ -20,7 +20,7 @@ Metamorphosis is one of Franz Kafka's most famous books, and an apt codename for
 7. [Roadmap](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#roadmap)
 8. [Getting help](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#help)
 
-![metamorphosis] [metamorphosis]
+![kafka-metamorphosis] [kafka-metamorphosis]
 
 <!--more-->
 

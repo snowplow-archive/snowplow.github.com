@@ -37,7 +37,7 @@ Finally, at our company hackathon in Berlin, Josh Beemster and I have had an opp
 * Adding a Kafka sink to the Scala Stream Collector
 * Adding a Kafka source and a Kafka sink to Stream Enrich
 
-Between these two components, it is now possible to stand up a Kafka-based pipeline, from event tracking through to a Kafka topic containing Snowplow enriched events. This has been built and tested with Kafka v0.10.1.0. As of this release, we have not gone further than this - for example into sinking events from Kafka into our supported storage targets. 
+Between these two components, it is now possible to stand up a Kafka-based pipeline, from Snowplow event tracking through to a Kafka topic containing Snowplow enriched events. This has been built and tested with Kafka v0.10.1.0. As of this release, we have not gone further than this - for example into sinking events from Kafka into our supported storage targets. 
 
 **Please note that this Kafka support is extremely beta - we want you to use it and test it; do not use it in production.** 
 
@@ -49,22 +49,88 @@ In the next three sections we will set out what is available in this release, an
 <h2 id="se">3. Stream Enrich and Kafka</h2>
 
 
-<h2 id="kafka-docs">6. Kafka documentation</h2>
+<h2 id="kafka-docs">4. Kafka documentation</h2>
 
 As of this release, we have not yet updated the Snowplow documentation to cover our new Kafka support. This is a far-reaching change: we need to revise a lot of our documentation, which still discusses Snowplow as an AWS-only platform.
 
 Over the next fortnight we will add in our Kafka documentation and revise the overall structure of our documentation; in the meantime please use this blog post as your guide for trialling Snowplow with Kafka.
 
-<h2 id="changes">6. Other changes</h2>
+<h2 id="changes">5. Other changes</h2>
 
-JOSH TO ADD SINGLE BUG FIX
+We have only made one other change in this release, for Stream Enrich:
 
+* Fixed regression issue with parsing S3 urls in enrichment JSONs ([#2921][2921])
 
-<h2 id="upgrading">7. Upgrading</h2>
+<h2 id="upgrading">6. Upgrading</h2>
 
-xxxx
+The real-time apps for R85 Metamorphosis are available in the following zipfiles:
 
-<h2 id="roadmap">8. Roadmap</h2>
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_scala_stream_collector_0.9.0.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_stream_enrich_0.10.0.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_elasticsearch_sink_0.8.0_1x.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_elasticsearch_sink_0.8.0_2x.zip
+
+Or you can download all of the apps together in this zipfile:
+
+    https://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r85_metamorphosis.zip
+
+To upgrade the Stream Collector application:
+
+* Install the new Collector on each server in your auto-scaling group
+* Upgrade your config by:
+  * Moving the `collector.sink.kinesis.buffer` section down to `collector.sink.buffer`; as this section will be used to configure limits for both Kinesis and Kafka.
+  * Adding a new section within the `collector.sink` block:
+
+{% highlight json %}
+collector {
+  ...
+
+  sink {
+    ...
+
+    buffer {
+      byte-limit: {{collectorSinkBufferByteThreshold}}
+      record-limit: {{collectorSinkBufferRecordThreshold}} # Not supported by Kafka; will be ignored
+      time-limit: {{collectorSinkBufferTimeThreshold}}
+    }
+    ...
+
+    kafka {
+      brokers: "{{collectorKafkaBrokers}}"
+
+      # Data will be stored in the following topics
+      topic {
+        good: "{{collectorKafkaTopicGoodName}}"
+        bad: "{{collectorKafkaTopicBadName}}"
+      }
+    }
+    ...
+
+}
+{% endhighlight %}
+
+To upgrade the Stream Enrich application:
+
+* Install the new Stream Enrich on each server in your auto-scaling group
+* Upgrade your config by:
+  * Adding a new section within the `enrich` block:
+
+{% highlight json %}
+enrich {
+  ...
+
+  # Kafka configuration
+  kafka {
+    brokers: "localhost:9092"
+  }
+
+  ...
+}
+{% endhighlight %}
+
+__NOTE__: The app-name defined in your config will be used as your Kafka consumer group ID.
+
+<h2 id="roadmap">7. Roadmap</h2>
 
 We have renamed the upcoming milestones for Snowplow to be more flexible around the ultimate sequencing of releases. Upcoming Snowplow releases, in no particular order, include:
 
@@ -73,7 +139,7 @@ We have renamed the upcoming milestones for Snowplow to be more flexible around 
 
 Note that these releases are always subject to change between now and the actual release date.
 
-<h2 id="help">9. Getting help</h2>
+<h2 id="help">8. Getting help</h2>
 
 For more details on this release, please check out the [release notes] [snowplow-release] on GitHub.
 

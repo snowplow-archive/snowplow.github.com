@@ -48,7 +48,7 @@ In the next three sections we will set out what is available in this release, an
 
 This release brings support for a new sink target for our Scala Stream Collector in the form of a Kafka topic. This feature maps one-to-one in functionality with the current Kinesis offering.
 
-As a typical example if you have followed the Kafka quickstart guide you would update your config to have the following values:
+As a typical example if you have followed the [Kafka quickstart guide] [kafka-quickstart-guide] you would update your config to have the following values:
 
 {% highlight json %}
 collector {

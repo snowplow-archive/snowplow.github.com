@@ -213,7 +213,7 @@ For more details on this release, please check out the [release notes] [snowplow
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-[kafka-metamorphosis]: /assets/img/blog/2016/15/kafka-metamorphosis.jpg
+[kafka-metamorphosis]: /assets/img/blog/2016/11/kafka-metamorphosis.jpg
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r85-metamorphosis
 
 [kafka]: https://kafka.apache.org/

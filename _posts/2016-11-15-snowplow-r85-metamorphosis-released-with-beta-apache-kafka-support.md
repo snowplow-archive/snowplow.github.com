@@ -18,7 +18,8 @@ Metamorphosis is one of Franz Kafka's most famous books, and an apt codename for
 5. [Other changes](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#other)
 6. [Upgrading](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#upgrading)
 7. [Roadmap](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#roadmap)
-8. [Getting help](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#help)
+8. [Behind the scenes](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#behind-the-scenes)
+9. [Getting help](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#help)
 
 ![kafka-metamorphosis] [kafka-metamorphosis]
 
@@ -37,9 +38,9 @@ Finally, at our company hackathon in Berlin, Josh Beemster and I have had an opp
 * Adding a Kafka sink to the Scala Stream Collector
 * Adding a Kafka source and a Kafka sink to Stream Enrich
 
-Between these two components, it is now possible to stand up a Kafka-based pipeline, from Snowplow event tracking through to a Kafka topic containing Snowplow enriched events. This has been built and tested with Kafka v0.10.1.0. As of this release, we have not gone further than this - for example into sinking events from Kafka into our supported storage targets. 
+Between these two components, it is now possible to stand up a Kafka-based pipeline, from Snowplow event tracking through to a Kafka topic containing Snowplow enriched events. This has been built and tested with Kafka v0.10.1.0. As of this release, we have not gone further than this - for example into sinking events from Kafka into our supported storage targets.
 
-**Please note that this Kafka support is extremely beta - we want you to use it and test it; do not use it in production.** 
+**Please note that this Kafka support is extremely beta - we want you to use it and test it; do not use it in production.**
 
 In the next three sections we will set out what is available in this release, and what is coming soon.
 
@@ -205,7 +206,13 @@ We have renamed the upcoming milestones for Snowplow to be more flexible around 
 
 Note that these releases are always subject to change between now and the actual release date.
 
-<h2 id="help">8. Getting help</h2>
+<h2 id="behind-the-scenes">8. Behind the scenes</h2>
+
+We were lucky enough to capture the exact moment Josh and Alex got the whole thing running for the first time:
+
+![kafka-josh-alex] [kafka-josh-alex]
+
+<h2 id="help">9. Getting help</h2>
 
 This is an **extremely beta release** of Apache Kafka support for Snowplow  - we encourage you to test it out, and give us feedback on how we can improve it and extend it over the coming months. We are committed to building first-class support for Snowplow on Apache Kafka - and would love your help!
 
@@ -214,6 +221,7 @@ For more details on this release, please check out the [release notes] [snowplow
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
 [kafka-metamorphosis]: /assets/img/blog/2016/11/kafka-metamorphosis.jpg
+[kafka-josh-alex]: /assets/img/blog/2016/11/kafka-josh-alex.jpg
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r85-metamorphosis
 
 [kafka]: https://kafka.apache.org/

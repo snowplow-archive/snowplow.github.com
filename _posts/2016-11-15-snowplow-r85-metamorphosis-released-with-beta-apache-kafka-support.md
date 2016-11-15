@@ -1,8 +1,8 @@
 ---
 layout: post
 title-short: "Snowplow 85 Metamorphosis"
-title: "Snowplow 84 Steller's Sea Eagle released with Elasticsearch 2.x support"
-tags: [snowplow, kinesis, real-time, elasticsearch]
+title: "Snowplow 85 Metamorphosis released with beta Apache Kafka support"
+tags: [snowplow, kafka, apache kafka, real-time]
 author: Alex
 category: Releases
 ---
@@ -11,68 +11,49 @@ We are pleased to announce the release of [Snowplow 85 Metamorphosis] [snowplow-
 
 Metamorphosis is one of Franz Kafka's most famous books, and an apt codename for the release, as our first step towards an implementation of the full Snowplow platform that can be run off the Amazon cloud, on-premise.
 
-1. [Elasticsearch 2.x support](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#elasticsearch-2-x)
-2. [Elasticsearch Sink buffer](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#sink-buffer)
-3. [Override the network_id cookie with nuid param](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#nuid-cookie)
-4. [Hardcoded cookie path](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#cookie-path)
-5. [Migrating Redshift assets to Iglu Central](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#iglu-central)
-6. [Other changes](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#other)
-7. [Upgrading](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#upgrading)
-8. [Roadmap](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#roadmap)
-9. [Getting help](/blog/2016/10/08/snowplow-r84-stellers-sea-eagle-released-with-elasticsearch-2-x-support#help)
+1. [Supporting Apache Kafka](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#kafka)
+2. [Scala Stream Collector and Kafka](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#ssc)
+3. [Stream Enrich and Kafka](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#se)
+4. [Kafka documentation](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#docs)
+5. [Other changes](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#other)
+6. [Upgrading](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#upgrading)
+7. [Roadmap](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#roadmap)
+8. [Getting help](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#help)
 
 ![metamorphosis] [metamorphosis]
 
 <!--more-->
 
-<h2 id="intro">1. Supporting Apache Kafka at Snowplow</h2>
+<h2 id="intro">1. Supporting Apache Kafka</h2>
 
-Support for using Apache Kafka with Snowplow is one of our longest-standing feature requests - dating back almost as far as our original release of Amazon Kinesis support for Snowplow, 
+Support for running Snowplow on Apache Kafka has been one of our longest-standing feature requests - dating back almost as far as our original release of Amazon Kinesis support, in [Snowplow v0.9.0] [snowplow-090].
 
-This release brings full support for Elasticsearch 2.x for both the HTTP and Transport clients. This lets you use the AWS Elasticsearch Service running ES 2.3, or indeed upgrade your self-hosted Elasticsearch cluster to version 2.x.
+When we look at companies' **on-premise** data processing pipelines, we see a huge amount of diversity in terms of stream processing frameworks, data storage systems, orchestration engines and similar. However, there is one near-constant across all these companies: Apache Kafka. Over the past few years, Apache Kafka has become the dominant on-premise unified log technology, mirroring the role that Amazon Kinesis plays on AWS.
+
+Adding support for Kafka to Snowplow has been a goal of ours for some time, and over the years we have had some great code contributions towards this, from community members such as [Greg] [gregorg]. Our thanks to all contributors!
+
+Finally, at our company hackathon in Berlin, Josh Beemster and I have had an opportunity to put together our first **beta** release of Apache Kafka support. We have kept this deliberately very minimal - the smallest useable subset that we could build and test in a single day. This comprises:
+
+* Adding a Kafka sink to the Scala Stream Collector
+* Adding a Kafka source and a Kafka sink to Stream Enrich
+
+Between these two components, it is now possible to stand up a Kafka-based pipeline, from event tracking through to a Kafka topic containing Snowplow enriched events. This has been built and tested with Kafka v0.10.1.0. As of this release, we have not gone further than this - for example into sinking events from Kafka into our supported storage targets. 
+
+**Please note that this Kafka support is extremely beta - we want you to use it and test it; do not use it in production.** 
+
+In the next three sections we will set out what is available in this release, and what is coming soon.
+
+<h2 id="ssc">2. Scala Stream Collector and Kafka</h2>
 
 
+<h2 id="se">3. Stream Enrich and Kafka</h2>
 
-<h2 id="sink-buffer">2. Elasticsearch Sink buffer</h2>
-
-Community member [Stephane Maarek] [simplesteph] flagged to us that our Kinesis Elasticsearch Sink's buffer settings did not seem to be working correctly.
-
-We investigated and found an underlying issue in the Kinesis Connectors library, where every record in a `GetRecords` call is added to the buffer for sinking, without checking between additions whether or not the buffer should be flushed.
-
-In the case that your Elasticsearch Sink has to catch up with a very large number of records, and your `maxRecords` setting is set to 10,000, this can leave the sink struggling to emit to Elasticsearch, because the buffer will be too large to send reliably.
-
-To work around this issue, we updated our Elasticsearch Emitter code to also respect the buffer settings. The new approach works as follows:
-
-* The Emitter receives a buffer of events from the Kinesis stream (up to 10,000)
-* This buffer is split based on your `record` and `byte` buffer settings
-* Each slice of the buffer is sent in succession
-* Once all slices are processed the application checkpoints
-
-It is important that you tune your record and byte limits to match the cluster you are pushing events to. If the limits are set too high you might not be able to emit successfully very often; if your limits are too low then your event sinking to Elasticsearch will be inefficient.
-
-For more information on this issue and the corresponding commit please see [issue #2895] [2895].
-
-<h2 id="nuid-cookie">3. Override the network_id cookie with nuid param</h2>
-
-This release adds the ability to update your Scala Stream Collector's cookie's value with the `nuid` a.k.a. `network_userid` parameter.  If a `nuid` value is available within the querystring of your request, this value will then be used to update the cookie's value.  
-
-This feature is only available through a querystring parameter lookup, so only works for `GET` requests at the present.
-
-Many thanks to [Christoph Buente] [christoph-buente] from Snowplow user [LiveIntent] [live-intent] for this contribution!
-
-For more information and the reasoning behind this update please see [issue #2512] [2512].
-
-<h2 id="other">4. Hardcoded cookie path</h2>
-
-To ensure that the cookie path is always valid we have updated the Scala Stream Collector to statically set the cookie path to "/".  This is to avoid situations where a path resource such as "/r/tp2" results in the cookie path ending up at "/r". Endpoints such as "/i" do not suffer from this issue.
-
-Thanks again to [Christoph Buente] [christoph-buente] for this contribution!
-
-For more information on this please see issue [#2524] [2524].
-
-<h2 id="iglu-central">5. Migrating Redshift assets to Iglu Central</h2>
 
 <h2 id="kafka-docs">6. Kafka documentation</h2>
+
+As of this release, we have not yet updated the Snowplow documentation to cover our new Kafka support. This is a far-reaching change: we need to revise a lot of our documentation, which still discusses Snowplow as an AWS-only platform.
+
+Over the next fortnight we will add in our Kafka documentation and revise the overall structure of our documentation; in the meantime please use this blog post as your guide for trialling Snowplow with Kafka.
 
 <h2 id="changes">6. Other changes</h2>
 
@@ -81,18 +62,7 @@ JOSH TO ADD SINGLE BUG FIX
 
 <h2 id="upgrading">7. Upgrading</h2>
 
-The real-time apps for R85 Metamorphosis are available in the following zipfiles:
-
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_scala_stream_collector_0.8.0.zip
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_stream_enrich_0.9.0.zip
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_elasticsearch_sink_0.8.0_1x.zip
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_elasticsearch_sink_0.8.0_2x.zip
-
-Or you can download all of the apps together in this zipfile:
-
-    https://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r85_metamorphosis.zip
-
-JOSH TO COMPLETE
+xxxx
 
 <h2 id="roadmap">8. Roadmap</h2>
 
@@ -109,31 +79,18 @@ For more details on this release, please check out the [release notes] [snowplow
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-[stellers-sea-eagle]: /assets/img/blog/2016/10/stellers-sea-eagle.jpg
-[snowplow-release]: https://github.com/snowplow/snowplow/releases/r84-stellers-sea-eagle
+[kafka-metamorphosis]: /assets/img/blog/2016/15/kafka-metamorphosis.jpg
+[snowplow-release]: https://github.com/snowplow/snowplow/releases/r85-metamorphosis
 
-[simplesteph]: https://github.com/simplesteph
-[christoph-buente]: https://github.com/christoph-buente
-[live-intent]: https://liveintent.com/
+[kafka]: https://kafka.apache.org/
+[kafka-quickstart-guide]: https://kafka.apache.org/quickstart
 
-[2512]: https://github.com/snowplow/snowplow/issues/2512
-[2524]: https://github.com/snowplow/snowplow/issues/2524
-[2894]: https://github.com/snowplow/snowplow/issues/2894
-[2895]: https://github.com/snowplow/snowplow/issues/2895
-[2897]: https://github.com/snowplow/snowplow/issues/2897
-
-[snowplow-snowplow]: https://github.com/snowplow/snowplow
-[iglu-central]: https://github.com/snowplow/iglu-central
-[iglu-eg-schema-registry]: https://github.com/snowplow/iglu-example-schema-registry
-[snowplow-changelog]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG
-
-[iglu-central-redshift-ddl]: https://github.com/snowplow/iglu-central/tree/master/sql
-[iglu-central-json-paths]: https://github.com/snowplow/iglu-central/tree/master/jsonpaths
-
-[shin-nien]: https://github.com/shin-nien
+[gregorg]: https://github.com/gregorg
 
 [r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
 [r8x-dedupe]: https://github.com/snowplow/snowplow/milestone/132
+
+[snowplow-090]: /blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support
 
 [issues]: https://github.com/snowplow/snowplow/issues/new
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

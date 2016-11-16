@@ -9,7 +9,7 @@ category: Releases
 
 We are pleased to announce the release of [Snowplow 85 Metamorphosis] [snowplow-release]. This release brings initial beta support for using [Apache Kafka] [kafka] with the Snowplow real-time pipeline, as an alternative to Amazon Kinesis.
 
-Metamorphosis is one of Franz Kafka's most famous books, and an apt codename for this release, as our first step towards an implementation of the full Snowplow platform that can be run off the Amazon cloud, on-premise. (We'll come up with a new non-ornothological codename series for R86 onwards.)
+Metamorphosis is one of Franz Kafka's most famous books, and an apt codename for this release, as our first step towards an implementation of the full Snowplow platform that can be run off the Amazon cloud, on-premise. (We'll come up with a new non-ornithological codename series for R86 onwards.)
 
 1. [Supporting Apache Kafka](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#kafka)
 2. [Scala Stream Collector and Kafka](/blog/2016/11/15/snowplow-r85-metamorphosis-released-with-beta-apache-kafka-support#ssc)

@@ -22,7 +22,7 @@ This release post will cover the following topics:
 
 <!--more-->
 
-<h2 id="rationale">1. Why we wrote this library</a></h2>
+<h2 id="rationale">1. Why we wrote this library</h2>
 
 The [Snowplow] [snowplow-repo] event analytics platform has a growing collection of [configurable event enrichments] [snowplow-enrichments] - from geo-location through custom JavaScript to currency conversions. But the most-requested enrichment still outstanding is a Weather Enrichment: specifically, using the time and geo-location of each event to retrieve the weather and attach it to the event as a context, ready for later analysis. 
 

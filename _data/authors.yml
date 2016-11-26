@@ -122,3 +122,11 @@
   avatar: /assets/img/team/idan.jpg
   spiel:   |
       <a href="/blog/authors/idan/">Idan</a> does business development at Snowplow</a>.
+
+- name: Nakul
+  full_name: Nakul Ganesh Selvaraj
+  github: nakulgan
+  url: /blog/authors/nakul/
+  avatar: https://avatars0.githubusercontent.com/u/189836?v=3&s=460
+  spiel:   |
+      <a href="/blog/authors/nakul/">Nakul</a> is a data engineer at Snowplow</a>. You can find him on <a href="https://github.com/nakulgan">GitHub</a>.

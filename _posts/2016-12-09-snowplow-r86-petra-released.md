@@ -20,7 +20,7 @@ We are pleased to announce the release of [Snowplow 86 Petra] [snowplow-release]
 
 <!--more-->
 
-<h2 id="synthetic-dedupe">1. DEDUPE</h2>
+<h2 id="synthetic-dedupe">1. Synthetic Dedupuplication</h2>
 
 <h3 id="deduplication-101">1.1 Event duplicates 101</h3>
 
@@ -38,12 +38,25 @@ We can divide duplicates in two groups:
 * Natural - duplicates with same `event_id` and same payload, which are in fact "real" duplicates, caused mostly by absence of exactly-once semantics.
 * Synthetic - duplicates with same `event_id`, but different payload, caused by third-party software and UUID clashes.
 
-<h3 id="deduplication-101">1.2 In-batch synthetic deduplication</h3>
+Duplicates introduce significant skews in data-modelling since they're fake event and because SQL JOINs with duplicates result in cartesian product, making overall modelling less accurate and slower.
+Problem as described above exists only in batch-pipeline, because current real-time pipeline has "last win" strategy, effectively eliminating all previous events with same `event_id`.
+
+<h3 id="deduplication-101">1.2 In-batch synthetic deduplication in Scala Hadoop Shred</h3>
 
 While natural duplicates problem were addressed by [R76 Changeable Hawk-Eagle release][r76-changeable-hawk-eagle-release], which just deletes all occurrences except first one, until now our users still had problems with synthetic duplicates.
 
 In R86 Petra we're introducing new in-batch synthetic deduplication in Scala Hadoop Shred component.
 
+Scala Hadoop Shred is the last component in our batch pipeline making events and contexts available to load into Redshift.
+As very last step, when all contexts and self-describing events are shredded - it eliminates duplicates with following steps:
+
+1. Collect events with duplicated `event_id`
+2. Generate new random UUID for it each event
+3. Attaches new [duplicate][duplicate-schema] context with original `event_id`
+
+Using this approach we can see enormous reduce (close to disappearance) of duplicate events in our data sets.
+But despite extremely good results, current approach still has one flaw - events still can have duplicates between batches.
+This will be addressed by one of the upcoming releses, introducing cross-batch deduplication.
 
 <h2 id="sql-data-modeling">2. NEW SQL DATA MODELING</h2>
 
@@ -59,7 +72,7 @@ ALEX TO ADD
 
 <h2 id="upgrading">5. Upgrading</h2>
 
-Upgrading is simple - update the `hadoop_enrich` job version in your configuration YAML like so:
+Upgrading is simple - update the `hadoop_shred` job version in your configuration YAML like so:
 
 {% highlight yaml %}
 versions:
@@ -92,6 +105,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r86-petra
 
 [r76-changeable-hawk-eagle-release]: http://snowplowanalytics.com/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#deduplication
+[duplicate-schema]: com.snowplowanalytics.snowplow/duplicate/jsonschema/1-0-0
 
 [region-ohio]: https://aws.amazon.com/blogs/aws/aws-region-germany/
 [region-roadmap]: https://aws.amazon.com/about-aws/global-infrastructure/

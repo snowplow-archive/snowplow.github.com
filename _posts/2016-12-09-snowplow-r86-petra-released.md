@@ -7,7 +7,7 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 86 Petra] [snowplow-release]. This release introduces additional event de-duplication functionality for our Redshift load process, plus [[POINT ABOUT SQL DATA MODELING]]. This release also adds support for Ohio XXXXXXXXX.
+We are pleased to announce the release of [Snowplow 86 Petra] [snowplow-release]. This release introduces additional event de-duplication functionality for our Redshift load process, plus a brand new data model that makes it easier to get started with web data. This release also adds support for Ohio XXXXXXXXX.
 
 1. [Synthetic Dedupuplication](/blog/2016/12/XX/snowplow-r86-petra-released#synthetic-dedupe)
 2. [NEW SQL DATA MODELING](/blog/2016/12/XX/snowplow-r86-petra-released#sql-data-modeling)
@@ -20,7 +20,7 @@ We are pleased to announce the release of [Snowplow 86 Petra] [snowplow-release]
 
 <!--more-->
 
-<h2 id="synthetic-dedupe">1. Synthetic Dedupuplication</h2>
+<h2 id="synthetic-dedupe">1. Synthetic dedupuplication</h2>
 
 <h3 id="deduplication-101">1.1 Event duplicates 101</h3>
 
@@ -58,9 +58,15 @@ Using this approach we can see enormous reduce (close to disappearance) of dupli
 But despite extremely good results, current approach still has one flaw - events still can have duplicates between batches.
 This will be addressed by one of the upcoming releses, introducing cross-batch deduplication.
 
-<h2 id="sql-data-modeling">2. NEW SQL DATA MODELING</h2>
+<h2 id="sql-data-modeling">2. New data model for web data</h2>
 
-XXXX
+The most common tracker for Snowplow users to get started with is, without doubt, the [Javascript tracker][js-tracker]. Like all our trackers, it can be used to track the self-describing events and entities our users have defined themselves. In addition, we provide built-in support for the events most users will want to track. This includes events such as page views, page pings, and link clicks.
+
+This release introduces a new [SQL data model][sql-data-model] that makes it easier to get started with web data. It aggregates the page view and page ping events to create a set of derived tables that contain a lot of detail, including: time engaged, scroll depth, and page performance (three dimensions we often get asked about). The model comes in 3 variants:
+
+1. [a straightforward set of SQL queries][model];
+2. [a variant optimized for SQL Runner][model-sql-runner];
+3. [a variant optimized for Looker][model-looker].
 
 <h2 id="us-east-2">4. Ohio</h2>
 
@@ -111,6 +117,12 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [region-roadmap]: https://aws.amazon.com/about-aws/global-infrastructure/
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+
+[js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
+[sql-data-model]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model
+[model]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/redshift
+[model-sql-runner]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/looker
+[model-looker]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/sql-runner
 
 [r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
 [r8x-spark]: https://github.com/snowplow/snowplow/milestone/127

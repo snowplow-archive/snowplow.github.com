@@ -9,26 +9,47 @@ category: Releases
 
 We are pleased to announce the release of [Snowplow 86 Petra] [snowplow-release]. This release introduces additional event de-duplication functionality for our Redshift load process, plus [[POINT ABOUT SQL DATA MODELING]]. This release also adds support for Ohio XXXXXXXXX.
 
-1. [DEDUPE](/blog/2016/09/06/snowplow-r83-bald-eagle-released-with-sql-query-enrichment#synthetic-dedupe)
-2. [NEW SQL DATA MODELING](/blog/2016/09/06/snowplow-r83-bald-eagle-released-with-sql-query-enrichment#sql-data-modeling)
-3. [Support for us-east-2 (Ohio)](/blog/2016/09/06/snowplow-r83-bald-eagle-released-with-sql-query-enrichment#us-east-2)
-4. [Upgrading](/blog/2016/09/06/snowplow-r83-bald-eagle-released-with-sql-query-enrichment#upgrading)
-5. [Roadmap](/blog/2016/09/06/snowplow-r83-bald-eagle-released-with-sql-query-enrichment#roadmap)
-6. [Getting help](/blog/2016/09/06/snowplow-r83-bald-eagle-released-with-sql-query-enrichment#help)
+1. [Synthetic Dedupuplication](/blog/2016/12/XX/snowplow-r86-petra-released#synthetic-dedupe)
+2. [NEW SQL DATA MODELING](/blog/2016/12/XX/snowplow-r86-petra-released#sql-data-modeling)
+3. [Support for us-east-2 (Ohio)](/blog/2016/12/XX/snowplow-r86-petra-released#us-east-2)
+4. [Upgrading](/blog/2016/12/XX/snowplow-r86-petra-released#upgrading)
+5. [Roadmap](/blog/2016/12/XX/snowplow-r86-petra-released#roadmap)
+6. [Getting help](/blog/2016/12/XX/snowplow-r86-petra-released#help)
 
 ![petra-jordan][petra-jordan]
 
 <!--more-->
 
-<h2 id="sql-query-enrichment">1. DEDUPE</h2>
+<h2 id="synthetic-dedupe">1. DEDUPE</h2>
 
-XXXX
+<h3 id="deduplication-101">1.1 Event duplicates 101</h3>
+
+Snowplow is extremely decoupled data pipeline, where each component is independent part, knowing nothing about downstream components.
+While, this architecture gives our users many benefits - it have one notable disadvantage - duplicated events.
+
+These duplicate events owe their existence to the following facts:
+
+1. Data pipeline cannot provide exact-once delivery semantics. There's always a small chance for event to hit collector twice.
+2. Some third-party software like anti-virus or adult-content screener may pre-cache HTTP requests which results in sending them twice and even with different payload.
+3. Random number generation [algorithm flaws][prnd-post], which is more common than one may think.
+
+We can divide duplicates in two groups:
+
+* Natural - duplicates with same `event_id` and same payload, which are in fact "real" duplicates, caused mostly by absence of exactly-once semantics.
+* Synthetic - duplicates with same `event_id`, but different payload, caused by third-party software and UUID clashes.
+
+<h3 id="deduplication-101">1.2 In-batch synthetic deduplication</h3>
+
+While natural duplicates problem were addressed by [R76 Changeable Hawk-Eagle release][r76-changeable-hawk-eagle-release], which just deletes all occurrences except first one, until now our users still had problems with synthetic duplicates.
+
+In R86 Petra we're introducing new in-batch synthetic deduplication in Scala Hadoop Shred component.
+
 
 <h2 id="sql-data-modeling">2. NEW SQL DATA MODELING</h2>
 
 XXXX
 
-<h2 id="other">4. Ohio</h2>
+<h2 id="us-east-2">4. Ohio</h2>
 
 We are delighted to be finally adding support for the XXXXXX [EU Frankfurt] [region-eu-central-1] (eu-central-1) XXXXXXXX AWS region in this release, following on from EU Frankfurt (eu-central-1) in R83 Bald Eagle.
 
@@ -69,6 +90,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [petra-jordan]: /assets/img/blog/2016/12/xxxxxx
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r86-petra
+
+[r76-changeable-hawk-eagle-release]: http://snowplowanalytics.com/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#deduplication
 
 [region-ohio]: https://aws.amazon.com/blogs/aws/aws-region-germany/
 [region-roadmap]: https://aws.amazon.com/about-aws/global-infrastructure/

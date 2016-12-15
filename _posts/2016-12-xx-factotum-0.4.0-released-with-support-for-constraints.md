@@ -43,27 +43,25 @@ $ ./factotum run echo.factfile --constraint "host,192.168.1.44" # Ethernet
 $ ./factotum run echo.factfile --constraint "host,192.168.1.12" # WiFi
 ```
 
-**SECTION BELOW NEEDS WORK (SEE COMMENTS ON CODE PR)**
-
 However, if I change these to non-valid values:
 
 ```
 $ ./factotum run echo.factfile --constraint "host,hostname"
-$ Error: the specifed host constraint "hostname" is invalid. Reason: found external IP(s) but failed to list IP(s) for hostname
+$ Info: the specifed host constraint "hostname" did not match. Reason: could not find any IPv4 addresses for the supplied hostname
 ```
 
-What this error means is that we were able to list probable IPs for this host but that the hostname provided - when we attempted to get an IP for it - did not match the found list. So it fails to resolve and thus will not run.
+This means that we failed to lookup any addresses associated with the hostname given.  This means we have nothing to compare against our local interfaces and as such we cannot obtain a match.
 
 If I were to disconnect my WiFi network interface:
 
 ```
 $ ./factotum run echo.factfile --constraint "host,192.168.1.12"
-$ Error: the specifed host constraint "192.168.1.12" is invalid. Reason: did not find matching IP for hostname
+$ Info: the specifed host constraint "192.168.1.12" did not match. Reason: failed to match any of the interface addresses to the found host addresses
 ```
 
-This error means that we could not find a hostname associated with the IP provided.
+This means that we were able to get addresses from the local interfaces as well as from the supplied IP address.  However a match could not be found within both lists.
 
-**SECTION NEEDING WORK ENDS**
+__Note__: A failure to match the host constraint will result in an exit code of 0.  This is because a non-matching host is considered a noop.
 
 <h2 id="install">2. Downloading and running Factotum</h2>
 

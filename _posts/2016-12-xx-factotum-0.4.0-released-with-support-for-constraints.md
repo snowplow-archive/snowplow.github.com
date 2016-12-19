@@ -47,7 +47,7 @@ However, if I change these to non-valid values:
 
 ```
 $ ./factotum run echo.factfile --constraint "host,hostname"
-$ Info: the specifed host constraint "hostname" did not match. Reason: could not find any IPv4 addresses for the supplied hostname
+$ Warn: the specifed host constraint "hostname" did not match, no tasks have been executed. Reason: could not find any IPv4 addresses for the supplied hostname
 ```
 
 This means that we failed to lookup any addresses associated with the hostname given.  This means we have nothing to compare against our local interfaces and as such we cannot obtain a match.
@@ -56,7 +56,7 @@ If I were to disconnect my WiFi network interface:
 
 ```
 $ ./factotum run echo.factfile --constraint "host,192.168.1.12"
-$ Info: the specifed host constraint "192.168.1.12" did not match. Reason: failed to match any of the interface addresses to the found host addresses
+$ Warn: the specifed host constraint "192.168.1.12" did not match, no tasks have been executed. Reason: failed to match any of the interface addresses to the found host addresses
 ```
 
 This means that we were able to get addresses from the local interfaces as well as from the supplied IP address.  However a match could not be found within both lists.

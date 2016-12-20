@@ -57,7 +57,7 @@ The new functionality eliminates synthetic duplicates through the following step
 
 Using this approach we have seen an enormous reduction (close to disappearance) of synthetic duplicates in our data sets.
 
-The next step in our treatment of duplicates will be removing duplicates across ETL runs - also known as cross-batch deduplication. One of our upcoming releases will introduce cross-batch deduplication of natural duplicates.
+The next step in our treatment of duplicates will be removing duplicates across ETL runs - also known as cross-batch deduplication. Stay tuned for our upcoming release [R8x [HAD] Cross-batch natural deduplication] [r8x-crossbatch-dedupe].
 
 <h2 id="new-web-data-model">2. New data model for web data</h2>
 
@@ -71,11 +71,9 @@ This release introduces a new [SQL data model][sql-data-model] that makes it eas
 
 <h2 id="new-regions">4. Ohio</h2>
 
-We are delighted to be finally adding support for the XXXXXX [EU Frankfurt] [region-eu-central-1] (eu-central-1) XXXXXXXX AWS region in this release, following on from EU Frankfurt (eu-central-1) in R83 Bald Eagle.
+We are delighted to be adding support for the new [Ohio, USA] [region-us-east-2], [Montreal, Canada] [region-ca-central-1] and [London, UK] [region-eu-west-2] AWS regions in this release, following on from Frankfurt, Germany in [R83 Bald Eagle] [r83-bald-eagle-release].
 
 AWS has a healthy [roadmap of new data center regions] [region-roadmap] opening over the coming months; we are committed to Snowplow supporting these new regions as they become available.
-
-ALEX TO ADD
 
 <h2 id="upgrading">5. Upgrading</h2>
 
@@ -94,7 +92,7 @@ ALEX - ADD PARA ON DEPLOYING THE NEW DUPES TABLE.
 
 <h2 id="roadmap">X. Roadmap</h2>
 
-XXXXXXX We have renamed the upcoming milestones for Snowplow to be more flexible around the ultimate sequencing of releases XXXXX. Upcoming Snowplow releases XXXXXXXXXX include:
+As well as the cross-batch deduplication mentioned above, upcoming Snowplow releases include:
 
 * [R8x xxx] [xxx] stability XXXXXXXXXXXXXXXXXXX
 * [R8x [HAD] 4 webhooks] [r8x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
@@ -113,6 +111,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r86-petra
 
 [r76-changeable-hawk-eagle-release]: http://snowplowanalytics.com/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#deduplication
+[r83-bald-eagle-release]: xxx
 [duplicate-schema]: com.snowplowanalytics.snowplow/duplicate/jsonschema/1-0-0
 
 [region-ohio]: https://aws.amazon.com/blogs/aws/aws-region-germany/
@@ -131,6 +130,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
 [r8x-spark]: https://github.com/snowplow/snowplow/milestone/127
 [r8x-dashdb]: xxx
+[r8x-crossbatch-dedupe]: https://github.com/snowplow/snowplow/milestone/136
 
 [issues]: https://github.com/snowplow/snowplow/issues/new
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

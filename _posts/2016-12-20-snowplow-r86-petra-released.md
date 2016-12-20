@@ -109,7 +109,7 @@ For more details on this release, please check out the [release notes] [snowplow
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
 [petra-jordan]: https://en.wikipedia.org/wiki/Petra
-[petra-jordan-img]: /assets/img/blog/2016/12/20xxxx
+[petra-jordan-img]: /assets/img/blog/2016/12/petra-jordan.jpg
 
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r86-petra
 

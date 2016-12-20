@@ -36,8 +36,8 @@ Snowplow users will be familiar with the idea that they can find duplicate event
 
 We can divide these duplicates into two groups:
 
-1. **Natural:** duplicates with same `event_id` and same payload (what we call the event's "fingerprint"), which are in fact "real" duplicates, caused mostly by absence of exactly-once semantics
-2. **Synthetic:** duplicates with same `event_id`, but different fingerprint, caused by third-party software and UUID clashes
+1. **Natural:** duplicates with same event ID and same payload (what we call the event's "fingerprint"), which are in fact "real" duplicates, caused mostly by absence of exactly-once semantics
+2. **Synthetic:** duplicates with same event ID, but different fingerprint, caused by third-party software and UUID clashes
 
 Duplicates introduce significant skews in data modelling: they skew counts, confuse event pathing and, in Redshift, SQL `JOIN`s with duplicates will result in a Cartesian product.
 
@@ -63,15 +63,19 @@ The next step in our treatment of duplicates will be removing duplicates across 
 
 The most common tracker for Snowplow users to get started with is the [JavaScript Tracker][js-tracker]. Like all our trackers, it can be used to track the self-describing events and entities that our users have defined themselves. In addition, we provide built-in support for the web-native events that most users will want to track. This includes events such as page views, page pings, and link clicks.
 
-This release introduces a new [SQL data model][sql-data-model] that makes it easier to get started with web data. It aggregates the page view and page ping events to create a set of derived tables that contain a lot of detail, including: time engaged, scroll depth, and page performance (three dimensions we often get asked about). The model comes in 3 variants:
+This release introduces a new [SQL data model][sql-data-model] that makes it easier to get started with web data. It aggregates the page view and page ping events to create a set of derived tables that contain a lot of detail, including: time engaged, scroll depth, and page performance (three dimensions we often get asked about). The model comes in three variants:
 
 1. [A straightforward set of SQL queries][model]
 2. [A variant optimized for SQL Runner][model-sql-runner]
 3. [A variant optimized for Looker][model-looker]
 
-<h2 id="new-regions">4. Ohio</h2>
+<h2 id="new-regions">4. Support for new regions</h2>
 
-We are delighted to be adding support for the new [Ohio, USA] [region-ohio], [Montreal, Canada] [region-montreal] and [London, UK] [region-london] AWS regions in this release, following on from Frankfurt, Germany in [R83 Bald Eagle] [r83-bald-eagle-release].
+We are delighted to be adding support for three new AWS regions:
+
+1. [Ohio, USA] [region-ohio] (`us-east-2`)
+2. [Montreal, Canada] [region-montreal] (`ca-central-1`)
+3. [London, UK] [region-london] (`eu-west-2`)
 
 AWS has a healthy [roadmap of new data center regions] [region-roadmap] opening over the coming months; we are committed to Snowplow supporting these new regions as they become available.
 
@@ -114,7 +118,6 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r86-petra
 
 [r76-changeable-hawk-eagle-release]: /blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#deduplication
-[r83-bald-eagle-release]: /blog/2016/09/06/snowplow-r83-bald-eagle-released-with-sql-query-enrichment
 [dupes-blog-post]: http://snowplowanalytics.com/blog/2015/08/19/dealing-with-duplicate-event-ids/
 [js-event-ids]: https://github.com/snowplow/snowplow-javascript-tracker/issues/499
 

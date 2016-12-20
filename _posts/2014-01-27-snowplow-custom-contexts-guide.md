@@ -7,6 +7,10 @@ author: Alex
 category: Releases
 ---
 
+---
+**WARNING**: This blog contains an outdated information. To review the current uproach, please, refer to our wiki post [Custom contexts](https://github.com/snowplow/snowplow/wiki/Custom-contexts).
+---
+
 Earlier today we [announced the release of Snowplow JavaScript Tracker 0.13.0] [0130-post], which updated all of our `track...()` methods to support a new argument for setting custom JSON contexts.
 
 In our earlier blog post we introduced the idea of custom contexts only very briefly. In this blog post, we will take a detailed look at Snowplow's custom contexts functionality, so you can understand how best to attach custom contexts to your existing Snowplow events.

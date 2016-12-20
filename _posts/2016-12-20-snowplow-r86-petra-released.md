@@ -32,7 +32,7 @@ Snowplow users will be familiar with the idea that they can find duplicate event
 
 * The Snowplow pipeline provides at-least-once delivery semantics: an event can hit a collector twice; a Kinesis worker can be restarted from the last checkpoint
 * Some third-party software like anti-virus or adult-content screeners can pre-cache HTTP requests, resulting in sending them twice
-* UUID generation [algorithm flaws][prnd-post] cause collisions in the event IDs for totally independent events
+* UUID generation [algorithm flaws][js-event-ids] cause collisions in the event IDs for totally independent events
 
 We can divide these duplicates into two groups:
 
@@ -41,7 +41,7 @@ We can divide these duplicates into two groups:
 
 Duplicates introduce significant skews in data modelling: they skew counts, confuse event pathing and, in Redshift, SQL `JOIN`s with duplicates will result in a Cartesian product.
 
-For more on duplicates, please see the following blog post - xxx.
+For our original thinking on duplicates, please see the blog post [Dealing with duplicate event IDs] [dupes-blog-post].
 
 <h3 id="deduplication-101">1.2 In-batch synthetic deduplication in Scala Hadoop Shred</h3>
 
@@ -53,9 +53,9 @@ The new functionality eliminates synthetic duplicates through the following step
 
 1. Group events with the same event ID but different event fingerprint
 2. Generate a new random UUID to use as each event's new event ID
-3. Attache a new [duplicate][duplicate-schema] context with the original event ID for data lineage
+3. Attach a new [duplicate][duplicate-schema] context with the original event ID to provide data lineage
 
-Using this approach we have seen an enormous reduction (close to disappearance) of synthetic duplicates in our data sets.
+Using this approach we have seen an enormous reduction (close to disappearance) of synthetic duplicates in our event warehouses.
 
 The next step in our treatment of duplicates will be removing duplicates across ETL runs - also known as cross-batch deduplication. Stay tuned for our upcoming release [R8x [HAD] Cross-batch natural deduplication] [r8x-crossbatch-dedupe].
 
@@ -71,7 +71,7 @@ This release introduces a new [SQL data model][sql-data-model] that makes it eas
 
 <h2 id="new-regions">4. Ohio</h2>
 
-We are delighted to be adding support for the new [Ohio, USA] [region-us-east-2], [Montreal, Canada] [region-ca-central-1] and [London, UK] [region-eu-west-2] AWS regions in this release, following on from Frankfurt, Germany in [R83 Bald Eagle] [r83-bald-eagle-release].
+We are delighted to be adding support for the new [Ohio, USA] [region-ohio], [Montreal, Canada] [region-montreal] and [London, UK] [region-london] AWS regions in this release, following on from Frankfurt, Germany in [R83 Bald Eagle] [r83-bald-eagle-release].
 
 AWS has a healthy [roadmap of new data center regions] [region-roadmap] opening over the coming months; we are committed to Snowplow supporting these new regions as they become available.
 
@@ -88,19 +88,21 @@ versions:
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
 
-ALEX - ADD PARA ON DEPLOYING THE NEW DUPES TABLE.
+You will also need to deploy the following table for Redshift:
 
-<h2 id="roadmap">X. Roadmap</h2>
+* [com.snowplowanalytics.snowplow/duplicate_1.sql] [duplicate-ddl]
+
+<h2 id="roadmap">5. Roadmap</h2>
 
 As well as the cross-batch deduplication mentioned above, upcoming Snowplow releases include:
 
-* [R8x xxx] [xxx] stability XXXXXXXXXXXXXXXXXXX
+* [R87 Chichen Itza] [r87-chichen-itza], with various stability improvements for EmrEtlRunner and StorageLoader
 * [R8x [HAD] 4 webhooks] [r8x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
-* [R8x [HAD] DashDB support] [xxxx], xxxx
+* [R8x [HAD] DashDB support] [r8x-dashdb], the first phase of our support for IBM's dashDB, per our [dashDB RFC] [dashdb-rfc]
 
 Note that these releases are always subject to change between now and the actual release date.
 
-<h2 id="help">X. Getting help</h2>
+<h2 id="help">6. Getting help</h2>
 
 For more details on this release, please check out the [release notes] [snowplow-release] on GitHub.
 
@@ -108,28 +110,36 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [petra-jordan]: https://en.wikipedia.org/wiki/Petra
 [petra-jordan-img]: /assets/img/blog/2016/12/20xxxx
+
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r86-petra
 
-[r76-changeable-hawk-eagle-release]: http://snowplowanalytics.com/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#deduplication
-[r83-bald-eagle-release]: xxx
-[duplicate-schema]: com.snowplowanalytics.snowplow/duplicate/jsonschema/1-0-0
+[r76-changeable-hawk-eagle-release]: /blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#deduplication
+[r83-bald-eagle-release]: /blog/2016/09/06/snowplow-r83-bald-eagle-released-with-sql-query-enrichment
+[dupes-blog-post]: http://snowplowanalytics.com/blog/2015/08/19/dealing-with-duplicate-event-ids/
+[js-event-ids]: https://github.com/snowplow/snowplow-javascript-tracker/issues/499
+
+[duplicate-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/duplicate/jsonschema/1-0-0
+[duplicate-ddl]: https://github.com/snowplow/iglu-central/blob/master/sql/com.snowplowanalytics.snowplow/duplicate_1.sql
 
 [region-ohio]: https://aws.amazon.com/blogs/aws/aws-region-germany/
+[region-montreal]: https://aws.amazon.com/blogs/aws/now-open-aws-canada-central-region/
+[region-london]: https://aws.amazon.com/blogs/aws/now-open-aws-london-region/
 [region-roadmap]: https://aws.amazon.com/about-aws/global-infrastructure/
 
-[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
-
 [js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
+
 [sql-data-model]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model
 [model]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/redshift
 [model-sql-runner]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/looker
 [model-looker]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/sql-runner
 
-[dashdb-rfc]: xxx
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
+[dashdb-rfc]: http://discourse.snowplowanalytics.com/t/loading-enriched-events-into-ibm-dashdb/768
+
+[r87-chichen-itza]: https://github.com/snowplow/snowplow/milestone/133
 [r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
-[r8x-spark]: https://github.com/snowplow/snowplow/milestone/127
-[r8x-dashdb]: xxx
+[r8x-dashdb]: https://github.com/snowplow/snowplow/milestone/119
 [r8x-crossbatch-dedupe]: https://github.com/snowplow/snowplow/milestone/136
 
 [issues]: https://github.com/snowplow/snowplow/issues/new

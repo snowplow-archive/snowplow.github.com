@@ -36,7 +36,7 @@ Snowplow users will be familiar with the idea that they can find duplicate event
 
 We can divide these duplicates into two groups:
 
-1. **Natural:** duplicates with same event ID and same payload (what we call the event's "fingerprint"), which are in fact "real" duplicates, caused mostly by absence of exactly-once semantics
+1. **Natural:** duplicates with same event ID and same payload (which we call the event's "fingerprint"), which are in fact "real" duplicates, caused mostly by absence of exactly-once semantics
 2. **Synthetic:** duplicates with same event ID, but different fingerprint, caused by third-party software and UUID clashes
 
 Duplicates introduce significant skews in data modelling: they skew counts, confuse event pathing and, in Redshift, SQL `JOIN`s with duplicates will result in a Cartesian product.

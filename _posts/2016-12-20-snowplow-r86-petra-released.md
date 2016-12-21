@@ -69,7 +69,7 @@ This release introduces a new [SQL data model][sql-data-model] that makes it eas
 2. [A variant optimized for SQL Runner][model-sql-runner]
 3. [A variant optimized for Looker][model-looker]
 
-<h2 id="new-regions">4. Support for new regions</h2>
+<h2 id="new-regions">3. Support for new regions</h2>
 
 We are delighted to be adding support for three new AWS regions:
 
@@ -79,7 +79,7 @@ We are delighted to be adding support for three new AWS regions:
 
 AWS has a healthy [roadmap of new data center regions] [region-roadmap] opening over the coming months; we are committed to Snowplow supporting these new regions as they become available.
 
-<h2 id="upgrading">5. Upgrading</h2>
+<h2 id="upgrading">4. Upgrading</h2>
 
 Upgrading is simple - update the `hadoop_shred` job version in your configuration YAML like so:
 

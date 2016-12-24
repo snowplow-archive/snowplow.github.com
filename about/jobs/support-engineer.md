@@ -15,7 +15,7 @@ Having grown our team to two support engineers with a broad timezone reach (Albe
 
 This is a support engineering role - **not** a support agent role. We are looking for candidates who can learn, troubleshoot and explain the many complex technical systems that make up the Snowplow offering. We expect you to have an analytical mind, a high levelsof customer empathy and an enthusiasm for improving processes and systems. Depending on where your passions lie, there is a path from Support Engineering at Snowplow into Account Management, Analytics, Tech Ops or Engineering.
 
-Responsibilities for our second support engineer will include:
+Responsibilities for our third support engineer will include:
 
 * Handling customer tickets in Zendesk, resolving if possible or escalating further to our Analytics, Tech Ops, Account Management, Engineering or Product teams
 * Handling Snowplow job failures in PagerDuty, communicating the failure to our customer and either resolving if possible, or working with the customer and/or Snowplow teams to resolve

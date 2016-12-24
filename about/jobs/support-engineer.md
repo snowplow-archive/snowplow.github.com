@@ -7,7 +7,7 @@ description: What we're looking for in our next support engineer
 permalink: /about/jobs/support-engineer/
 ---
 
-<h1>Support Engineer <small>Remote, UTC+8-10</small></h1>
+<h1>Support Engineer <small>Remote, UTC+8 - UTC+10</small></h1>
 
 Our [Managed Service](http://snowplowanalytics.com/trial/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline for over 100 customers, many of them processing billions of events per month. The support that we provide to our customers is a core part of the Managed Service offering, and we strive to provide the best technical support of any analytics vendor.
 
@@ -27,7 +27,7 @@ Responsibilities for our second support engineer will include:
 
 Excellent customer support is at the core of Snowplow’s commercial offering, so in this role you will be working closely with Snowplow co-founders Alex Dean and Yali Sassoon. You will join the support rotation, and take on an agreed number of evening and weekend support hours (compensated). While the ongoing Managed Service support commitment is the first priority, our support engineers will regularly take full days to work on projects that are strategic for the Support team or wider company.
 
-Being in UTC+8-10 will place you some distance from Snowplow's offices in London and New York. You will be treated as a full member of the team, with 
+Being in UTC+8 to UTC+10 will place you some distance from Snowplow's offices in London and New York. You will be treated as a full member of the team, with regular opportunities to interact with the rest of the company, including face-to-face.
 
 We’d love to get to know you if:
 

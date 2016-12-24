@@ -36,11 +36,11 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 ### Berlin, Germany
 
 1. [Data engineer][data-engineer]
-2. [Technical product manager][technical-product-manager]
 
 ### Remote
 
 1. [Data engineer][data-engineer]
+2. [Support engineer][support-engineer]
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 

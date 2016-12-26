@@ -11,9 +11,9 @@ permalink: /about/jobs/support-engineer/
 
 Our [Managed Service](http://snowplowanalytics.com/trial/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline for over 100 customers, many of them processing billions of events per month. The support that we provide to our customers is a core part of the Managed Service offering, and we strive to provide the best technical support of any analytics vendor.
 
-Having grown our team to two support engineers with a broad timezone reach (Alberta, Canada to Berlin, Germany), we are now looking to move to a full "follow the sun" model, and hire our third support engineer in the UTC+8 to UTC+10 timezone range. We can be slightly flexible around this timezone range, but this role will **not** be filled by a candidate working nights.
+Having grown our team to two support engineers with a broad timezone reach (Alberta, Canada to Berlin, Germany), we are now looking to move to a full "follow the sun" model, and hire our third support engineer in the UTC+8 to UTC+10 timezone range. We can be slightly flexible around this timezone range, but this is not a role for a candidate working nights.
 
-This is a support engineering role - **not** a support agent role. We are looking for candidates who can learn, troubleshoot and explain the many complex technical systems that make up the Snowplow offering. We expect you to have an analytical mind, a high levelsof customer empathy and an enthusiasm for improving processes and systems. Depending on where your passions lie, there is a path from Support Engineering at Snowplow into Account Management, Analytics, Tech Ops or Engineering.
+This is a support engineering role - not a support agent role. We are looking for candidates who can learn, troubleshoot and explain the many complex technical systems that make up the Snowplow offering. We expect you to have an analytical mind, a high level of customer empathy and an enthusiasm for improving processes and systems. Depending on where your passions lie, there is a path from Support Engineering at Snowplow into Account Management, Analytics, Tech Ops or Engineering.
 
 Responsibilities for our third support engineer will include:
 

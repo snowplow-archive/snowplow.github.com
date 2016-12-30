@@ -1,7 +1,7 @@
 ---
 layout: post
 title-short: Snowplow Javascript Tracker 2.7.0 released
-title: "Snowplow Javascript Tracker 2.7.0 released with improved tracking for single-page webapps, automatic and manual error tracking, more elegant Optimizely integration and Content Security Policy compliance"
+title: "Snowplow Javascript Tracker 2.7.0 released"
 tags: [snowplow, javascript, single page web apps, CSP, Content Security Policy, true timestamp, error tracking, Optimizely]
 author: Yali
 category: Releases
@@ -16,11 +16,13 @@ We are delighted to kick off 2017 with a new release of our [Javascript Tracker]
 5. [More elegant Optimizely integration](#elegant-optimizely-integration)
 6. [New `trackSelfDescribingEvent` method](#track-self-describing-event-method)
 
+<!--more-->
+
 <h2 id="single-page-web-apps">1. Improved tracking for single-page webapps</h2>
 
-The [`webPage` context][web-page-context] is one of the most useful features of the Javascript tracker. By attaching a page view ID to every event recorded with the tracker, it becomes straightforward, when modeling and analysing the data, to understand what events occur on which web page. This is incredibly useful for understanding when e.g. a user has a website open in multiple tabs, and/or you want to understand the user flow through a website or web app.
+The [`webPage` context][web-page-context] is invaluable when you analyse or model web data, and want to be able to unambiguously identify which page view to associate with an in-page event. (Without this, it is actually impossible to do so if e.g. a user has a web page open on multiple tabs simultaneously.)
 
-Unfortunately, historically, the web page context has not worked well at all for single page web apps the track "virtual page views". Typically in these types of application, a [`trackPageView`][track-pageview] method call is made every time a virtual page view occurs. However, older versions of the tracker would not reset the page view ID when a the `trackPageView` method was called: instead it was only reset when the tracker was reinitialized. That was fine on multi-page web apps, when the tracker is reinitialized with each page load, but not on single page webapps using virtual page views, where it is not.
+Historically, the web page context has not worked well at all for single page web apps the track "virtual page views". Typically in these types of situations, a [`trackPageView`][track-pageview] method call is made every time a virtual page view occurs. Older versions of the tracker would not reset the page view ID when a the `trackPageView` method was called: instead it was only reset when the tracker was reinitialized. That was fine on multi-page web apps, when the tracker is reinitialized with each page load, but not on single page webapps using virtual page views, where it is not. As a result, typically *all* the events recorded in a single page app, open on a single tab, would have the same page view ID, however many virtual page views occurred within the app.
 
 With version 2.7.0 of the tracker, that ID is now reset every time the `trackPageView` method occurs, making it just as easy to understant what page view to associate specific events with on single page webapps as on multi-page webapps.
 
@@ -28,17 +30,19 @@ With version 2.7.0 of the tracker, that ID is now reset every time the `trackPag
 
 [Content Security Policy (CSP)][csp] is a computer security standard introduced to prevent cross-site scripting (XSS), clickjacking and other code injection attacks resulting from execution of malicious content in the trusted web page context.
 
-This release of the tracker is CSP compliant!
+With this release the Snowplow Javascript Tracker is now CSP compliant!
 
 <h2 id="error-tracking">3. Automatic and manual error tracking</h2>
 
-The JS tracker now supports automatic error tracking! Simply enable this when initializing the tracker:
+The JS tracker now supports automatic error tracking! This should make it much simpler to identify unexpected JS errors, and understand the context that those errors occur in (using all rest of the Snowplow data), allowing for faster diagnosis of the underlying issues causing those errors.
+
+To enable automatic error tracking, simply run the following when initializing the tracker:
 
 ```
 window.snowplow_name_here('enableErrorTracking');
 ```
 
-and make sure that you have created the [application error table][application-error-table] in Redshift.
+and make sure that you have created the [application error table][application-error-table] in Redshift to house the relevant data generated.
 
 In addition you can manually catch errors and track them using the new [trackError][track-error] method.
 
@@ -52,18 +56,18 @@ Previously these were always set to last for 2 years. Now y ou can configure the
 
 In the [previous tracker release][2.6.0-release] we announced Optimizely integration. This made it is straightforward to automatically grab components of the [Optimizely Data Object][optimizely-data-object] as context with any event that was recorded by the JS tracker.
 
-This release includes a new [Optimizely Summary Context][optimizely-summary-context]: which picks out:
+This release includes a new [Optimizely Summary Context][optimizely-summary-context] which:
 
-1. Just a subset of fields from the Optimizely Data Object necessary to unambiguously identify what experiment(s) are currently being run, reducing the context footprint
+1. Picks out just a subset of fields from the Optimizely Data Object necessary to unambiguously identify what experiment(s) are currently being run, reducing the context footprint
 2. Structures the data in a way that makes subsequent analysis much easier
 
-For both the above reasons we recommend all Snowplow-Optimizely users employ the new summary context rather than the prevoius contexts.
+For both the above reasons we recommend all Snowplow-Optimizely users employ the new summary context rather than the previous contexts.
 
 Huge thank you to [Snowflake Analytics'][snowflake] [Narbeh Yousefian][narbeh] for suggesting and designing the updated approach.
 
-<h2 id="track-self-describing-event-method">6. New <code>trackSelfDescribingEvent</code> method</h2>
+<h2 id="track-self-describing-event-method">6. New trackSelfDescribingEvent method</h2>
 
-We've added a new `trackSelfDescribing` event method for tracking events where you've defined your own event schema e.g.
+We've added a new `trackSelfDescribingEvent` method for tracking events where you've defined your own event schema e.g.
 
 {% highlight js %}
 window.snowplow_name_here('trackSelfDescribingEvent', {

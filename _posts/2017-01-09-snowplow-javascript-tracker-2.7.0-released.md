@@ -9,20 +9,20 @@ category: Releases
 
 We are delighted to kick off 2017 with a new release of our [Javascript Tracker][snowplow-javascript-tracker]. [Version 2.7.0][2.7.0-tag] includes a number of new and improved features including:
 
-1. [Improved tracking for single-page webapps](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0/#single-page-web-apps)
-2. [Content Security Policy compliance](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0/#csp-compliance)
-3. [Automatic and manual error tracking](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0/#error-tracking)
-4. [New configuration options for first party cookies](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0/#cookie-configuration-options)
-5. [More elegant Optimizely integration](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0/#elegant-optimizely-integration)
-6. [New `trackSelfDescribingEvent` method](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0/#track-self-describing-event-method)
+1. [Improved tracking for single-page webapps](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0-released/#single-page-web-apps)
+2. [Content Security Policy compliance](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0-released/#csp-compliance)
+3. [Automatic and manual error tracking](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0-released/#error-tracking)
+4. [New configuration options for first party cookies](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0-released/#cookie-configuration-options)
+5. [More elegant Optimizely integration](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0-released/#elegant-optimizely-integration)
+6. [New `trackSelfDescribingEvent` method](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0-released/#track-self-describing-event-method)
 
 <!--more-->
 
 <h2 id="single-page-web-apps">1. Improved tracking for single-page webapps</h2>
 
-The [`webPage` context][web-page-context] is invaluable when you analyse or model web data, and want to be able to unambiguously identify which page view to associate with an in-page event. (Without this, it is actually impossible to do so if e.g. a user has a web page open on multiple tabs simultaneously.)
+The [`webPage` context][web-page-context] is invaluable when you analyse or model web data, and want to be able to unambiguously identify which page view to associate with an in-page event. Without this, it is actually impossible to do so if e.g. a user has a web page open on multiple tabs simultaneously.
 
-Historically, the web page context has not worked well at all for single page web apps the track "virtual page views". Typically in these types of situations, a [`trackPageView`][track-pageview] method call is made every time a virtual page view occurs. Older versions of the tracker would not reset the page view ID when a the `trackPageView` method was called: instead it was only reset when the tracker was reinitialized. That was fine on multi-page web apps, when the tracker is reinitialized with each page load, but not on single page webapps using virtual page views, where it is not. As a result, typically *all* the events recorded in a single page app, open on a single tab, would have the same page view ID, however many virtual page views occurred within the app.
+Historically, the web page context has not worked well at all for single page web apps that track "virtual page views". Typically in these types of situations, a [`trackPageView`][track-pageview] method call is made every time a virtual page view occurs. Older versions of the tracker would not reset the page view ID when a the `trackPageView` method was called: instead it was only reset when the tracker was reinitialized. That was acceptable on multi-page web apps, when the tracker is reinitialized with each page load, but not on single page webapps using virtual page views, where the tracker is not reinitialized. As a result, typically *all* the events recorded in a single page app, open on a single tab, would have the same page view ID, however many virtual page views occurred within the app.
 
 With version 2.7.0 of the tracker, that ID is now reset every time the `trackPageView` method occurs, making it just as easy to understant what page view to associate specific events with on single page webapps as on multi-page webapps.
 
@@ -50,7 +50,7 @@ In addition you can manually catch errors and track them using the new [trackErr
 
 It is now possible to set the lifetime of device/user cookies, or to disable them altogether, on tracker initialization.
 
-Previously these were always set to last for 2 years. Now you can configure them as documented [here][cookie-lifetime].
+Previously these cookies were always set to last for 2 years. Now you can configure them as documented [here][cookie-lifetime].
 
 <h2 id="elegant-optimizely-integration">5. More elegant Optimizely integration</h2>
 
@@ -82,7 +82,7 @@ window.snowplow_name_here('trackSelfDescribingEvent', {
 });
 {% endhighlight %}
 
-The new method is functionally equivalent to the old (and still valid) `trackUnstructEvent` method. However, the updated name is more accurate: `trackUnstructEvent` suggests that an unstructured event is being tracked, and as the event is schema'd *and* is sent into Snowplow with a reference to it's own schema, it is actually a very structured data set.
+The new method is functionally equivalent to the old (and still valid) `trackUnstructEvent` method. However, the updated name is more accurate: `trackUnstructEvent` suggests that an unstructured event is being tracked, and as the event is schema'd *and* is sent into Snowplow with a reference to its own schema, it is actually a very structured data set.
 
 <h2 id="installation-instructions">7. Installing the updated tracker</h2>
 

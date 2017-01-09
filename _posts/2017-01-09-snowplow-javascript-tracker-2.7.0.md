@@ -7,7 +7,7 @@ author: Yali
 category: Releases
 ---
 
-We are delighted to kick off 2017 with a new release of our [Javascript Tracker][snowplow-javascript-tracker]. This includes a number of new and improved features including:
+We are delighted to kick off 2017 with a new release of our [Javascript Tracker][snowplow-javascript-tracker]. [Version 2.7.0][2.7.0-tag] includes a number of new and improved features including:
 
 1. [Improved tracking for single-page webapps](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0/#single-page-web-apps)
 2. [Content Security Policy compliance](/blog/2017/01/09/snowplow-javascript-tracker-2.7.0/#csp-compliance)
@@ -50,7 +50,7 @@ In addition you can manually catch errors and track them using the new [trackErr
 
 It is now possible to set the lifetime of device/user cookies, or to disable them altogether, on tracker initialization.
 
-Previously these were always set to last for 2 years. Now y ou can configure them as documented [here][cookie-lifetime].
+Previously these were always set to last for 2 years. Now you can configure them as documented [here][cookie-lifetime].
 
 <h2 id="elegant-optimizely-integration">5. More elegant Optimizely integration</h2>
 
@@ -100,7 +100,8 @@ There are no breaking API changes introduced with this release, so updating the 
 [csp]: https://en.wikipedia.org/wiki/Content_Security_Policy
 [application-error-table]: https://github.com/snowplow/iglu-central/blob/master/sql/com.snowplowanalytics.snowplow/application_error_1.sql
 [track-error]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#3161-trackerror
-[cookie-lifetime]: visitorCookieDuration
+[cookie-lifetime]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#visitorCookieDuration
+[2.7.0-tag]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.7.0
 [2.6.0-release]: /blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/
 [optimizely-data-object]: https://help.optimizely.com/hc/en-us/articles/205670207-The-console-data-object-and-Optimizely-log#data_object
 [optimizely-summary-context]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#221411-optimizelysummary-context

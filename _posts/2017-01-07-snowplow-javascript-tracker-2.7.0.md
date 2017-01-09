@@ -9,12 +9,12 @@ category: Releases
 
 We are delighted to kick off 2017 with a new release of our [Javascript Tracker][snowplow-javascript-tracker]. This includes a number of new and improved features including:
 
-1. [Improved tracking for single-page webapps](/blog/2017/01/03/snowplow-javascript-tracker-2.7.0/#single-page-web-apps)
-2. [Content Security Policy compliance](/blog/2017/01/03/snowplow-javascript-tracker-2.7.0/#csp-compliance)
-3. [Automatic and manual error tracking](/blog/2017/01/03/snowplow-javascript-tracker-2.7.0/#error-tracking)
-4. [New configuration options for first party cookies](/blog/2017/01/03/snowplow-javascript-tracker-2.7.0/#cookie-configuration-options)
-5. [More elegant Optimizely integration](/blog/2017/01/03/snowplow-javascript-tracker-2.7.0/#elegant-optimizely-integration)
-6. [New `trackSelfDescribingEvent` method](/blog/2017/01/03/snowplow-javascript-tracker-2.7.0/#track-self-describing-event-method)
+1. [Improved tracking for single-page webapps](/blog/2017/01/07/snowplow-javascript-tracker-2.7.0/#single-page-web-apps)
+2. [Content Security Policy compliance](/blog/2017/01/07/snowplow-javascript-tracker-2.7.0/#csp-compliance)
+3. [Automatic and manual error tracking](/blog/2017/01/07/snowplow-javascript-tracker-2.7.0/#error-tracking)
+4. [New configuration options for first party cookies](/blog/2017/01/07/snowplow-javascript-tracker-2.7.0/#cookie-configuration-options)
+5. [More elegant Optimizely integration](/blog/2017/01/07/snowplow-javascript-tracker-2.7.0/#elegant-optimizely-integration)
+6. [New `trackSelfDescribingEvent` method](/blog/2017/01/07/snowplow-javascript-tracker-2.7.0/#track-self-describing-event-method)
 
 <!--more-->
 

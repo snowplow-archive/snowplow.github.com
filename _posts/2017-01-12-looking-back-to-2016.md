@@ -11,12 +11,12 @@ category: Inside the Plow
 
 With the start of 2017, we have decided to look back at our 2016 blog and our community Discourse posts that generated more engagement with our users.
 
-A total of 548 hours were spent by more than 10 000 unique users on our blog posts while on Discourse, 424 hours were spent by 8 700 unique users.
+More than ten thousand users spent a total of 548 hours reading our blog posts whilst on Discourse (which we only launched this year), 8700 unique users spent 424 hours reading and participating in the Snowplow community.
 
-In this post we will cover:
+Let's take a closer look at:
 
-1. [Top 10 blog posts](/blog/2017/01/12/looking-back-to-2016#Top10blogpost)
-3. [Top 10 Discourse posts](/blog/2017/01/12/looking-back-to-2016#discourseposts)
+1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-to-2016#Top10blogpost)
+3. [Top 10 Discourse posts published in 2016](/blog/2017/01/12/looking-back-to-2016#discourseposts)
 
 
 <!--more-->

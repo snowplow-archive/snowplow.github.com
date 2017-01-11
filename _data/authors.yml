@@ -122,3 +122,11 @@
   avatar: /assets/img/team/idan.jpg
   spiel:   |
       <a href="/blog/authors/idan/">Idan</a> does business development at Snowplow</a>.
+
+- name: Diogo
+  full_name: Diogo Pacheco
+  twitter: diogopacheco
+  url: /blog/authors/diogo/
+  avatar: /assets/img/team/diogo.jpg
+  spiel:   |
+      <a href="/blog/authors/diogo/">Diogo</a> is a data analyst at Snowplow</a>.

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Looking back into 2016
-title-short: Looking back into 2016
+title: Looking back at 2016
+title-short: Looking back at 2016
 tags: [snowplow]
 author: Diogo
 category: Inside the Plow
@@ -17,7 +17,6 @@ Let's take a closer look at:
 
 1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-to-2016#Top10blogpost)
 2. [Top 10 Discourse threads published in 2016](/blog/2017/01/12/looking-back-to-2016#discourseposts)
-
 
 <!--more-->
 
@@ -113,7 +112,6 @@ Snowplow Mini was a surprise hit for us in 2016. The initial version was prototy
 
 [Introducing Factotum data pipeline runner](http://snowplowanalytics.com/blog/2016/04/09/introducing-factotum-data-pipeline-runner/) was the third most popular blog post by number of users. This is very exciting: Factotum is something we developed at Snowplow to make our jobs of reliably instrumenting and running a huge number of data pipelines, each defined by a DAG, efficiently and robustly across  hundreds of our users. The interest in Factotum shows that other people and companies are also interested in better managing the ongoing running of complciated, multi-step data pipelines.
 
-
 <h3 id="Sourceoftraffic">Drilling into the source of traffic of the top 10 blog posts</h3>
 
 To better understand the channels that drove users to our most read posts, we can split traffic by `refr_medium `. We have plotted the blog posts per referrer to understand the distribution of traffic between the posts.
@@ -203,7 +201,7 @@ Let's now look at our top Discourse posts.
 
 Now let's plot the same visualisation as before:
 
-####Number of unique users per average time spent:
+#### Number of unique users per average time spent:
 
 ![top2016_3_f] [top2016_3_f]
 

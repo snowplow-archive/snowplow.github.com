@@ -15,12 +15,12 @@ More than ten thousand users spent a total of 548 hours reading our blog posts w
 
 Let's take a closer look at:
 
-1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-to-2016/#Top10blogpost)
-2. [Top 10 Discourse threads published in 2016](/blog/2017/01/12/looking-back-to-2016#/discourseposts)
+1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-to-2016/#top10blogpost)
+2. [Top 10 Discourse threads published in 2016](/blog/2017/01/12/looking-back-to-2016/#discourseposts)
 
 <!--more-->
 
-<h2 id="Top10blogpost">1. Top 10 blog posts published in 2016</h2>
+<h2 id="top10blogpost">1. Top 10 blog posts published in 2016</h2>
 
 Let's start by looking into our top 10 blog posts by number of unique users.
 
@@ -106,13 +106,13 @@ While this ranking already gives us some insights on what type of content drove 
 
 The blog post, [An introduction to event data modeling](http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling">An introduction to event data modeling), stands out as the post that not only attracted the largest number of readers but also kept them reading longer than any of the other 10 posts. Event data modeling is a hot topic: one we've done a lot of thinking about at Snowplow over hte last 18 months. This was the first post where we started to sketch out an overall approach and highlight some of the key challenges to event data modeling, and it's great to see that the community at large engaged with us. We've certainly had a lot of interesting conversations of that back of that blog post, and the presentations and other posts and threads on this topic.
 
-It's therefore also great to see that the second post by average time engaged per user was another event data modeling post - this time on [building first and last touch attribution models in Redshift SQL](http://snowplowanalytics.com/blog/2016/02/22/building-first-and-last-touch-attribution-models-in-redshift-sql/)
+It's therefore also great to see that the second post by average time engaged per user was another event data modeling post - this time on [building first and last touch attribution models in Redshift SQL](http://snowplowanalytics.com/blog/2016/02/22/building-first-and-last-touch-attribution-models-in-redshift-sql/).
 
 Snowplow Mini was a surprise hit for us in 2016. The initial version was prototyped on a company hackathon back in Feb. By the time we published [Introducing Snowplow Mini](http://snowplowanalytics.com/blog/2016/04/08/introducing-snowplow-mini/) we had already piloted its use across a number of our users and found that it was invaluable to them as they developed new event and entity (context) schemas: enabling to test those instrumentation updates prior to rolling them out.
 
 [Introducing Factotum data pipeline runner](http://snowplowanalytics.com/blog/2016/04/09/introducing-factotum-data-pipeline-runner/) was the third most popular blog post by number of users. This is very exciting: Factotum is something we developed at Snowplow to make our jobs of reliably instrumenting and running a huge number of data pipelines, each defined by a DAG, efficiently and robustly across  hundreds of our users. The interest in Factotum shows that other people and companies are also interested in better managing the ongoing running of complciated, multi-step data pipelines.
 
-<h3 id="Sourceoftraffic">Drilling into the source of traffic of the top 10 blog posts</h3>
+<h2 id="Sourceoftraffic">Drilling into the source of traffic of the top 10 blog posts</h2>
 
 To better understand the channels that drove users to our most read posts, we can split traffic by `refr_medium `. We have plotted the blog posts per referrer to understand the distribution of traffic between the posts.
 

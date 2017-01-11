@@ -114,12 +114,11 @@ Snowplow Mini was a surprise hit for us in 2016. The initial version was prototy
 [Introducing Factotum data pipeline runner](http://snowplowanalytics.com/blog/2016/04/09/introducing-factotum-data-pipeline-runner/) was the third most popular blog post by number of users. This is very exciting: Factotum is something we developed at Snowplow to make our jobs of reliably instrumenting and running a huge number of data pipelines, each defined by a DAG, efficiently and robustly across  hundreds of our users. The interest in Factotum shows that other people and companies are also interested in better managing the ongoing running of complciated, multi-step data pipelines.
 
 
-<h3 id="Sourceoftraffic">Drilling into the source of traffic of the top 10 blog posts</h2>
-
+<h3 id="Sourceoftraffic">Drilling into the source of traffic of the top 10 blog posts</h3>
 
 To better understand the channels that drove users to our most read posts, we can split traffic by `refr_medium `. We have plotted the blog posts per referrer to understand the distribution of traffic between the posts.
 
-####Distribution of unique users per different sources of traffic ranked by total unique users:
+#### Distribution of unique users per different sources of traffic ranked by total unique users:
 
 ![top2016_2_f] [top2016_2_f]
 

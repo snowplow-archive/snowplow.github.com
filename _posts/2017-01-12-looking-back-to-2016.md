@@ -207,7 +207,7 @@ Now let's plot the same visualisation as before:
 
 ![top2016_3_f] [top2016_3_f]
 
-The Discourse post about [Visualise Snowplow data using Airbnb Caravel & Redshift](http://discourse.snowplowanalytics.com/t/visualise-snowplow-data-using-airbnb-caravel-redshift-tutorial/515) was the post that attracted the largest number of users: people are certainly interested in open source tools for visualizing data! It's not a surprise therefore that the post [Wagon alternative](http://discourse.snowplowanalytics.com/t/wagon-alternative/579) also featured in the top 10.
+The Discourse tutorial on [Visualis[ing] Snowplow data using Airbnb Caravel & Redshift](http://discourse.snowplowanalytics.com/t/visualise-snowplow-data-using-airbnb-caravel-redshift-tutorial/515) was the post that attracted the largest number of users: people are certainly interested in open source tools for visualizing data! It's not a surprise therefore that the post [Wagon alternative](http://discourse.snowplowanalytics.com/t/wagon-alternative/579) also featured in the top 10.
 
 Our Basic SQL recipes for web data](http://discourse.snowplowanalytics.com/t/basic-sql-recipes-for-web-data/25) ranked first for engaged time: perhaps not surprising as it's likely readers will have walked through the different example queries whilst testing them on their own Snowplow data.
 

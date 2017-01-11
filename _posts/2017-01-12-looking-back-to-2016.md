@@ -217,9 +217,9 @@ It's also great to see the active interest in Spark by the Snowplow community - 
 
 <h2 id="conclusion">What should we be writing about in 2017?</h2>
 
-If you have any ideas then let us know. Please stay tuned to our [Blog](http://snowplowanalytics.com/blog/),  [Discourse](http://discourse.snowplowanalytics.com/) and [Twitter](https://twitter.com/snowplowdata) during 2017. And [sign up to our mailing list][mailing-list] for a monthy digest of new content by the Snowplow Team and broader Snowplow Community.
+If you have any ideas then let us know. Please stay tuned to our [Blog](http://snowplowanalytics.com/blog/), [Discourse](http://discourse.snowplowanalytics.com/) and [Twitter](https://twitter.com/snowplowdata) during 2017.
 
-
+And [sign up to our mailing list][mailing-list] for a monthy digest of new content by the Snowplow Team and broader Snowplow Community.
 
 [looking-back-to-2016]: /assets/img/blog/2017/01/looking-back-to-2016.jpg
 [top2016_1_f]: /assets/img/blog/2017/01/top2016_1_f.png

@@ -16,14 +16,14 @@ More than ten thousand users spent a total of 548 hours reading our blog posts w
 Let's take a closer look at:
 
 1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-to-2016#Top10blogpost)
-3. [Top 10 Discourse posts published in 2016](/blog/2017/01/12/looking-back-to-2016#discourseposts)
+2. [Top 10 Discourse threads published in 2016](/blog/2017/01/12/looking-back-to-2016#discourseposts)
 
 
 <!--more-->
 
-<h2 id="Top10blogpost">1. Top 10 blog posts</h2>
+<h2 id="Top10blogpost">1. Top 10 blog posts published in 2016</h2>
 
-Let's start by looking into our top 10 blog posts per unique users.
+Let's start by looking into our top 10 blog posts by number of unique users.
 
 <table class="table">
   <thead>
@@ -98,22 +98,26 @@ Let's start by looking into our top 10 blog posts per unique users.
 </tbody>
 </table>
 
-While this ranking already gives us some insights on what type of content drove more engagement, let's plot this data against the average time spent per unique users to further understand the content consumption.
+While this ranking already gives us some insights on what type of content drove the most engagement, let's plot this the number of uniques against the average engagement time per post by unique, to compare compare posts not only by how many people each attracts but how long each of those people spends reading the content (at least on average).
 
 
-####Number of unique users per average time spent
+#### Number of unique users per average time spent
 
 ![top2016_1_f] [top2016_1_f]
 
-The blog post [An introduction to event data modeling](http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling">An introduction to event data modeling) was a conceptual guide about event data modelling which we believe that although not Snowplow specific resonated most with our readers not only in terms of volume of users but also on the average time spent. [Building first and last touch attribution models in Redshift SQL](http://snowplowanalytics.com/blog/2016/02/22/building-first-and-last-touch-attribution-models-in-redshift-sql/) as it was the second most engage blogs post per average time spent per user. [Introducing Snowplow Mini](Introducing Snowplow Mini) helped Snowplow users to speed up the process of testing Snowplow tracking prior rolling out the fully fledged Snowplow pipeline.[Introducing Factotum data pipeline runner](http://snowplowanalytics.com/blog/2016/04/09/introducing-factotum-data-pipeline-runner/) being the third most popular blog post was a surprise as this was a piece of software developed mainly for internal use and we were not expecting Snowplow users to use it on their pipelines.
+The blog post, [An introduction to event data modeling](http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling">An introduction to event data modeling), stands out as the post that not only attracted the largest number of readers but also kept them reading longer than any of the other 10 posts. Event data modeling is a hot topic: one we've done a lot of thinking about at Snowplow over hte last 18 months. This was the first post where we started to sketch out an overall approach and highlight some of the key challenges to event data modeling, and it's great to see that the community at large engaged with us. We've certainly had a lot of interesting conversations of that back of that blog post, and the presentations and other posts and threads on this topic.
 
-After looking at ranking and data visualisation we understand that data modelling is one of the key drivers of engagements having 6 out 10 blog posts ranks.
+It's therefore also great to see that the second post by average time engaged per user was another event data modeling post - this time on [building first and last touch attribution models in Redshift SQL](http://snowplowanalytics.com/blog/2016/02/22/building-first-and-last-touch-attribution-models-in-redshift-sql/)
 
-<h2 id="Sourceoftraffic">2. Source of traffic</h2>
+Snowplow Mini was a surprise hit for us in 2016. The initial version was prototyped on a company hackathon back in Feb. By the time we published [Introducing Snowplow Mini](Introducing Snowplow Mini) we had already piloted its use across a number of our users and found that it was invaluable to them as they developed new event and entity (context) schemas: enabling to test those instrumentation updates prior to rolling them out.
+
+[Introducing Factotum data pipeline runner](http://snowplowanalytics.com/blog/2016/04/09/introducing-factotum-data-pipeline-runner/) was the third most popular blog post by number of users. This is very exciting: Factotum is something we developed at Snowplow to make our jobs of reliably instrumenting and running a huge number of data pipelines, each defined by a DAG, efficiently and robustly across  hundreds of our users. The interest in Factotum shows that other people and companies are also interested in better managing the ongoing running of complciated, multi-step data pipelines.
 
 
-To better understand how did the users reached us we have decided to look at the `refr_medium `. We have plotted the blog posts per referrer to understand the distribution of traffic between the posts.
+<h3 id="Sourceoftraffic">Drilling into the source of traffic of the top 10 blog posts</h2>
 
+
+To better understand the channels that drove users to our most read posts, we can split traffic by `refr_medium `. We have plotted the blog posts per referrer to understand the distribution of traffic between the posts.
 
 ####Distribution of unique users per different sources of traffic ranked by total unique users:
 
@@ -123,7 +127,7 @@ Search was a significant driver for many posts and after further investigation, 
 
 Let's now look at our top Discourse posts.
 
-<h2 id="discourseposts">3. Discourse posts</h2>
+<h2 id="discourseposts">2. Top 10 Discourse threads published in 2016</h2>
 
 <table class="table">
   <thead>
@@ -204,20 +208,17 @@ Now let's plot the same visualisation as before:
 
 ![top2016_3_f] [top2016_3_f]
 
-The Discourse post about [Visualise Snowplow data using Airbnb Caravel & Redshift](http://discourse.snowplowanalytics.com/t/visualise-snowplow-data-using-airbnb-caravel-redshift-tutorial/515) was the post that drove more users demonstrating that users are really looking for ways to visualise and analyse the data. Our post about [Basic SQL recipes for web data](http://discourse.snowplowanalytics.com/t/basic-sql-recipes-for-web-data/25) ranked 1s for engaged time. Here we have several SQL recipes on how to calculate several metrics such as the % of new visits to the split between mobile and web traffic. Our post about [Identifying users (identity stitching)](http://discourse.snowplowanalytics.com/t/identifying-users-identity-stitching/31) which allows our readers to build  users models and "stitch" different user identifiers against, for example, a login ID, enabling to aggregate, for example, the different devices under the same login ID.
+The Discourse post about [Visualise Snowplow data using Airbnb Caravel & Redshift](http://discourse.snowplowanalytics.com/t/visualise-snowplow-data-using-airbnb-caravel-redshift-tutorial/515) was the post that attracted the largest number of users: people are certainly interested in open source tools for visualizing data! It's not a surprise therefore that the post [Wagon alternative](http://discourse.snowplowanalytics.com/t/wagon-alternative/579) also featured in the top 10.
 
-The Discourse posts demonstrated a demand for more content related to data modelling as 9 of 10 posts were about data modeling.
+Our Basic SQL recipes for web data](http://discourse.snowplowanalytics.com/t/basic-sql-recipes-for-web-data/25) ranked first for engaged time: perhaps not surprising as it's likely readers will have walked through the different example queries whilst testing them on their own Snowplow data.
 
-<h2 id="conclusion">4. Conclusion</h2>
+Event data modeling also feature in the top 10 with our post [Identifying users (identity stitching)](http://discourse.snowplowanalytics.com/t/identifying-users-identity-stitching/31).
 
+It's also great to see the active interest in Spark by the Snowplow community - two of the top 10 posts are about analyzing Snowplow data with Spark.
 
-As Both the blog and Discourse posts demonstrated, data modelling is a hot topic among our users.
+<h2 id="conclusion">What should we be writing about in 2017?</h2>
 
-SNOWPLOW SELL ABOUT UNIQUENESS
-
-As we continue to grow we promise that we will keep engaging with our community and readers and share interesting and different data modelling solutions that will fit diverse data scenarios.
-
-So please, do stay tuned to our [Blog](http://snowplowanalytics.com/blog/),  [Discourse](http://discourse.snowplowanalytics.com/) and [Twitter](https://twitter.com/snowplowdata) during 2017.
+If you have any ideas then let us know. Please stay tuned to our [Blog](http://snowplowanalytics.com/blog/),  [Discourse](http://discourse.snowplowanalytics.com/) and [Twitter](https://twitter.com/snowplowdata) during 2017. And [sign up to our mailing list][mailing-list] for a monthy digest of new content by the Snowplow Team and broader Snowplow Community.
 
 
 
@@ -225,3 +226,4 @@ So please, do stay tuned to our [Blog](http://snowplowanalytics.com/blog/),  [Di
 [top2016_1_f]: /assets/img/blog/2017/01/top2016_1_f.png
 [top2016_2_f]: /assets/img/blog/2017/01/top2016_2_f.png
 [top2016_3_f]: /assets/img/blog/2017/01/top2016_3_f.png
+[mailing-list]: http://eepurl.com/b0yEgz

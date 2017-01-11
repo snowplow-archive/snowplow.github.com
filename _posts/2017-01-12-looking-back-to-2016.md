@@ -15,8 +15,8 @@ A total of 548 hours were spent by more than 10 000 unique users on our blog pos
 
 In this post we will cover:
 
-1. [Top 10 blog posts](/blog/2017-01-12-looking-back-to-2016#Top10blogpost)
-3. [Top 10 Discourse posts](/blog/2017-01-12-looking-back-to-2016#discourseposts)
+1. [Top 10 blog posts](/blog/2017/01/12/looking-back-to-2016#Top10blogpost)
+3. [Top 10 Discourse posts](/blog/2017/01/12/looking-back-to-2016#discourseposts)
 
 
 <!--more-->

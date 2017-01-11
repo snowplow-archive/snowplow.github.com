@@ -15,8 +15,8 @@ More than ten thousand users spent a total of 548 hours reading our blog posts w
 
 Let's take a closer look at:
 
-1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-to-2016#Top10blogpost)
-2. [Top 10 Discourse threads published in 2016](/blog/2017/01/12/looking-back-to-2016#discourseposts)
+1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-to-2016/#Top10blogpost)
+2. [Top 10 Discourse threads published in 2016](/blog/2017/01/12/looking-back-to-2016#/discourseposts)
 
 <!--more-->
 
@@ -108,7 +108,7 @@ The blog post, [An introduction to event data modeling](http://snowplowanalytics
 
 It's therefore also great to see that the second post by average time engaged per user was another event data modeling post - this time on [building first and last touch attribution models in Redshift SQL](http://snowplowanalytics.com/blog/2016/02/22/building-first-and-last-touch-attribution-models-in-redshift-sql/)
 
-Snowplow Mini was a surprise hit for us in 2016. The initial version was prototyped on a company hackathon back in Feb. By the time we published [Introducing Snowplow Mini](Introducing Snowplow Mini) we had already piloted its use across a number of our users and found that it was invaluable to them as they developed new event and entity (context) schemas: enabling to test those instrumentation updates prior to rolling them out.
+Snowplow Mini was a surprise hit for us in 2016. The initial version was prototyped on a company hackathon back in Feb. By the time we published [Introducing Snowplow Mini](http://snowplowanalytics.com/blog/2016/04/08/introducing-snowplow-mini/) we had already piloted its use across a number of our users and found that it was invaluable to them as they developed new event and entity (context) schemas: enabling to test those instrumentation updates prior to rolling them out.
 
 [Introducing Factotum data pipeline runner](http://snowplowanalytics.com/blog/2016/04/09/introducing-factotum-data-pipeline-runner/) was the third most popular blog post by number of users. This is very exciting: Factotum is something we developed at Snowplow to make our jobs of reliably instrumenting and running a huge number of data pipelines, each defined by a DAG, efficiently and robustly across  hundreds of our users. The interest in Factotum shows that other people and companies are also interested in better managing the ongoing running of complciated, multi-step data pipelines.
 

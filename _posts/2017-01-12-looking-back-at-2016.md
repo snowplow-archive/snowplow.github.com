@@ -15,8 +15,8 @@ More than ten thousand users spent a total of 548 hours reading our blog posts w
 
 Let's take a closer look at:
 
-1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-to-2016/#top10blogpost)
-2. [Top 10 Discourse threads published in 2016](/blog/2017/01/12/looking-back-to-2016/#discourseposts)
+1. [Top 10 blog posts published in 2016](/blog/2017/01/12/looking-back-at-2016/#top10blogpost)
+2. [Top 10 Discourse threads published in 2016](/blog/2017/01/12/looking-back-at-2016/#discourseposts)
 
 <!--more-->
 

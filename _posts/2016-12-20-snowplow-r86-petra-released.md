@@ -133,8 +133,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [sql-data-model]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model
 [model]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/redshift
-[model-sql-runner]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/looker
-[model-looker]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/sql-runner
+[model-sql-runner]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/sql-runner
+[model-looker]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/web-model/looker
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 

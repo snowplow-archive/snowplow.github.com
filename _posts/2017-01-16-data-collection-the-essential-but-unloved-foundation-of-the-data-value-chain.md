@@ -53,6 +53,10 @@ Discuss tracking data live from applications vs:
 1. Pulling it from databases built to serve transactional/production systems
 2. Fetching it out of log files
 
+### 2.4 The data should be 'usable' in a wide-variety of different applications
+
+Maybe relate this to 2.1
+
 <h2 id="strategies-for-collecting-good-data">3. Strategies and techniques for collecting good data</h2>
 
 

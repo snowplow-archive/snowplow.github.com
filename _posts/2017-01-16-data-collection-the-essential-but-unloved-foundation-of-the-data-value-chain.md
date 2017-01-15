@@ -12,15 +12,15 @@ It's not just that people in data don't remark on the importance of data collect
 
 ![Firstmark-big-data-landscape-2016][big-data-landscape-image]
 
-Roughly 15% of the landscape is given over to the 'Data Sources and API' providers. However, there are no providers listed, either in that section, or the rest of the map, that specialize in enabling companies to collect their own data. The Big Data Landscape, then, is full of vendors that will help you do things with your data, and provide you with their data. But all those providers take assume you have your own data to do stuff with, so have got data collection sorted.
+Roughly 15% of the landscape is given over to the 'Data Sources and API' providers. However, *none* of the providers listed, either in that section, or the rest of the map, specialize in enabling companies to collect their own data. The Big Data Landscape, then, is full of vendors that will help you do things with your data, and provide you with their data. But all those providers take assume you have your own data to do stuff with, so have got data collection sorted.
 
-The awkward truth is that although most companies do have some of their own data, it's not great. And most, choose to invest in the rest of their data / analytics stack, without putting in place proper processes and systems, to collect and store the right data in the first place. In this post, I'm going to explore:
+The awkward truth is that although most companies do have some of their own data, it's not great. And most, choose to invest in the rest of their data / analytics stack, without putting in place proper processes and systems to collect and store the right data in the first place. In this post, I'm going to explore:
 
 1. [What makes good data?](#what-makes-good-data)
 2. [Strategies and techniques to systematically collecting and generating good data](#strategies-and-techniques-for-systematically-collecting-and-generating-good-data)
 3. [How we've incorporated those strategies and techniques in the Snowplow architecture](#how-we-have-incorporated-those-strategies-and-techniques-in-the-snowplow-architecture)
-4. [There is a strong commercial imperative to collect data properly](#commercial-imperative)
-4. [Doing data collection right is a moral as well as commercial imperative](#doing-data-collection-right-is-a-moral-and-commercial-imperative)
+4. [The strong commercial imperative to collect data properly](#commercial-imperative)
+5. [The strong moral imperative to collect data properly](#moral-imperative)
 
 
 <h2 id="what-makes-good-data">1. What makes good data?</h2>
@@ -41,7 +41,7 @@ If we're going to build intelligence and make decisions based on data, then that
 
 <h3 id="easy-to-understand">1.2 Good data is easy to understand. (For humans and machines.)</h3>
 
-Data is a representation of a set of things, in the world, that have happened, or have been measured. In order to use data, we need to understand what that data represents, in the world. If the data represents a particular set of events, in a user journey, for example, we need to understand the possibility space in which that user journey has occurred in, in order to do anything intelligent with the data. It's not enough to know what happened. We need to understand what happened in the context of what might have happened, in order to ask sensible questions about why what happened happened, and what didn't happen, didn't happen.
+Data is a representation of a set of things, in the world, that have happened, or that simply 'are' (in cases where we're measuring the state of something - e.g. the temperature of the air). In order to use data, we need to understand what that data represents, in the world. If the data represents a particular set of events, in a user journey, for example, we need to understand the possibility space in which that user journey has occurred in, in order to do anything intelligent with the data. 
 
 There is therefore a lot of contextual knowledge, that is required, to make sense of data. Good data, as far as possible, needs to 'incorporate', or be packaged with, that contextual information (itself represented as data), to make it easy, for someone or some artificial intelligence, down the line, to take that data and use it to draw an inference. We often describe that contextual information as metadata. 
 
@@ -68,15 +68,15 @@ Let's take each strategy in turn:
 
 Whilst digital analysts might not have much history worry about data reliability, other professions, notably accounting, but long been concerned about data veracity.
 
-If our data collection is auditable, we can check that is works as advertised. If we can break down each step in the data processing pipeline, check the input and output to each step, and rerun each and every step in that pipeline, we can build very high levels of confidence about the reliability of the data generated. If anyone has any doubts about the data quality, she or he can go back and reprocess that data, from scratch, to identify if there were any steps in the collection process that might have compromised the data.
+If our data collection is auditable, we can check that it works as advertised. If we can break down each step in the data processing pipeline, check the input and output to each step, and rerun each and every step in that pipeline, we can build very high levels of confidence about the reliability of the data generated. If anyone has any doubts about the data quality, she or he can go back and reprocess that data, from scratch, to identify if there were any steps in the collection process that might have compromised the data.
 
 <h4 id="non-lossy">2.1.2 Ensure that data collection is non-lossy</h3>
 
 In areas of data collection outside of digital analytics, the requirement that a data pipeline be non-lossy is an obvious one. An odometer in a car, for example, would not be very good if it only recorded 3 in every 4 miles that a car had been driven.
 
-In Digital Analytics, however, data pipelines have historically been lossy: data will typically enter the pipeline that doesn't successfully 'make it through'. The reason is relatively simple: the web is a wild place with a large number of bad actors. A cursory examination of any Snowplow collector log records will reveal a large number of requests originating from bots and spiders looking for vulnerable servers to attack. With good reason, web analytics vendors ignore the requests generated by these types of bots and spiders as they do not represent activity of users on websites, for example.
+In Digital Analytics, however, data pipelines have historically been lossy: data will typically enter the pipeline that doesn't successfully 'make it through'. There is a good reason for that: the web is a wild place with a large number of bad actors. A cursory examination of any Snowplow collector log records will reveal a large number of requests originating from bots and spiders looking for vulnerable servers to attack. We can understand, then, why web analytics vendors ignore the requests generated by these types of bots and spiders as they do not represent activity of users on websites.
 
-The trouble with ignoring the requests altogether is that as soon as you have a data pipeline where data can flow in but not flow out, it is possible (even likely) that some data that should make it all the way through the pipeline is dropped. For this reason, modern data pipelines used in digital analytics should not be lossy: rather than dropping data, it should be 'redirected' somewhere where it can be investigated and verified and reprocessed if necessary, rather than disappear in the ether.
+The trouble with ignoring the requests altogether is that as soon as you have a data pipeline where data can flow in but not flow out, it is possible (even likely) that some data that should make it all the way through the pipeline is dropped. For this reason, modern data pipelines used in digital analytics should not be lossy: rather than dropping data, it should be 'redirected' somewhere where it can be investigated and verified and reprocessed if necessary, rather than disappear without trace or record.
 
 <h4 id="precision">2.1.3 Ensure that the metadata that is generated with the data is incredibly precise</h3>
 
@@ -90,13 +90,50 @@ What we can do, instead, however, is be incredibly precise about the metadata we
 
 By being very precise in our definition of what was measured, we can ensure that our data is 100% reliable. There's then an inference, that needs to be made, from that data, to a 'fact' about how long this particular user was reading the contents of this particular web page, on this particular date. Whilst there are limits to the precision of that 'fact', it should be clear how that is inferred from the underlying data. If someone then wants to question whether that inference is valid, she or he can go back to the underlying data and make an alternative inference, because the underlying data, is precise.
 
-### 2.2 Ensuring that data collected is easy-to-understand (for humans and machines)
 
-There are two key strategies for ensuring that data is easy to understand:
+<h3>2.2 Ensuring that data collected is easy-to-understand (for humans and machines)</h3>
 
-1. [Bundle data with metadata about what that data represents, how it was generated and how it was processed](#metadata)
-2. [Ensure that the data (and metadata) collected is highly structured](#structured)
+There are two key strategies for ensuring that data is easy to understand:  
 
+1. [Bundle data with metadata about what that data represents, how it was generated and how it was processed](#metadata)  
+2. [Ensure that the structure of the data reflects our mental representation of the events recorded](#natural-representation)  
+
+<h4 id="metadata">2.2.1 Bundle data with metadata about what that data represents, how it was generated and how it was processed</h4>
+
+Data by itself is valueless. Unless we know what it's supposed to represent, how it was generated, and how it is structured, we are not in a position to know what it "means", so understand if it is appropriate to answer the particular questions we want to ask.
+
+When data sets were small and lived in spreadsheets with named authors, getting hold of this contextual information was a simple matter of asking the author. In the world we live today, where billions of lines of data, generated from tens or hundreds of different sources over years and decades, and accumulated in datawarehouses, data marts or data lake (I use the terms through gritted teeth), it may not be clear where one data set ends and another begins, leave alone who you should ask about what the data represents and how it was generated.
+
+If the metadata that describes what that data is and how it was generated and processed, can be systematically packaged and structured with the data actually generated, we make it much easier, down the line, for both humans and machines to take that data and do useful things with it. Ensuring that our data collection processes are as systematic about the way they capture, store and package the metadata required to work with the data itself, as the data itself, is essential to ensuring the data has value beyond the short term.
+
+<h4 id="natural-representation">2.2.2 Ensure that the structure of the data reflects our mental representation of the events recorded</h4>
+
+When data analysts work with data, they need to map the data they have to their mental model of the question to be answered, and then analyse the data to answer the question.
+
+Structuring the data, then, in a way that naturally mirrors the way that an analyst (or anyone using the data) thinks about the processes in the world that the data represents, makes the data much easier to work with. This is the primary reason why people find working with data underlying Omniture / Adobe so difficult: because the structure of the data (a long list of sProps and eVars) reflects legacy technical architecture rather than our natural mental model for the web events that data typically is used to represent. 
+
+
+### 2.3 Ensure that data collected is easy-to-use
+
+Easy-to-use data is:
+
+1. [Highly structured](#structured)
+2. [Rich](#rich)
+3. [Systematically modeled](#systematically-modeled)
+
+<h4 id="structured">2.3.1 Easy-to-use data is highly structured</h4>
+
+To process data, you have to know how that data is structured, including the differents fields that make up that data and their type. Whilst the advances in a range of big data technologies mean it is now feasible to work with unstructured and semi-structured data, the first stage in processing unstructured and semi-structured data sets is to structure them. 
+
+If you are going to put in the time and effort to collect good data, make sure that the data you collect is structured. It should be made up of clearly defined entities and types with well understood properties, making it easy for analysts, scientists and other data consumers to build downstream processes to do useful things with that data. 
+
+<h4 id="rich">2.3.2 Easy-to-use data is rich</h4>
+
+
+
+<h4 id="systematically-modeled">2.3.3 Easy-to-use data is systematically modeled</h4> 
+
+### 2.4 Data is a first class citizern: not a bi-product of another process
 
 
 <h2 id="how-we-have-incorporated-those-strategies-and-techniques-in-the-snowplow-architecture">3. How we've incorporated those strategies and techniques in the Snowplow architecture </h2>

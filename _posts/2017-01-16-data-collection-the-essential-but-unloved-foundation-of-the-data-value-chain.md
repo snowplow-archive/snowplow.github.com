@@ -184,11 +184,24 @@ Sadly, today, the above sources account for the vast majority of digital event d
 
 <h2 id="commercial-imperative">3. The strong commercial imperative to collect data properly</h2>
 
-Blah
+Data is an asset. Used well, data can generate a huge amount of value and give companies considerable competitive advantage. This is well understood which is why so many companies invest heavily in data processing infrastructure. It is therefore incredibly surprising that companies don't spend the time getting the basics, i.e. the data collection processes, right.
+
+User data is something that companies can only collect in virtue of their relationship with their users. Each different company has a different relationship with its users, and provides different services to its users. Each, therefore, is in a position to collect different data from their own users. Part of the value of the data that companies collect is in its uniqueness.
+
+However, it is not just that that data can be used to generate enormous commercial value. Companies owe their users a duty of care to systematically collect that data and deploy it to provide better serve to those users, building that relationship to the users benefit. If that relationship successfully evolves, opportunities to collect data will only grow, creating a virtuous circle in which companies will use the data to provide a better and better service, and in turn generate more data that will open up new opportunities to better serve their customers.
 
 <h2 id="doing-data-collection-right-is-a-moral-and-commercial-imperative">4. Doing data collection right is a moral as well as commercial imperative </h2>
 
-Blah
+Getting data collection right, then, doesn't just mean collecting reliable, easy-to-understand, easy-to-use data. It means treating that data as an asset, securing it on your own systems, and sharing it selectively with vetted third parties, both to protect the commercial value of the data and out of respect for the trust that users have demonstrated when they've shared that data in the first place.
+
+## Want to do data collection right?
+
+Then [get in touch][contact] with the Snowplow team.
+
+## Comments, responses and reactions to this post?
+
+Please post them to our [discourse forum][discourse]!
+
 
 
 
@@ -196,3 +209,5 @@ Blah
 [big-data-landscape-image]: /assets/img/blog/2017/01/Big-Data-Landscape-2016-v18-FINAL.png
 [introduction-to-event-data-modeling]: /blog/2016/03/16/introduction-to-event-data-modeling/
 [identity-stitching]: http://discourse.snowplowanalytics.com/t/identifying-users-identity-stitching/31
+[contact]: /about/index.html
+[discourse]: http://discourse.snowplowanalytics.com/

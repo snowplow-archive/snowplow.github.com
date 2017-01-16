@@ -210,4 +210,4 @@ Please post them to our [discourse forum][discourse]!
 [introduction-to-event-data-modeling]: /blog/2016/03/16/introduction-to-event-data-modeling/
 [identity-stitching]: http://discourse.snowplowanalytics.com/t/identifying-users-identity-stitching/31
 [contact]: /about/index.html
-[discourse]: http://discourse.snowplowanalytics.com/
+[discourse]: http://discourse.snowplowanalytics.com/t/data-collection-the-essential-but-unloved-foundation-of-the-data-value-chain/932

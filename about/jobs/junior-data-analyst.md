@@ -4,7 +4,7 @@ group: about
 subgroup: jobs
 title: Junior data analyst / scientist
 description: What we're looking for our junior data analyst / scientist
-permalink: /about/jobs/junior-data-analyst/
+permalink: /about/jobs/junior-data-analyst-hidden/
 ---
 
 <h1>Junior Data Analyst / Scientist<small>&nbsp;London, UK</small></h1>

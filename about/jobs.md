@@ -31,7 +31,6 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 
 1. [Data engineer][data-engineer]
 2. [Technical product manager][technical-product-manager]
-3. [Junior data analyst][Junior data analyst]
 
 ### Berlin, Germany
 
@@ -46,8 +45,6 @@ Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 <strong>We do not welcome calls from recruitment consultants.</strong>
 
-[Junior data analyst]: /about/jobs/junior-data-analyst/
-[Senior data analyst]: /about/jobs/senior-data-analyst/
 [data-engineer]: /about/jobs/data-engineer/
 [support-engineer]: /about/jobs/support-engineer/
 [technical-product-manager]: /about/jobs/technical-product-manager/

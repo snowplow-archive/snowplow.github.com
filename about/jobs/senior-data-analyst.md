@@ -4,7 +4,7 @@ group: about
 subgroup: jobs
 title: Senior data analyst / scientist
 description: What we're looking for our senior data analyst / scientist
-permalink: /about/jobs/senior-data-analyst/
+permalink: /about/jobs/senior-data-analyst-hidden/
 ---
 
 <h1>Senior Data Analyst / Scientist<small>London, UK, or remote</small></h1>
@@ -23,7 +23,7 @@ As Snowplow, we find ourselves at the forefront of those developments. By enabli
 3. Easily plugin *any* analytics tool and data processing toolset
 4. Process digital data in *real-time*
 
-we are making it easier for companies to be data-sophisticated. 
+we are making it easier for companies to be data-sophisticated.
 
 We want to do more to move the digital analytics industry forwards. That means:
 
@@ -45,7 +45,7 @@ We're looking for a candidate who:
 * Has experience using other tools and analytics approaches that go beyond descriptive statistics
 * Enjoys challenging the status quo
 * Is excited to try new approaches, tools and technologies, and has taken new approaches, tools and technologies, to good effect
-* Has a proven track record using data to affect real change in business 
+* Has a proven track record using data to affect real change in business
 * Is a self-starter who will thrive in a rapidly growing startup with minimal structure. (And will work with us to put that structure in place as we grow.)
 * Enjoys mentoring and supporting others up the learning curve, including new team members, clients and partners
 

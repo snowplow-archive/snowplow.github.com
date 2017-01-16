@@ -20,10 +20,10 @@ Roughly 15% of the landscape is given over to the 'Data Sources and API' provide
 
 The awkward truth is that although most companies do have some of *their own* data, it is often not *good data* because it is not being collected properly. And most choose to invest in the rest of their data/analytics stack, without putting in place proper processes and systems to collect and store the good data in the first place. They might as well build houses without foundations. In this post, I'm going to explore:
 
-1. [What makes good data?](#what-makes-good-data)
-2. [Strategies and techniques to systematically generate and collect good data](#strategies-and-techniques-for-systematically-collecting-and-generating-good-data)
-3. [The strong commercial imperative to collect data properly](#commercial-imperative)
-4. [The strong moral imperative to collect data properly](#moral-imperative)
+1. [What makes good data?](/blog/2017/01/16/data-collection-the-essential-but-unloved-foundation-of-the-data-value-chain/#what-makes-good-data)
+2. [Strategies and techniques to systematically generate and collect good data](/blog/2017/01/16/data-collection-the-essential-but-unloved-foundation-of-the-data-value-chain/#strategies-and-techniques-for-systematically-collecting-and-generating-good-data)
+3. [The strong commercial imperative to collect data properly](/blog/2017/01/16/data-collection-the-essential-but-unloved-foundation-of-the-data-value-chain/#commercial-imperative)
+4. [The strong moral imperative to collect data properly](/blog/2017/01/16/data-collection-the-essential-but-unloved-foundation-of-the-data-value-chain/#moral-imperative)
 
 <!--more-->
 

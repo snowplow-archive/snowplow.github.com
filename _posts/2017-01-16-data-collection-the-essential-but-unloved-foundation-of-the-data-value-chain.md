@@ -153,7 +153,7 @@ Capturing rich data takes a concerted effort. It means systematically identifyin
 
 There is a tension between data that is reliable, because it is incredibly precisely defined, as described in [section 2.1.3 on metadata precision](#precision) and data that is easily usable. It is more accurate to say that four page pings were recorded against this cookie ID on this page in this time range. But it is easier to work with a single line of data that summarizes that the user arrived on the web page at this timestamp, spent this long engaging on the page, viewed the first 3/4 of the page and then clicked on a particular button to another page.
 
-This process, of taking very accurate, atomic data, and turning it into a data set that is easy to use, visualize, and socialize around a business, we call [event data modeling][introduction-to-event-data-modeling]. [More detailed guides to event data modeling][introduction-to-event-data-modeling] are available elsewhere. For the purposes of this post, it is enough to say:
+This process, of taking very accurate, atomic data, and turning it into a data set that is easy to use, visualize, and socialize around a business, we call [event data modeling][introduction-to-event-data-modeling]. For the purposes of this post, it is enough to say:
 
 * Data needs to be modeled before it can be easily used.
 * The process of modeling the data involves applying business logic (contextual knowledge) and assumptions to the underlying, atomic or 'unmodeled' data set.

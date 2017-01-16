@@ -12,7 +12,7 @@ it is so obvious no one bothers saying it.
 
 After all: without data collection, there is no data. Without data there is no data value chain. No reporting, no analysis, no data science, no data-driven decision making.
 
-it is not just that people in data don't remark on the importance of data collection. They do not talk about data collection *at all*. To take just one example, let's review [Firstmark's Big Data Landscape][big-data-landscape]:
+It is not just that people in data don't remark on the importance of data collection. They do not talk about data collection *at all*. To take just one example, let's review [Firstmark's Big Data Landscape][big-data-landscape]:
 
 ![Firstmark-big-data-landscape-2016][big-data-landscape-image]
 
@@ -180,7 +180,7 @@ Sadly, most companies do not invest in collecting data properly. A simple observ
 3. Data extracted from production databases is data that is structured in a way optimized to delivering applications, rather than tracking and recording what is happening in a systematic and actionable manner.
 4. Data stored in web and application logs is a biproduct of a process built to enable developers to debug failures and issues in the running of those applications.
 
-Sadly, today, the above sources account for the vast majority of digital event data, rather than dedicated data collection processes. 
+Sadly, today, the above sources account for the vast majority of digital event data, rather than dedicated data collection processes.
 
 <h2 id="commercial-imperative">3. The strong commercial imperative to collect data properly</h2>
 
@@ -192,7 +192,7 @@ Companies owe their users a duty of care to systematically collect that data and
 
 <h2 id="doing-data-collection-right-is-a-moral-and-commercial-imperative">4. Doing data collection right is a moral as well as commercial imperative </h2>
 
-Getting data collection right, then, does not just mean collecting reliable, easy-to-understand, easy-to-use data. It means treating that data as an asset, securing it on your own systems, and only sharing it selectively with vetted third parties, both to protect the commercial value of the data and out of respect for the trust that users have demonstrated when they have shared that data in the first place. 
+Getting data collection right, then, does not just mean collecting reliable, easy-to-understand, easy-to-use data. It means treating that data as an asset, securing it on your own systems, and only sharing it selectively with vetted third parties, both to protect the commercial value of the data and out of respect for the trust that users have demonstrated when they have shared that data in the first place.
 
 ## Want to do data collection right?
 

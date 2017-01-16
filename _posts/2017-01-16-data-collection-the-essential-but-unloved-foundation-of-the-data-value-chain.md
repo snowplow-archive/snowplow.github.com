@@ -6,19 +6,19 @@ author: Yali
 category: Inside the Plow
 ---
 
-It's so obvious no one bothers saying it.
+it is so obvious no one bothers saying it.
 
 > Data collection is an essential part of any data strategy
 
 After all: without data collection, there is no data. Without data there is no data value chain. No reporting, no analysis, no data science, no data-driven decision making.
 
-It's not just that people in data don't remark on the importance of data collection. They do not talk about data collection *at all*. To take just one example, let's review [Firstmark's Big Data Landscape][big-data-landscape]:
+it is not just that people in data don't remark on the importance of data collection. They do not talk about data collection *at all*. To take just one example, let's review [Firstmark's Big Data Landscape][big-data-landscape]:
 
 ![Firstmark-big-data-landscape-2016][big-data-landscape-image]
 
 Roughly 15% of the landscape is given over to the 'Data Sources and API' providers. However, *none* of the providers listed, either in that section, or the rest of the map, specialize in enabling companies to collect their *own* data. The Big Data Landscape, then, is full of vendors that will help you do things with your data, and provide you with their own data. But all those providers assume you have your own data to do stuff with, so have got data collection sorted.
 
-The awkward truth is that although most companies do have some of *their own* data, it is often not *good data* because it's not being collected properly. And most choose to invest in the rest of their data/analytics stack, without putting in place proper processes and systems to collect and store the good data in the first place. They might as well build houses without foundations. In this post, I'm going to explore:
+The awkward truth is that although most companies do have some of *their own* data, it is often not *good data* because it is not being collected properly. And most choose to invest in the rest of their data/analytics stack, without putting in place proper processes and systems to collect and store the good data in the first place. They might as well build houses without foundations. In this post, I'm going to explore:
 
 1. [What makes good data?](#what-makes-good-data)
 2. [Strategies and techniques to systematically generate and collect good data](#strategies-and-techniques-for-systematically-collecting-and-generating-good-data)
@@ -106,13 +106,13 @@ There are two strategies for ensuring that data is easy to understand:
 
 Data represents what has happened in the world. When we look at data, we do so first of all to understand what actually has happened in the world, and use that to build an understanding of why. So when we work with data, we're constantly taking data, which is a numeric representation of the world, and converting it into our own mental representation of the world.
 
-Structuring the data, then, in a way that naturally mirrors the way we actually think about the world, makes the data much easier to work with. This is the primary reason why people find working with data underlying Omniture / Adobe so difficult: because the structure of the data (a long list of sProps and eVars) reflects legacy architectural decisions made by the SiteCatalyst engineering team many years ago, rather than our mental model for the web events that we typically track with it today.
+Structuring the data, then, in a way that mirrors the way we actually think about the world, makes the data much easier to work with. This is the primary reason why people find working with data underlying Omniture / Adobe so difficult: because the structure of the data (a long list of sProps and eVars) reflects legacy architectural decisions made by the SiteCatalyst engineering team many years ago, rather than our mental model for the web events that we typically track with it today.
 
 As we've often remarked, different companies, with different digital propositions and different relationships with their users, will want to track radically different events and user journeys from one another. If each is to collect a data set that is structured in a way that mirrors the way practionners at those companies think about those user journeys, we should expect that the structure of those data set be wildly different between those different companies. Trying to force every company to squeeze their data into a long, flat list of custom dimensions and metrics does not make for an easy-to-understand data set.
 
 <h4 id="metadata">2.2.2 Bundle data with metadata about what that data represents, how it was generated and how it was processed</h4>
 
-Data by itself is valueless. Unless we know what it's supposed to represent, how it was generated, how it is structured and how reliable it is, we are not in a position to know what it "means", so understand if it is appropriate to answer the particular questions we want to ask.
+Data by itself is valueless. Unless we know what it is supposed to represent, how it was generated, how it is structured and how reliable it is, we are not in a position to know what it "means", so understand if it is appropriate to answer the particular questions we want to ask.
 
 When data sets were small and lived in spreadsheets with named authors, getting hold of this contextual information was a simple matter of asking the author. In the world we live today, where billions of lines of data, generated from tens or hundreds of different sources via multiple different processes, over many years and decades, and accumulated in data warehouses, data marts or data lakes (I use the terms through gritted teeth), it may not be clear where one data set ends and another begins, leave alone who you should ask about what the data represents and how it was generated.
 
@@ -132,13 +132,13 @@ Let's examine each in turn.
 
 To process data, you have to know how that data is structured, including the different fields that make up that data and their type. Whilst the advances in a range of big data technologies mean it is now feasible to work with unstructured and semi-structured data, the first stage in processing unstructured and semi-structured data sets is to structure them. This is not a trivial exercise, and gets harder as data sets get larger.
 
-If you are going to put in the time and effort to collect good data, make sure that the data you collect is structured. It should be made up of clearly defined entities and types with well understood properties, making it easy for analysts, scientists and other data consumers to build downstream processes to do useful things with that data.
+If you are going to put in the time and effort to collect good data, make sure that the data you collect is structured. It should be made up of clearly defined entities and types with well understood properties, making it easy for analysts, scientists, engineers and other data consumers to build downstream processes to do useful things with that data.
 
 <h4 id="rich">2.3.2 Easy-to-use data is rich</h4>
 
 It is one thing to know that a web page with specific URL, title and referrer was loaded, by a particular cookie ID, on a particular date, at a particular time. If you also know:
 
-1. Who loaded the web page (i.e. who corresponds to that cookie ID)
+1. Who loaded the web page (i.e. which individual owns the device with that cookie ID)
 2. What the web page was about
 3. Who authored the web page
 4. How fast the web page loaded
@@ -147,29 +147,29 @@ It is one thing to know that a web page with specific URL, title and referrer wa
 
 You are in a position to answer a much broader range of questions.
 
-Capturing rich data takes a concerted effort. It means systematically identifying what data is available at the point where the data is captured. (For example in the application or website.) It also nearly always requires 'enriching' the data with other first and third party data sets as soon as possible after data capture.
+Capturing rich data takes a concerted effort. It means systematically identifying what data is available at the point where the data is captured (for example in the application or website). It also nearly always requires 'enriching' the data with other first and third party data sets with additional data points that are not available at the point of capture.
 
 <h4 id="systematically-modeled">2.3.3 Easy-to-use data is systematically modeled</h4>
 
 There is a tension between data that is reliable, because it is incredibly precisely defined, as described in [section 2.1.3 on metadata precision](#precision) and data that is easily usable. It is more accurate to say that four page pings were recorded against this cookie ID on this page in this time range. But it is easier to work with a single line of data that summarizes that the user arrived on the web page at this timestamp, spent this long engaging on the page, viewed the first 3/4 of the page and then clicked on a particular button to another page.
 
-This process, of taking very accurate, event-level data, and turning it into a data set that is easy to use, visualize, and socialize around a business, we call [event data modeling][introduction-to-event-data-modeling]. [More detailed guides to event data modeling][introduction-to-event-data-modeling] are available elsewhere. For the purposes of this post, it is enough to say:
+This process, of taking very accurate, atomic data, and turning it into a data set that is easy to use, visualize, and socialize around a business, we call [event data modeling][introduction-to-event-data-modeling]. [More detailed guides to event data modeling][introduction-to-event-data-modeling] are available elsewhere. For the purposes of this post, it is enough to say:
 
 * Data needs to be modeled before it can be easily used.
-* The process of modeling the data involves applying business logic (contextual knowledge) and assumptions to the underlying, atomic or 'unmodeled' data set .
+* The process of modeling the data involves applying business logic (contextual knowledge) and assumptions to the underlying, atomic or 'unmodeled' data set.
 * The process typically involves:
   * Identifying *who* is invovled in different events, and using that information to build single customer views of user journeys across multiple channels ([identity stitching][identity-stitching].)
   * Dividing each user's journey into a discrete set of smaller journeys (each of which might be divided into individual steps), each of which represents specific activities which the user engages in order to achieve specific goals.
 * The business logic used to model data is likely to change over time, as:
   * The business changes.
   * The range of questions and uses the data is put to, changes.
-* As a result, it is important that data can be re-modeled over time, as that business logic changes. This also means that the data modeling process is well understood and fully auditable.
+* As a result, it is important that data can be re-modeled over time, as that business logic changes. This also means that the data modeling process is well understood, fully auditable and fully re-runnable.
 
-Event data modeling is a vital process in generating an easy-to-use data set. We  find that different companies, with different propositions, strategies and user relationships, have wildly different data modeling processes, to reflect the different contexts in which they operate. Given this, it is very surprising that more companies do not invest lots of time and effort in modeling their data.
+Event data modeling is a vital process in generating an easy-to-use data set. We  find that different companies, with different propositions, strategies and user relationships, have wildly different data modeling processes, to reflect the different contexts in which they operate. Given this, it is very surprising that more companies do not invest lots of time and effort in modeling their data and by and large put up with standard approaches to modeling baked into packaged solutions like Google and Adobe analytics, built around outdated concepts like sessions rather than entities that really matter like users.
 
-As should be clear from this discussion of data modeling and the earlier discussion of data enrichment above, data collection *cannot* just be about logging raw data. Systematically collecting good data means validating that data (to ensure it is reliable), enriching that data and modeling it systematically. Doing data collection right can only be achieved with sophisticated, multi-step, auditable data pipelines.
+As should be clear from this discussion of data modeling and the earlier discussion of data enrichment above, data collection *cannot* just be about logging raw data. Systematically collecting good data means validating that data (to ensure it is reliable), enriching that data and modeling it. Doing data collection right can only be achieved with sophisticated, multi-step, auditable data pipelines.
 
-### 2.4 Data is a first class citizen: not a bi-product of another process
+### 2.4 Data should be a first class citizen: not generated as a bi-product of another process
 
 As should be clear from the above discussion, collecting good data is hard work.
 
@@ -180,23 +180,23 @@ Sadly, most companies do not invest in collecting data properly. A simple observ
 3. Data extracted from production databases is data that is structured in a way optimized to delivering applications, rather than tracking and recording what is happening in a systematic and actionable manner.
 4. Data stored in web and application logs is a biproduct of a process built to enable developers to debug failures and issues in the running of those applications.
 
-Sadly, today, the above sources account for the vast majority of digital event data.
+Sadly, today, the above sources account for the vast majority of digital event data, rather than dedicated data collection processes. 
 
 <h2 id="commercial-imperative">3. The strong commercial imperative to collect data properly</h2>
 
-Data is an asset. Used well, data can generate a huge amount of value and give companies considerable competitive advantage. This is well understood which is why so many companies invest heavily in data processing infrastructure. It is therefore incredibly surprising that companies don't spend the time getting the basics, i.e. the data collection processes, right.
+Data is an asset. Used well, data can generate a huge amount of value and give companies a sustainable competitive advantage. This is well understood which is why so many companies invest heavily in data processing infrastructure. It is therefore incredibly surprising that companies don't spend the time getting the basics, i.e. the data collection processes, right.
 
 User data is something that companies can only collect in virtue of their relationship with their users. Each different company has a different relationship with its users, and provides different services to its users. Each, therefore, is in a position to collect different data from their own users. Part of the value of the data that companies collect is in its uniqueness.
 
-However, it is not just that that data can be used to generate enormous commercial value. Companies owe their users a duty of care to systematically collect that data and deploy it to provide better serve to those users, building that relationship to the users benefit. If that relationship successfully evolves, opportunities to collect data will only grow, creating a virtuous circle in which companies will use the data to provide a better and better service, and in turn generate more data that will open up new opportunities to better serve their customers.
+Companies owe their users a duty of care to systematically collect that data and use it to provide a better service to those users, building that relationship to the users benefit. If that relationship successfully evolves, of the back of the insight generated from that data, opportunities to collect data will only grow, creating a virtuous circle in which companies will use the data to provide a better and better service, and in turn generate more data that will open up new opportunities to better serve their customers.
 
 <h2 id="doing-data-collection-right-is-a-moral-and-commercial-imperative">4. Doing data collection right is a moral as well as commercial imperative </h2>
 
-Getting data collection right, then, doesn't just mean collecting reliable, easy-to-understand, easy-to-use data. It means treating that data as an asset, securing it on your own systems, and sharing it selectively with vetted third parties, both to protect the commercial value of the data and out of respect for the trust that users have demonstrated when they've shared that data in the first place.
+Getting data collection right, then, does not just mean collecting reliable, easy-to-understand, easy-to-use data. It means treating that data as an asset, securing it on your own systems, and only sharing it selectively with vetted third parties, both to protect the commercial value of the data and out of respect for the trust that users have demonstrated when they have shared that data in the first place. 
 
 ## Want to do data collection right?
 
-Then [get in touch][contact] with the Snowplow team.
+Then [get in touch][contact] with the Snowplow team to learn more.
 
 ## Comments, responses and reactions to this post?
 

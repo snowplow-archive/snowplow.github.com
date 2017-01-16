@@ -198,9 +198,7 @@ Getting data collection right, then, does not just mean collecting reliable, eas
 
 Then get in touch with the Snowplow team to learn more.
 
-## Comments, responses and reactions to this post?
 
-Please post them to our [discourse forum][discourse]!
 
 
 

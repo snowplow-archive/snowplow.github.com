@@ -51,7 +51,7 @@ There is therefore a lot of contextual knowledge, that is required, to make sens
 
 There's more to making data easy to understand than metadata, though. The data itself should be unambiguous. Data that says 'this page loaded at this time' is better than data that says 'this page might have loaded at this time'.
 
-<h3 id="easy-to-work-with">1.3 Good data is easy to work with.</h3>
+<h3 id="easy-to-work-with">1.3 Good data is easy to work with</h3>
 
 If data is reliable and easy to understand, it is by definition, easy to work with. However, there is something else that makes data easier to work with: it should be easy to plug the data in to a wide range of different analytics tools, and use those tools to process the data. A common complaint, amongst data scientists, is that the vast majority of their time is spent preparing data for analysis, instead of actually performing analysis. This is a colossal waste of time that can be avoided, if data is collected properly.
 

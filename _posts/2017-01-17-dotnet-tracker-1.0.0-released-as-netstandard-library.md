@@ -45,7 +45,7 @@ about both your iOS and Android users.
 If you're writing a desktop or server-side application - you can still use the PCL. One of the platforms our PCL targets is .NET 4.6.1. If you're using a platform that isn't supported by our PCL extension - you can still use the .NETStandard core, and set up your own events -
 the platform extensions are just a curated collection of platform specific features we can provide to you for free.  
 
-So - the headline is if you're writing for a desktop or Xamarin app, you should use our Snowplow.Tracker.PlatformExtensions package. If you can't use this because you're targeting an unusual platform, you can still use the Snowplow.Tracker package (Which is .NETStandard 1.4 and supported by <these platforms> *link here*.
+So - the headline is if you're writing for a desktop or Xamarin app, you should use our `Snowplow.Tracker.PlatformExtensions` package. If you can't use this because you're targeting an unusual platform, you can still use the `Snowplow.Tracker` package (which is .NETStandard 1.4 and supported by [these platforms][netstandard-version-matrix].
 
 <h2 id="use">3. Using the .NET Tracker</h2>
 
@@ -264,3 +264,4 @@ in flux today we're expecting things to level out in the future!
 [mobile-demo]: https://github.com/snowplow/snowplow-dotnet-tracker/tree/release/1.0.0/Snowplow.Demo.App/Snowplow.Demo.App
 [demo-core]: https://github.com/snowplow/snowplow-dotnet-tracker/blob/release/1.0.0/Snowplow.Demo.Console/Program.cs
 [netstandard-vid]: https://www.youtube.com/watch?v=YI4MurjfMn8&index=1&list=PLRAdsfhKI4OWx321A_pr-7HhRNk7wOLLY
+[netstandard-version-matrix]: https://github.com/dotnet/standard/blob/master/docs/versions.md

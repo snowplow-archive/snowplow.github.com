@@ -52,7 +52,7 @@ redirect_from:
   <a href="http://www.gforces.co.uk"><img src="//logo.clearbit.com/gforces.co.uk?size=200"></a>
   <a href="http://www.tut.by"><img src="//logo.clearbit.com/tut.by?size=200"></a>
   <!--<a href="http://www.webprofiters.ru"><img src="//logo.clearbit.com/webprofiters.ru?size=200"></a>-->
-  <a href="https://www.picnic.nl"><img src="//logo.clearbit.com/picnic.nl?size=200"></a>
+  <!--<a href="https://www.picnic.nl"><img src="//logo.clearbit.com/picnic.nl?size=200"></a>-->
   <a href="https://www.crew.co"><img src="//logo.clearbit.com/crew.co?size=200"></a>
   <a href="http://www.urbandictionary.com"><img src="//logo.clearbit.com/urbandictionary.com?size=200"></a>
   <a href="http://www.secretsaucepartners.com"><img src="//logo.clearbit.com/secretsaucepartners.com?size=200"></a>
@@ -82,9 +82,9 @@ redirect_from:
   <a href="http://www.qwaya.com"><img src="//logo.clearbit.com/qwaya.com?size=200"></a>
   <!--<a href="http://www.getradico.com"><img src="//logo.clearbit.com/getradico.com?size=200"></a>-->
   <a href="https://www.sigfig.com"><img src="//logo.clearbit.com/sigfig.com?size=200"></a>
-  <a href="http://www.simplybusiness.com"><img src="//logo.clearbit.com/simplybusiness.com?size=200"></a>
+  <a href="http://www.simplybusiness.com"><img src="//logo.clearbit.com/simplybusiness.co.uk?size=200"></a>
   <a href="http://www.sparwelt.de"><img src="//logo.clearbit.com/sparwelt.de?size=200"></a>
-  <a href="http://www.springlane.de"><img src="//logo.clearbit.com/springlane.de?size=200"></a>
+  <!--<a href="http://www.springlane.de"><img src="//logo.clearbit.com/springlane.de?size=200"></a>-->
   <a href="http://www.studentbeans.com"><img src="//logo.clearbit.com/studentbeans.com?size=200"></a>
   <a href="https://www.swingbyswing.com"><img src="//logo.clearbit.com/swingbyswing.com?size=200"></a>
   <a href="https://www.therealreal.com"><img src="//logo.clearbit.com/therealreal.com?size=200"></a>

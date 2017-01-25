@@ -130,3 +130,19 @@
   avatar: /assets/img/team/diogo.jpg
   spiel:   |
       <a href="/blog/authors/diogo/">Diogo</a> is a data analyst at Snowplow</a>.
+
+- name: João
+  full_name: João Correia
+  twitter: joaocorreia
+  url: /blog/authors/joão/
+  avatar: /assets/img/team/Joao Correia.jpg
+  spiel:   |
+      <a href="/blog/authors/joão/">João</a> is a Senior Analytics Strategist at YouCaring</a> and an experienced analytics professional, helping organizations embed analytics for growth and innovation. You can find him on <a href="https://joaocorreia.io/" rel="author">his own website</a>, <a href="https://twitter.com/joaocorreia">Twitter</a> and <a href="https://www.linkedin.com/in/joaolcorreia/">LinkedIn</a>.
+
+- name: Giuseppe
+  full_name: Giuseppe Gaviani
+  twitter: ggaviani
+  url: /blog/authors/giuseppe/
+  avatar: /assets/img/team/giuseppe.jpg
+  spiel:   |
+      <a href="/blog/authors/giuseppe/">Giuseppe</a> does content marketing at Snowplow</a>. You can find him on <a href="https://www.linkedin.com/in/giuseppegaviani/">LinkedIn</a>.

@@ -185,7 +185,7 @@ redirect_from:
 
 <div class="row">
 	<div class="col-xs-3 logos2x">
-		<p><a href="http://www.simplybusiness.com"><img src="//logo.clearbit.com/simplybusiness.com?size=400"></a></p>
+		<p><a href="http://www.simplybusiness.co.uk"><img src="//logo.clearbit.com/simplybusiness.co.uk?size=400"></a></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>

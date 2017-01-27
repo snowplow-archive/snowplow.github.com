@@ -12,13 +12,13 @@ Simply Business are using the Snowplow platform to collect and join up key busin
 
 Here is a summary of their story. You can ready the full story [here][simply-business-user-story].
 
-<!--more-->
-
 ## About Simply Business
 Simply Business is the UK’s leading insurance broker for small businesses, with over 400,000 businesses and landlords protected through them. They are proud of their award-winning claims service and especially of their customer feedback. Simply business is also recognized across the industry as a technology and data innovator and has won several awards, including the Business Intelligence Project of the Year at the Data, Analytics & Technology Awards for Insurance 2015.
 Click [here](http://www.simplybusiness.co.uk/) to know more about Simply Business and [here](http://www.simplybusiness.co.uk/about-us/awards/) to read more about the awards they won.
 
 ![Stewart Duncan, Director of Data Science at Simply Business][picture-of-stewart]
+
+<!--more-->
 
 ## Challenges
 Simply Business engages with its customers through a variety of channels and it was essential for them to build a single customer view, which was not possible prior to using Snowplow.

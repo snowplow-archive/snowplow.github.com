@@ -16,10 +16,11 @@ The [third Snowplow Meetup Berlin](https://www.meetup.com/Snowplow-Analytics-Ber
 ## Why JustWatch adopted Snowplow and what they learned along the way
 Dominik Raute and Christoph Hoyer, respectively CTO and CMO at JustWatch, talked about how the raw data capabilities of the Snowplow platform enabled the audience segmentation infrastructure that powers JustWatch’s data-driven video advertising business. They shared a step-by-step account of how they adopted Snowplow, the learnings and best practices they picked up along the way.
 
-See links to talk video and presentation slides below.
+You can watch the video of the presentation below:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7kG7U_0t9S4" frameborder="0" allowfullscreen></iframe>
 
+Or look at the slides directly!
 
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/bXhy06tGq7SS8Q" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ggaviani/data-driven-video-advertising-campaigns-justwatch-snowplow" title="Data driven video advertising campaigns - JustWatch &amp; Snowplow" target="_blank">Data driven video advertising campaigns - JustWatch &amp; Snowplow</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/ggaviani">Giuseppe Gaviani</a></strong> </div>
 

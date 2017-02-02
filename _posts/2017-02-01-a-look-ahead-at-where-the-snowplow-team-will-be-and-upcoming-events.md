@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Look ahead at where the Snowplow team will be and upcoming events"
+title: "A look ahead at where the Snowplow team will be and upcoming events"
 tags: ["meetup", "Gousto", "Busuu", "Game Developers Conference", "Sigfig", "CodeCombat", "deBijenkorf", "MeasureCamp"]
 author: Giuseppe
 category: Meetups

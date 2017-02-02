@@ -33,6 +33,9 @@ Alex Dean, our co-founder, will also be in Seattle a few days before the GDC.
 ## Snowplow Meetups New York and Boston number 2
 Part of the Snowplow team, including Christophe Bogaert, will be in New York and Boston mid-March and we plan to hold Meetups in both cities in w/c March the 13th.
 
+## Snowplow Meetup Sydney
+‎Our partner [Snowflake Analytics](https://www.snowflake-analytics.com/) will be running a [Snowplow Meetup in Sydney](https://www.meetup.com/Snowplow-Analytics-Sydney/events/237306499/) on March the 15th.
+
 ## MeasureCamp London
 We will be at [MeasureCamp in London](http://london.measurecamp.org/), which takes place on March the 25th. MeasureCamp is an open, free-to-attend “unconference”. The schedule is created on the day and speakers are fellow attendees.
 

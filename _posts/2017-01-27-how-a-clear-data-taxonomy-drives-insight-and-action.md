@@ -7,7 +7,7 @@ author: João
 category: Analytics
 ---
 
-*This is guest blog post by João Correia, Senior Analytics Strategist at YouCaring and an experienced analytics professional, helping organizations embed analytics for growth and innovation. In this post, João explains how to define an analytics strategy with Snowplow Analytics that considers your business context and drives insights and action. Many thanks to João for sharing his views on this topic! If you have a story to share, feel free to get in touch.*
+*This is guest blog post by [João Correia][joao-linkedin], Senior Analytics Strategist at YouCaring and an experienced analytics professional, helping organizations embed analytics for growth and innovation. In this post, João explains how to define an analytics strategy with Snowplow Analytics that considers your business context and drives insights and action. Many thanks to João for sharing his views on this topic! If you have a story to share, feel free to get in touch.*
 
 
 ## Add business context to your event analytics
@@ -17,8 +17,6 @@ Insights, that surge of excitement that invades your brain, when suddenly, you c
 As consultants, our core mission is to provide our clients with answers through data products that help them take action on data, optimize their marketing, their inventory, retain their customers, and increase their business profitability.
 
 Read on to find out how to define an analytics strategy that drives insights and action with Snowplow Analytics.
-
-<!--more-->
 
 ### The importance of context
 
@@ -49,6 +47,8 @@ Below is a simplified taxonomy for the jewelry example, which provides additiona
 <!--<img src="/assets/img/blog/2017/01/snowplow-custom-context-example.jpg" alt="Snowplow Analytics Custom Context" width="100%" />-->
 
 ![Snowplow Analytics Custom Context  Example][Snowplow-Analytics-Custom-Context-Example]
+
+<!--more-->
 
 This context, can explain in great detail every necklace, its shape, how many stones and what type, color, which metal, finish and more.
 
@@ -257,7 +257,7 @@ In our example, we will have four jsonschema files to describe our jewelry produ
   </div>
 </div>
 
-We now create the corresponding jsonpath files and SQL table definitions with [Schema Guru](https://github.com/snowplow/schema-guru){:target="_blank"}.
+We now create the corresponding jsonpath files and SQL table definitions with [Schema Guru](https://github.com/snowplow/schema-guru).
 
 {% highlight js %}
 
@@ -298,9 +298,9 @@ This table is the Snowplow Analytics backbone. It is used to record ALL events. 
 </tr>
 </table>
 
-Below are two examples of the DDL for two contexts, product and metal. You probably noticed the _1 appended to each table.
+Below are two examples of the DDL for two contexts, product and metal. You probably noticed the `_1` appended to each table.
 
-Snowplow Analytics uses [semantic versioning](http://semver.org/){:target="_blank"}, which allows you to properly version your jsonschemas and maintain forward compatibility.
+Snowplow Analytics uses [semantic versioning](http://semver.org/), which allows you to properly version your jsonschemas and maintain forward compatibility.
 
 Table: <span class="label label-success" style="font-size:80%;/">atomic.com_jewellerystore_product_1</span>
 
@@ -413,7 +413,7 @@ var pageviewContext = [
   }
 ]
 
-/* Track the page view with the additional context
+/* Track the page view with the additional context */
 window.snowplow('trackPageView', null , pageviewContext);
 {% endhighlight %}
 
@@ -478,3 +478,5 @@ Ready to take Snowplow for a spin? Contact us!
 [Snowplow-Analytics-Custom-Context-Example]: /assets/img/blog/2017/01/snowplow-custom-context-example.jpg "Snowplow Analytics Custom Context Example"
 
 [Snowplow-Analytics-dashboard-example]: /assets/img/blog/2017/01/snowplow-analytics-dashboard.png "Snowplow Analytics dashboard example"
+
+[joao-linkedin]: https://www.linkedin.com/in/joaolcorreia

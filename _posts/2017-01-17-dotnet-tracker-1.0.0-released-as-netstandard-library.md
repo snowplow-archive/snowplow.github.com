@@ -7,7 +7,7 @@ author: Ed
 category: Releases
 ---
 
-We're pleased to announce the 1.0.0 release of Snowplow'.NET tracker. This is a major reboot of the existing .NET tracker making it a netstandard project - it's now supported on mobile devices through Xamarin,
+We're pleased to announce the 1.0.0 release of Snowplow's .NET tracker. This is a major reboot of the existing .NET tracker making it a netstandard project - it's now supported on mobile devices through Xamarin,
 and all platforms that support .NET Core (Windows, Linux and macOS!).
 
 Read on more:

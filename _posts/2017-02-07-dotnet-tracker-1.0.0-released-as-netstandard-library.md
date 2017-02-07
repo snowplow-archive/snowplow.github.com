@@ -12,10 +12,10 @@ and all platforms that support .NET Core (Windows, Linux and macOS!).
 
 Read on more:
 
-1. [NETStandard in a nutshell](/blog/2017/01/17/dotnet-tracker-1.0.0-released-as-netstandard-library#netstandard)
-2. [The .NET Tracker 1.0.0 Deployment](/blog/2017/01/17/dotnet-tracker-1.0.0-released-as-netstandard-library#deployment)
-3. [Using the .NET Tracker 1.0.0](/blog/2017/01/17/dotnet-tracker-1.0.0-released-as-netstandard-library#use)
-4. [Future of the .NET Tracker](/blog/2017/01/17/dotnet-tracker-1.0.0-released-as-netstandard-library#future)
+1. [NETStandard in a nutshell](/blog/2017/02/07/dotnet-tracker-1.0.0-released-as-netstandard-library#netstandard)
+2. [The .NET Tracker 1.0.0 Deployment](/blog/2017/02/07/dotnet-tracker-1.0.0-released-as-netstandard-library#deployment)
+3. [Using the .NET Tracker 1.0.0](/blog/2017/02/07/dotnet-tracker-1.0.0-released-as-netstandard-library#use)
+4. [Future of the .NET Tracker](/blog/2017/02/07/dotnet-tracker-1.0.0-released-as-netstandard-library#future)
 
 <!--more-->
 

@@ -140,6 +140,7 @@ redirect_from:
   <a href="http://shop.nordstrom.com/"><img src="//logo.clearbit.com/nordstrom.com?size=200"></a>
   <a href="http://4degre.es/"><img src="//logo.clearbit.com/4degre.es?size=200"></a>
   <a href="https://www.busuu.com"><img src="//logo.clearbit.com/busuu.com?size=200"></a>
+  <a href="http://www.insidehook.com/"><img src="//logo.clearbit.com/insidehook.com?size=200"></a>
 </div>
 
 <div class="row">

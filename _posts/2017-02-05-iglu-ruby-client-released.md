@@ -104,6 +104,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [scala-client-repo]: https://github.com/snowplow/iglu-scala-client
 [objc-client-repo]: https://github.com/snowplow/iglu-objc-client
 [resolver-config]: https://github.com/snowplow/iglu/wiki/Iglu-client-configuration
+[iglu-central]: https://github.com/snowplow/iglu-central/
 
 [rubygems]: https://rubygems.org/
 [jruby]: http://jruby.org/

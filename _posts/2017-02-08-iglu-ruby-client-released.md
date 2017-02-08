@@ -79,12 +79,11 @@ resolver = Iglu::Resolver.parse(resolver_config)
 
 {% endhighlight %}
 
-Above snippet initializes the client from a [resolver configuration][resolver-config] (versions up to `1-0-2` are supported in initial release) with [Iglu Central][iglu-central].
+The above snippet initializes the client from a [resolver configuration][resolver-config] (versions up to `1-0-2` are supported in initial release) which contains [Iglu Central][iglu-central].
 
-Like in Scala Client, Ruby Resolver gives full information about what exactly went wrong on invalid JSON, but unlike Scala it throws exception, rather than returning plain value:
+As in the Iglu Scala Client, the Ruby `Resolver` gives full information about what exactly went wrong on invalid JSON, but unlike Scala it throws an exception, rather than returning a plain value:
 
 {% highlight ruby %}
-
 invalid_json = {
   :schema => "iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0", 
   :data => {:latitude => 30.8, :longitude => "invalid"}
@@ -95,14 +94,14 @@ JSON::Schema::ValidationError: The property '#/longitude' of type String did not
 from /Library/Ruby/Gems/2.0.0/gems/json-schema-2.7.0/lib/json-schema/attribute.rb:18:in `validation_error'
 {% endhighlight %}
 
-For valid JSON it'll return `true` value:
+For valid JSON it will return a `true` value:
 
 {% highlight ruby %}
 valid_json = {
   :schema => "iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0", 
   :data => {:latitude => 30.8, :longitude => 62.1}
 }
-resolver.validate(valid_json)
+resolver.validate(valid_json) # Evaluates to true
 {% endhighlight %}
 
 For more advanced usage, please see the [Ruby client] [documentation] page on the Iglu wiki.

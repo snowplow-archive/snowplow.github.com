@@ -56,46 +56,67 @@ It is published on [RubyGems.org][rubygems] and can be installed with via `gem` 
 
 To add it as a dependency to your own Ruby gem, please edit your gemfile and add:
 
-{% highlight ruby %}
-gem 'iglu-ruby-client'
+{% highlight sh %}
+$ gem 'iglu-ruby-client'
 {% endhighlight %}
 
 <h3 id="usage">4. Usage</h3>
 
-Here is a basic usage example:
-
-UPDATE THE BELOW TO ALL BE AN irb SESSION
+Here is a basic usage of Ruby Iglu resolver:
 
 {% highlight ruby %}
 require 'iglu-client'
 
-resolver_config = ANTON TO ADD
-json = ANTON TO ADD
+resolver_config = {
+ :schema => "iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-2",
+ :data => {
+   :cacheSize => 500,
+   :repositories => [{:name => "Iglu Central", :priority => 0, :vendorPrefixes => ["com.snowplowanalytics"], :connection => {:http => {:uri => "http://iglucentral.com"}}}]
+  }
+}
 
-resolver = Iglu::Resolver.parse(JSON.parse(resolver_config, {:symbolize_names => true}))
-resolver.validate(json)
-SHOW OUTPUT WITH A VALIDATION FAILURE
+resolver = Iglu::Resolver.parse(resolver_config)
+
 {% endhighlight %}
 
-This snippet:
+Above snippet initializes the client from a [resolver configuration][resolver-config] (versions up to `1-0-2` are supported in initial release) with [Iglu Central][iglu-central].
 
-1. Initializes the client from a [resolver configuration][resolver-config] (versions up to `1-0-2` are supported in initial release)
-2. Extracts the schema URI from the supplied `json`
-3. Resolves the schema in [Iglu Central] [iglu-central] by looking in the supplied repositories
-4. Then validates the self-describing JSON against the resolved schema
+Like in Scala Client, Ruby Resolver gives full information about what exactly went wrong on invalid JSON, but unlike Scala it throws exception, rather than returning plain value:
+
+{% highlight ruby %}
+
+invalid_json = {
+  :schema => "iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0", 
+  :data => {:latitude => 30.8, :longitude => "invalid"}
+}
+
+resolver.validate(invalid_json)
+JSON::Schema::ValidationError: The property '#/longitude' of type String did not match the following type: number
+from /Library/Ruby/Gems/2.0.0/gems/json-schema-2.7.0/lib/json-schema/attribute.rb:18:in `validation_error'
+{% endhighlight %}
+
+For valid JSON it'll return `true` value:
+
+{% highlight ruby %}
+valid_json = {
+  :schema => "iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0", 
+  :data => {:latitude => 30.8, :longitude => 62.1}
+}
+resolver.validate(valid_json)
+{% endhighlight %}
 
 For more advanced usage, please see the [Ruby client] [documentation] page on the Iglu wiki.
 
-<h2 id="roadmap">5. Roadmap and lacking features</h2>
+<h2 id="roadmap">5. Roadmap and upcomming features</h2>
 
 Iglu Ruby Client is still a young project, and does not yet have feature parity with our Iglu Scala Client, the reference implementation.
 
 In particular:
 
-* Although you must set the `cacheSize` for each registry in the resolver configuration, it is not actually used. While Iglu Scala Client uses this for eviction from its LRU cache, by contrast the Ruby client currently grows its cache indefinitely ([#3] (issue-3)]
-* Iglu Ruby Client doesn't yet support recently introduced `cacheTtl` configuration property ([#6] (issue-6)]
+* Although you must set the `cacheSize` for each registry in the resolver configuration, it is not actually used. While Iglu Scala Client uses this for eviction from its LRU cache, by contrast the Ruby client currently grows its cache indefinitely ([#3][issue-3])
+* Iglu Ruby Client doesn't yet support recently introduced `cacheTtl` configuration property ([#6] [issue-6])
 
-<h2 id="help">5. Getting help</h2>
+<h2 id="help">6. Getting help</h2>
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 

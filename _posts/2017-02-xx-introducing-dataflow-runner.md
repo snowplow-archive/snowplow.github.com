@@ -7,14 +7,9 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of [Dataflow Runner] [dataflow-runner-repo], a new open-source system for the creation and running of [AWS EMR][aws-emr] jobflow clusters and steps.  Big thanks to Snowplow intern [Manoj Rajandrakumar][manoj] for all of his hardwork on this project!
+We are pleased to announce the release of [Dataflow Runner] [dataflow-runner-repo], a new open-source system for the creation and running of [AWS EMR][aws-emr] jobflow clusters and steps. Big thanks to Snowplow intern [Manoj Rajandrakumar][manoj] for all of his hard work on this project!
 
-This release signals the first step in our journey to deconstruct EmrEtlRunner into two seperate applications which should solve the fundamental problem that EmrEtlRunner complects business logic with general-purpose EMR execution.  This is problematic for a few reasons:
-
-* It makes it very difficult to test EmrEtlRunner thoroughly, because the side effecting EMR execution and the business logic are mixed together
-* The jobflow DAG is only constructed at runtime by code, which makes it very difficult to share with other orchestration tools such as Factotum
-* EmrEtlRunner ties the Snowplow batch pipeline needlessly closely to EMR
-* It makes it impossible for non-Snowplow projects to use our (in theory general-purpose) EMR execution code
+This release signals the first step in our journey to deconstruct EmrEtlRunner into two separate applications, a Dataflow Runner and `snowplowctl`, per our [RFC][emretlrunner-rfc] on Discourse.
 
 In the rest of this post we will cover:
 
@@ -29,54 +24,55 @@ In the rest of this post we will cover:
 
 <h2 id="why">1. Why Dataflow Runner?</h2>
 
-In the current market there simply does not exist a general-purpose tool for managing and executing data processing jobs on dataflow fabrics in a simple composable way.  To this end we have created Dataflow Runner which will hopefully fill this hole whilst also allowing us to solve our own issues with EmrEtlRunner by allowing us to abstract all of our business logic away from EMR.
+Looking around, we could not find a tool for managing and executing data processing jobs on dataflow fabrics such as EMR in a simple, declarative way. Dataflow Runner is designed to fill this gap, and letting us move away from our existing EmrEtlRunner tooling.
 
-Dataflow Runner is a general-purpose executor for data processing jobs on dataflow fabrics.  In its first form it will only support [AWS EMR][aws-emr] but will eventually support a host of other fabrics such as [YARN][apache-yarn], [Google Cloud Dataproc][google-dataproc] and [Azure HDInsight][azure-hdinsight].
+Dataflow Runner is a general-purpose executor for data processing jobs on dataflow fabrics. Initially it only supports [AWS EMR][aws-emr] but will eventually support a host of other fabrics, including [Google Cloud Dataproc][google-dataproc] and [Azure HDInsight][azure-hdinsight]. We are also interested in supporting on-premise Hadoop, Spark and Flink deployments, most likely via [YARN][apache-yarn].
 
-For the full rational please see our [original RFC][emretlrunner-rfc] on the topic.
+For the full rationale, do check out our [original RFC][emretlrunner-rfc] on the topic.
+
+The key features of the Dataflow Runner design are as follows:
 
 <h4>Separation of concerns</h4>
 
-To effectively support many different fabrics we needed to remove all business logic from the actual job of running data processing steps.  
+Dataflow Runner aims to solve the fundamental problem of EmrEtlRunner complecting business logic with general-purpose EMR execution. This was problematic for a few reasons:
 
-WHY?
+* It makes it very difficult to test EmrEtlRunner thoroughly, because the side effecting EMR execution and the business logic are mixed together
+* The jobflow DAG is only constructed at runtime by code, which makes it very difficult to share with other orchestration tools such as Factotum
+* EmrEtlRunner ties the Snowplow batch pipeline needlessly closely to EMR
+* It makes it impossible for non-Snowplow projects to use our (in theory general-purpose) EMR execution code
 
 <h4>Native runtime</h4>
 
-Dataflow Runner is compiled using Golang which means that we can build native binaries for many different platforms.  This means that it is a zero dependency application which is incredibly light and very low intensity on your system resources.  This will allow us to run many many instances of the application concurrently without causing undue system strain.  
-
-WHAT IS THE CURRENT JVM STRAIN?
+Dataflow Runner is written in Golang, letting us build native binaries for various platforms. This makes Dataflow Runner a zero-dependency application, which is lightweight and places little strain on your system. This allows you to run many instances of Dataflow Runner concurrently on your orchestration cluster.  
 
 <h4>Testing</h4>
 
-As Dataflow Runner is now un-opinionated it makes testing very simple.  We can easily run integration tests with on AWS without needing to first setup a full Snowplow pipeline or to send any data.  
-
-WHY IS IT EASIER?
+It is much easier for us to test Dataflow Runner than it was to test EmrEtlRunner. As Dataflow Runner is a general-purpose application for running jobs on dataflow fabrics, it is straightforward for us to run integration tests on AWS without depending on a functional Snowplow pipeline.
 
 <h2 id="dataflow-runner">2. Dataflow Runner 0.1.0</h2>
 
-In version 0.1.0 of Dataflow Runner you will only able to work with AWS EMR - which mimics our current support in `EmrEtlRunner`.  You will be able to perform three distinct actions with this resource:
+In version 0.1.0 of Dataflow Runner you will only able to work with AWS EMR - which mimics our current support in `EmrEtlRunner`. You can perform three distinct actions with this resource:
 
-1. Launching a new cluster which is ready to run custom steps via the `up` command
-2. Adding steps to a newly created cluster via the `run` command
-3. Terminating a cluster via the `down` command
+1. Launching a new cluster which is ready to run custom steps, via the `up` command
+2. Adding steps to a newly created cluster, via the `run` command
+3. Terminating a cluster, via the `down` command
 
-There is a fourth command which mimics the current behaviour of EmrEtlRunner which will launch, run steps and terminate in a single blocking action via the `run-transient` command.
+There is a fourth command which mimics the current behavior of EmrEtlRunner: `run-transient`, which will launch, run steps and terminate in a single blocking action.
 
-The configurations for Dataflow Runner are expressed in self-describing Avro, so they can be versioned and remain human-composable.  The Avro Schema for these configs are available from Iglu Central as:
+The configurations for Dataflow Runner are expressed in self-describing Avro, so they can be versioned and remain human-composable. The Avro Schema for these configs are available from Iglu Central as:
 
-* [Cluster Configuration](https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.dataflowrunner/ClusterConfig/avro/1-0-0)
-* [Playbook Configuration](https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.dataflowrunner/PlaybookConfig/avro/1-0-0)
+* [Cluster configuration](https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.dataflowrunner/ClusterConfig/avro/1-0-0)
+* [Playbook configuration](https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.dataflowrunner/PlaybookConfig/avro/1-0-0)
 
-Any Avro Schema validator can validate/lint a Dataflow Runner config - which should alleviate a great many issues as opposed to the current EmrEtlRunner config which has grown more and more confusing over the years!
+Any Avro schema validator can validate/lint a Dataflow Runner config - which should makes these configurations more manageable compared to EmrEtlRunner's current YAML-based config.
 
-Dataflow Runner is currently built for `Linux/amd64`, `Darwin/amd64` and `Windows/amd64` - if there is a platform that you require is missing from this list please let us know!
+Dataflow Runner is currently built for `Linux/amd64`, `Darwin/amd64` and `Windows/amd64` - if you require a different platform, please let us know!
 
 Crucially, Dataflow Runner has **no install dependencies** and doesn't require a cluster, root access, a database, port 80 and so on.
 
 <h2 id="install">3. Downloading and running Dataflow Runner</h2>
 
-To get Dataflow Runner for Linux/amd64. Get it like so:
+To get Dataflow Runner for Linux/amd64:
 
 {% highlight bash %}
 wget https://bintray.com/artifact/download/snowplow/snowplow-generic/dataflow_runner_0.1.0_linux_amd64.zip
@@ -94,7 +90,7 @@ USAGE:
    dataflow-runner [global options] command [command options] [arguments...]
 
 VERSION:
-   0.1.0-rc2
+   0.1.0
 
 AUTHOR:
    Joshua Beemster <support@snowplowanalytics.com>
@@ -116,7 +112,9 @@ COPYRIGHT:
 
 <h2 id="running">4. Managing EMR with Dataflow Runner</h2>
 
-To use Dataflow Runner you will need to create two configuration files.  The first being an EMR cluster configuration which will be used to create the cluster ready for use, the second being a series of steps/playbook that will be added to the created cluster.
+To use Dataflow Runner you will need to create two configuration files. The first is an EMR cluster configuration, which will be used to launch the cluster; the second is the "playbook" containing a sequential series of steps that you want executed on a given cluster.
+
+Here is the cluster configuration - note that this is EMR-specific:
 
 {% highlight json %}
 {
@@ -162,7 +160,7 @@ To use Dataflow Runner you will need to create two configuration files.  The fir
 
 This is a barebones configuration but you are also able to add tags, bootstrap actions and extra cluster configuration options.
 
-__NOTE__: `credentials` can be fetched from the local environment, IAM role attached to a server or as plain text
+__NOTE__: `credentials` can be fetched from the local environment, an IAM role attached to a server or as plaintext.
 
 To then launch this cluster:
 
@@ -170,7 +168,9 @@ To then launch this cluster:
 > dataflow-runner up --emr-config ${path-to-config}
 {% endhighlight %}
 
-Eventually you will see output like the following - `EMR cluster launched successfully; Jobflow ID: j-2DPBXD87LSGP9` - this means you are ready to submit some steps!
+Eventually you will see output like the following - `EMR cluster launched successfully; Jobflow ID: j-2DPBYD87LTGP8` - this means you are ready to submit some steps!
+
+Here is a playbook containing a single step - this playbook is *not* EMR-specific:
 
 {% highlight json %}
 {
@@ -197,13 +197,13 @@ Eventually you will see output like the following - `EMR cluster launched succes
 }
 {% endhighlight %}
 
-To add these steps:
+To run this playbook against your cluster:
 
 {% highlight bash %}
 > dataflow-runner run --emr-playbook ${path-to-playbook} --emr-cluster j-2DPBXD87LSGP9
 {% endhighlight %}
 
-This will add the steps to your cluster step queue - and that is all there is to it!
+This will add the steps to your cluster queue - and the step, a file copy, will execute once all previous steps have completed on the cluster.
 
 Once you are done with the cluster you can terminate it using the following:
 
@@ -211,9 +211,19 @@ Once you are done with the cluster you can terminate it using the following:
 > dataflow-runner down --emr-config ${path-to-config} --emr-cluster j-2DPBXD87LSGP9
 {% endhighlight %}
 
+To execute all of the above, including spinning up and shutting down the cluster, in one command it's simply:
+
+{% highlight bash %}
+> dataflow-runner run-transient --emr-config ${path-to-config} --emr-playbook ${path-to-playbook}
+{% endhighlight %}
+
 <h2 id="roadmap">5. Roadmap for Dataflow Runner</h2>
 
 We're taking an iterative approach with Dataflow Runner - today it only has support for [AWS EMR][aws-emr] but we plan on growing it into a tool that can run on [YARN][apache-yarn], [Google Cloud Dataproc][google-dataproc], [Azure HDInsight][azure-hdinsight] and more!
+
+From the Snowplow perspective, and following on from our [RFC][emretlrunner-rfc], we are also exploring how to migrate from EmrEtlRunner to Dataflow Runner. We don't plan to do this immediately - Dataflow Runner needs to become more mature first, and there are still important features related to robust jobflow execution in EmrEtlRunner that XXXXX
+
+XXXXX   
 
 If you have specific features you'd like to suggest, please [add a ticket] [dataflow-runner-issues] to the GitHub repo.
 

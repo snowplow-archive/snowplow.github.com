@@ -92,8 +92,8 @@ Iglu Ruby Client is still a young project, and does not yet have feature parity 
 
 In particular:
 
-* Although you must set the `cacheSize` for each registry in the resolver configuration, it is not actually used. While Iglu Scala Client uses this for eviction from its LRU cache, by contrast the Ruby client currently grows its cache indefinitely ([#3] (issue-3)].
-* Iglu Ruby Client doesn't yet support recently introduced `cacheTtl` configuration property
+* Although you must set the `cacheSize` for each registry in the resolver configuration, it is not actually used. While Iglu Scala Client uses this for eviction from its LRU cache, by contrast the Ruby client currently grows its cache indefinitely ([#3] (issue-3)]
+* Iglu Ruby Client doesn't yet support recently introduced `cacheTtl` configuration property ([#6] (issue-6)]
 
 <h2 id="help">5. Getting help</h2>
 

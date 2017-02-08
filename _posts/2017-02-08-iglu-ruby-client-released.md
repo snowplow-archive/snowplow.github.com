@@ -11,12 +11,12 @@ We are pleased to announce the initial release of the [Iglu Ruby Client][repo], 
 
 In the rest of this post we will cover:
 
-1. [Introducing Iglu Ruby Client](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#intro)
-2. [Use cases](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#use-cases)
-3. [Setup guide](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#setup-guide)
-4. [Usage](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#usage)
-5. [Roadmap and upcoming features](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#roadmap)
-6. [Getting help](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#help)
+1. [Introducing Iglu Ruby Client](/blog/2017-02-08-iglu-ruby-client-0.1.0-released/#intro)
+2. [Use cases](/blog/2017-02-08-iglu-ruby-client-0.1.0-released/#use-cases)
+3. [Setup guide](/blog/2017-02-08-iglu-ruby-client-0.1.0-released/#setup-guide)
+4. [Usage](/blog/2017-02-08-iglu-ruby-client-0.1.0-released/#usage)
+5. [Roadmap and upcoming features](/blog/2017-02-08-iglu-ruby-client-0.1.0-released/#roadmap)
+6. [Getting help](/blog/2017-02-08-iglu-ruby-client-0.1.0-released/#help)
 
 <!--more-->
 
@@ -28,7 +28,7 @@ As part of broadening the utility of the Iglu platform, we are pleased to introd
 
 This is our third Iglu client. Our [Iglu Scala Client][scala-client-repo] is the reference implementation and works at the core of the Snowplow pipeline, validating all data flowing through the platform; our [Iglu Objective-C Client] [objc-client-repo] lets you test and validate all of your Snowplow self-describing JSONs directly in your OS X and iOS applications.
 
-<h2 id="intro">2. Use cases</h2>
+<h2 id="use-cases">2. Use cases</h2>
 
 This library lets you add a layer of JSON validation to your Ruby-based web applications, servers and CLI tools.
 

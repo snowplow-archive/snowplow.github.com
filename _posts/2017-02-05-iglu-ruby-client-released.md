@@ -7,100 +7,112 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the initial release of the [Iglu Ruby Client][repo], our third library in family of Iglu clients.
+We are pleased to announce the initial release of the [Iglu Ruby Client][repo], our third library in the family of [Iglu] [iglu] clients.
 
 In the rest of this post we will cover:
 
 1. [Introducing Iglu Ruby Client](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#intro)
-2. [Setup Guide](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#setup-guide)
-3. [Usage](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#usage)
-4. [Roadmap and lacking features](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#roadmap)
-5. [Getting help](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#help)
+2. [Use cases](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#use-cases)
+3. [Setup guide](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#setup-guide)
+4. [Usage](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#usage)
+5. [Roadmap and upcoming features](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#roadmap)
+6. [Getting help](/blog/2017-02-07-iglu-ruby-client-0.1.0-released/#help)
 
 <!--more-->
 
 <h2 id="intro">1. Introducing Iglu Ruby Client</h2>
 
-Iglu clients are small SDKs providing users an API to fetch schemas for self-describing data and validate it.
-Currently, [Iglu Scala Client][scala-client-repo] is reference implementation and works at the core of Snowplow pipeline, validating all data passing through.
-However, there's a clear lack of Iglu implementations for commonly used programming languages.
-Iglu Ruby Client addresses this issue, becoming third official Iglu client and first one with good chance of broad adoption.
+Iglu clients are simple SDKs which let users fetch schemas for self-describing data and validate that data against its schema.
 
-At Snowplow, Iglu used primarily in data pipelines, however, nothing prevents developers from using it in conjunction with REST APIs to document and 
-evolve API endpoints and eagerly validate data clients and servers passing to each other.
-For this purpose Iglu Ruby Client can be used with one of the world's most popular web frameworks - Ruby on Rails.
+As part of broadening the utility of the Iglu platform, we are pleased to introduce the Iglu Ruby Client. You can embed this client inside web applications written in Ruby on Rails or Sinatra, or inside Ruby- or JRuby-based CLI applications; we created this SDK originally for use inside Snowplow's own JRuby-based CLI apps.
 
-Another application of new client is Snowplow batch pipeline CLI, which in upcoming 89th release will use self-describing JSONs to configure storage targets configuration.
+This is our third Iglu client. Our [Iglu Scala Client][scala-client-repo] is the reference implementation and works at the core of the Snowplow pipeline, validating all data flowing through the platform; our [Iglu Objective-C Client] [objc-client-repo] lets you test and validate all of your Snowplow self-describing JSONs directly in your OS X and iOS applications.
 
-<h3 id="setup-guide">2. Setup guide</h3>
+<h2 id="intro">2. Use cases</h2>
 
-Iglu Ruby Client was tested with Ruby versions from 2.0 up to 2.4, including [JRuby][jruby] and can be used as a dependency for other gems as well as included into jars.
+This library lets you add a layer of JSON validation to your Ruby-based web applications, servers and CLI tools.
+
+If you are sending events to Snowplow from Ruby, it is important to check that the self-describing JSONs you are sending to Snowplow will not cause validation issues downstream. If they do not validate, then Snowplow events will fail validation until you can get the problem fixed.
+
+You can now run the following assertions directly in your application:
+
+* That your resolver config is valid as per the [Iglu technical documentation] [iglu-docs]
+* That your self-describing JSONs can be resolved correctly against your Iglu repositories
+* That your self-describing JSONs pass validation against their respective JSON Schemas
+
+This removes the need of manually and painstakingly validating that your events and corresponding JSON Schemata are correct.
+
+As well as these Snowplow-oriented use cases, nothing prevents you from using Iglu technology more broadly, for example in conjunction with REST APIs to document and evolve API endpoints, and to eagerly validate data that clients and servers passing to each other.
+
+Please share any novel use cases for this client on our Discourse!
+
+<h3 id="setup-guide">3. Setup guide</h3>
+
+Iglu Ruby Client has been tested with Ruby versions from 2.0 up to 2.4, including [JRuby][jruby] and can be used as a dependency for other gems as well as included into jars.
 
 It is published on [RubyGems.org][rubygems] and can be installed with via `gem` utility:
 
 `gem install iglu-ruby-client`
 
-To add it as a dependency to your own Ruby gem, edit your gemfile and add:
+To add it as a dependency to your own Ruby gem, please edit your gemfile and add:
 
 {% highlight ruby %}
 gem 'iglu-ruby-client'
 {% endhighlight %}
 
-<h3 id="usage">3. Usage</h3>
+<h3 id="usage">4. Usage</h3>
 
-Below you can see basic usage example:
+Here is a basic usage example:
+
+UPDATE THE BELOW TO ALL BE AN irb SESSION
 
 {% highlight ruby %}
 require 'iglu-client'
 
+resolver_config = ANTON TO ADD
+json = ANTON TO ADD
+
 resolver = Iglu::Resolver.parse(JSON.parse(resolver_config, {:symbolize_names => true}))
 resolver.validate(json)
+SHOW OUTPUT WITH A VALIDATION FAILURE
 {% endhighlight %}
 
-Above snippet initializes client from [resolver configuration][resolver-config] (versions up to `1-0-2` are supported in initial release) and validates self-describing JSON.
-Note that it is highly recommended to use JSONs as hashes with symbolized keys.
-Unlike Iglu Scala Client which never throws exceptions and return errors as values, Ruby client uses more common for dynamic languages approach,
-specifically it throws `IgluError` exception on any non-success case, like non-self-describing JSON, not found schema, connection error etc and returns plain value (same self-describing JSON) on success.
-To just lookup schema without any self-describing JSON, you can use `lookup_schema` method, which accepts schema key as object or URI.
+This snippet:
 
-`iglu-ruby-client` gem also provides somewhat similar to [Iglu core][iglu-core] functionality.
-Specifically, you can initialize and utilize entities specific to Iglu system, such as schema key, self-describing data, SchemaVer etc.
-Same classes will be included in Iglu Ruby Core library when it'll be released.
+1. Initializes the client from a [resolver configuration][resolver-config] (versions up to `1-0-2` are supported in initial release)
+2. Extracts the schema URI from the supplied `json`
+3. Resolves the schema in [Iglu Central] [iglu-central] by looking in the supplied repositories
+4. Then validates the self-describing JSON against the resolved schema
 
-Ruby Client supports somewhat similar to [JVM embedded][embedded] registry. 
-It also can be constructed from `embedded` connection using path inside gems and JRuby jars (created using warbler) but it has few important differences with JVM embedded registry:
+For more advanced usage, please see the [Ruby client] [documentation] page on the Iglu wiki.
 
-* It can accept absolute filesystem paths
-* Paths are relative from ruby file where registry is initialized
-* There's no way to automatically merge all embedded registries, each should be created explicitly
+<h2 id="roadmap">5. Roadmap and lacking features</h2>
 
-Our own's [bootstrap resolver][bootstrap-resolver] can be used as an example on how to use embedded regsitries in Ruby.
+Iglu Ruby Client is still a young project, and does not yet have feature parity with our Iglu Scala Client, the reference implementation.
 
-<h2 id="roadmap">4. Roadmap and lacking features</h2>
+In particular:
 
-Our Scala client works as reference-implementation, which means it receives all features first, while other for implementations it could take some time to be delivered and we don't have strict parity in features so far.
-It also means that very fresh Ruby Client has some inconsistencies in behavior, which will be eliminated in future releases.
-Most significant inconsistency is lack of bounds in cache - Scala client uses LRU cache that drops all looked up entities after amount of schemas exceeds bounds specified using `cacheSize`.
-This is not a case for Ruby Client, which grows its cache infinitely.
-
-Also Ruby client doesn't support recently introduced `cacheTtl` proprty.
-
-Although, `cacheSize` doesn't make any difference to Ruby resolver - it still must be present in configuration, because otherwise configuration is invalid.
+* Although you must set the `cacheSize` for each registry in the resolver configuration, it is not actually used. While Iglu Scala Client uses this for eviction from its LRU cache, by contrast the Ruby client currently grows its cache indefinitely ([#3] (issue-3)].
+* Iglu Ruby Client doesn't yet support recently introduced `cacheTtl` configuration property
 
 <h2 id="help">5. Getting help</h2>
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+[iglu-repo]: https://github.com/snowplow/iglu
+
 [scala-client-repo]: https://github.com/snowplow/iglu-scala-client
+[objc-client-repo]: https://github.com/snowplow/iglu-objc-client
 [resolver-config]: https://github.com/snowplow/iglu/wiki/Iglu-client-configuration
-[iglu-core]: https://github.com/snowplow/iglu/wiki/Iglu-core
-[embedded]: https://github.com/snowplow/iglu/wiki/JVM-embedded-repo
-[bootstrap-resolver]: https://github.com/snowplow/iglu-ruby-client/blob/release/0.1.0/lib/iglu-client/bootstrap.rb
 
 [rubygems]: https://rubygems.org/
 [jruby]: http://jruby.org/
 [warbler]: https://github.com/jruby/warbler
 
+[documentation]: https://github.com/snowplow/iglu/wiki/Ruby-client
+
 [repo]: https://github.com/snowplow/iglu-ruby-client
 [issues]: https://github.com/snowplow/snowplow/iglu-ruby-client/issues
+[issue-3]: https://github.com/snowplow/iglu-ruby-client/issues/3
+[issue-6]: https://github.com/snowplow/iglu-ruby-client/issues/6
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

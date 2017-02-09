@@ -16,7 +16,7 @@ In the rest of this post we will cover:
 1. [Why Dataflow Runner?](/blog/2017/02/xx/introducing-dataflow-runner#why)
 2. [Dataflow Runner 0.1.0](/blog/2017/02/xx/introducing-dataflow-runner#dataflow-runner)
 3. [Downloading and running Dataflow Runner](/blog/2017/02/xx/introducing-dataflow-runner#install)
-4. [Managing EMR with Dataflow Runner](/blog/2017/02/xx/introducing-dataflow-runner#running)
+4. [Running a jobflow on EMR](/blog/2017/02/xx/introducing-dataflow-runner#running)
 5. [Roadmap](/blog/2017/02/xx/introducing-dataflow-runner#roadmap)
 6. [Contributing](/blog/2017/02/xx/introducing-dataflow-runner#contributing)
 
@@ -110,7 +110,7 @@ COPYRIGHT:
    (c) 2016-2017 Snowplow Analytics, LTD
 {% endhighlight %}
 
-<h2 id="running">4. Managing EMR with Dataflow Runner</h2>
+<h2 id="running">4. Running a jobflow on EMR</h2>
 
 To use Dataflow Runner you will need to create two configuration files. The first is an EMR cluster configuration, which will be used to launch the cluster; the second is the "playbook" containing a sequential series of steps that you want executed on a given cluster.
 
@@ -221,11 +221,9 @@ To execute all of the above, including spinning up and shutting down the cluster
 
 We're taking an iterative approach with Dataflow Runner - today it only has support for [AWS EMR][aws-emr] but we plan on growing it into a tool that can run on [YARN][apache-yarn], [Google Cloud Dataproc][google-dataproc], [Azure HDInsight][azure-hdinsight] and more!
 
-From the Snowplow perspective, and following on from our [RFC][emretlrunner-rfc], we are also exploring how to migrate from EmrEtlRunner to Dataflow Runner. We don't plan to do this immediately - Dataflow Runner needs to become more mature first, and there are still important features related to robust jobflow execution in EmrEtlRunner that XXXXX
+From the Snowplow perspective we are exploring how to migrate our users from EmrEtlRunner to Dataflow Runner, per our [RFC][emretlrunner-rfc]. We don't plan on doing this immediately - Dataflow Runner needs to become more mature first, and there are still important jobflow execution features in EmrEtlRunner that have no equivalent yet in Dataflow Runner. However, expect to see some initial integration efforts between Snowplow and Dataflow Runner soon!
 
-XXXXX   
-
-If you have specific features you'd like to suggest, please [add a ticket] [dataflow-runner-issues] to the GitHub repo.
+And of course if you have specific features you'd like to suggest, please [add a ticket] [dataflow-runner-issues] to the GitHub repo.
 
 <h2 id="contributing">6. Contributing</h2>
 

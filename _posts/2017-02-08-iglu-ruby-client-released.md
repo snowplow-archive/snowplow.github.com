@@ -7,7 +7,7 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the initial release of the [Iglu Ruby Client][repo], our third library in the family of [Iglu] [iglu] clients.
+We are pleased to announce the initial release of the [Iglu Ruby Client][repo], our third library in the family of [Iglu] [iglu-repo] clients.
 
 In the rest of this post we will cover:
 
@@ -120,6 +120,7 @@ In particular:
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
 [iglu-repo]: https://github.com/snowplow/iglu
+[iglu-docs]: https://github.com/snowplow/iglu/wiki
 
 [scala-client-repo]: https://github.com/snowplow/iglu-scala-client
 [objc-client-repo]: https://github.com/snowplow/iglu-objc-client

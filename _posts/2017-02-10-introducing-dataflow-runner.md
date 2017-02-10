@@ -13,12 +13,12 @@ This release signals the first step in our journey to deconstruct EmrEtlRunner i
 
 In the rest of this post we will cover:
 
-1. [Why Dataflow Runner?](/blog/2017/02/xx/introducing-dataflow-runner#why)
-2. [Dataflow Runner 0.1.0](/blog/2017/02/xx/introducing-dataflow-runner#dataflow-runner)
-3. [Downloading and running Dataflow Runner](/blog/2017/02/xx/introducing-dataflow-runner#install)
-4. [Running a jobflow on EMR](/blog/2017/02/xx/introducing-dataflow-runner#running)
-5. [Roadmap](/blog/2017/02/xx/introducing-dataflow-runner#roadmap)
-6. [Contributing](/blog/2017/02/xx/introducing-dataflow-runner#contributing)
+1. [Why Dataflow Runner?](/blog/2017/02/10/introducing-dataflow-runner#why)
+2. [Dataflow Runner 0.1.0](/blog/2017/02/10/introducing-dataflow-runner#dataflow-runner)
+3. [Downloading and running Dataflow Runner](/blog/2017/02/10/introducing-dataflow-runner#install)
+4. [Running a jobflow on EMR](/blog/2017/02/10/introducing-dataflow-runner#running)
+5. [Roadmap](/blog/2017/02/10/introducing-dataflow-runner#roadmap)
+6. [Contributing](/blog/2017/02/10/introducing-dataflow-runner#contributing)
 
 <!--more-->
 

@@ -7,10 +7,9 @@ author: Ed
 category: Releases
 ---
 
-We're pleased to announce the 1.0.0 release of Snowplow's .NET tracker. This is a major reboot of the existing .NET tracker making it a netstandard project - it's now supported on mobile devices through Xamarin,
-and all platforms that support .NET Core (Windows, Linux and macOS!).
+We're pleased to announce the 1.0.0 release of Snowplow's .NET Tracker. This is a major reboot of the existing .NET Tracker, convering it into a NETStandard project; this conversion brings with it support for the tracker on mobile devices through Xamarin, plus all platforms that support .NET Core (Windows, Linux and macOS).
 
-Read on more:
+Read on for more:
 
 1. [NETStandard in a nutshell](/blog/2017/02/07/dotnet-tracker-1.0.0-released-as-netstandard-library#netstandard)
 2. [The .NET Tracker 1.0.0 Deployment](/blog/2017/02/07/dotnet-tracker-1.0.0-released-as-netstandard-library#deployment)
@@ -21,20 +20,26 @@ Read on more:
 
 <h2 id="netstandard">1. NETStandard in a nutshell</h2>
 
-The .NET ecosystem is undergoing a massive transition - we think for the better. When we developed the previous version of the Snowplow .NET tracker it was enough to target desktops, and the project was anchored at
-a .NET framework version rather than a set of platforms. It didn't take long for new platforms to appear (and disapear in the case of Silverlight). From this came "portable class libraries" or PCLs. A PCL is one project anchored to many
-platforms. PCL's are defined as the subset of all the features across every platform. So if platform 1 supports features A,B and C, and platform 2 supports B,C and D a PCL targeting both can only use the features B and C.
-I'm sure at the time it was hoped that this would drive development across each platform into a natural convergence. This hasn't really happened, and the tail is wagging the dog a little.
+The .NET ecosystem is undergoing a massive transition - we think for the better. When we developed the previous version of the Snowplow .NET Tracker it was enough to target desktops and servers, and the project was anchored to a .NET framework version, rather than a set of platforms.
 
-This is why we've decided to adopt the new Netstandard approach for our core library. Now each platform must be able to execute the NETStandard library as it's base class library (BCL). As an exciting side note - the .NET standard is tracking the features
-in .NET Core, it's now essentially a .NET standard reference implementation that works on many environments.  
+However, it didn't take long for new platforms to appear (and to disappear, in the case of Silverlight). From these changes came "portable class libraries" or PCLs. A PCL is one project anchored to many platforms; PCLs are defined as the subset of all the given features across every platform. In other words: if SomePlatform supports features (A, B, C), and AnotherPlatform supports features (B, C, D), then a PCL targeting both can only use the features (B, C).
+
+We think that the likely intention of PCL was to drive development across all of the platforms into a natural convergence. Unfortunately, this didn't really happen, and so NETstandard was born as a new harmonization initiative.
+
+[[[ PARAGRAPH ON NETStandard "Now each platform must be able to execute the NETStandard library as it's base class library (BCL)." ]]]
+
+This is why we've decided to adopt the new NetStandard approach for our Snowplow .NET Tracker. As an exciting side note - the .NET standard is tracking the features in .NET Core, it's now essentially a .NET standard reference implementation that works on many environments. [[[ I don't understand this sentence ]]] 
 
 If you're new to .NET or returning after a break - there's a great [video series here][netstandard-vid] by Immo Landwerth (of Microsoft) with much more information on the ecosystem changes and the reasons behind them.
 
+[[[ Is it NETStandard or .NET standard? You seem to use them interchangeably ]]]
+
 <h2 id="deployment">2. The .NET Tracker 1.0.0 Deployment</h2>
 
-Of course it's not quite as simple as converting everything to NETStandard. We've split the Tracker into two NuGetPackages - `Snowplow.Tracker`, a fully functional NETStandard library for tracking Snowplow events and `Snowplow.Tracker.PlatformExtensions`
-a PCL wrapper extending the functionality of `Snowplow.Tracker` in platform specific ways (for example - providing mobile contexts on Xamarin).
+Of course it's not quite as simple as converting everything to NETStandard. We've split the Tracker into two NuGetPackages:
+
+1. `Snowplow.Tracker`, a fully functional NETStandard library for tracking Snowplow events
+2. `Snowplow.Tracker.PlatformExtensions`, a PCL wrapper extending the functionality of `Snowplow.Tracker` in platform specific ways, e.g. providing mobile contexts on Xamarin
 
 The `Snowplow.Tracker` package is the core library and contains everything you'll need to track events on any platform. Snowplow trackers however usually provide a rich set of events for you
 outside of the box. This is particularly interesting for mobile devices - just by including the Snowplow Tracking library you normally get access to information on the users' device type, operating system and the times a user is using your application.

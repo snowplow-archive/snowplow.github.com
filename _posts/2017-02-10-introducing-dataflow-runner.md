@@ -68,7 +68,11 @@ Any Avro schema validator can validate/lint a Dataflow Runner config - which sho
 
 Dataflow Runner is currently built for `Linux/amd64`, `Darwin/amd64` and `Windows/amd64` - if you require a different platform, please let us know!
 
-Crucially, Dataflow Runner has **no install dependencies** and doesn't require a cluster, root access, a database, port 80 and so on.
+Crucially, Dataflow Runner has **no install dependencies** and doesn't require a cluster, root access, a database, port 80 and so on.  The binaries can be found at the following locations:
+
+* Linux: http://dl.bintray.com/snowplow/snowplow-generic/dataflow_runner_0.1.0_linux_amd64.zip
+* Windows: http://dl.bintray.com/snowplow/snowplow-generic/dataflow_runner_0.1.0_windows_amd64.zip
+* macOS: http://dl.bintray.com/snowplow/snowplow-generic/dataflow_runner_0.1.0_darwin_amd64.zip
 
 <h2 id="install">3. Downloading and running Dataflow Runner</h2>
 
@@ -216,6 +220,8 @@ To execute all of the above, including spinning up and shutting down the cluster
 {% highlight bash %}
 > dataflow-runner run-transient --emr-config ${path-to-config} --emr-playbook ${path-to-playbook}
 {% endhighlight %}
+
+__NOTE__: For help and documentation on each command please see the [documentation](https://github.com/snowplow/dataflow-runner/wiki/Guide-for-analysts).
 
 <h2 id="roadmap">5. Roadmap for Dataflow Runner</h2>
 

@@ -19,7 +19,7 @@ Read on for more:
 2. [Why we are moving the Tracker to .NET Standard](/blog/2017/02/15/snowplow-dotnet-tracker-1.0.0-released/#why-we-are-moving)
 3. [Integrating the .NET Tracker](/blog/2017/02/15/snowplow-dotnet-tracker-1.0.0-released/#integration)
 4. [Using the .NET Tracker 1.0.0](/blog/2017/02/15/snowplow-dotnet-tracker-1.0.0-released/#use)
-5. [Future of the .NET Tracker](/blog/2017/02/15/snowplow-dotnet-tracker-1.0.0-released/#future)
+5. [The future of the .NET Tracker](/blog/2017/02/15/snowplow-dotnet-tracker-1.0.0-released/#future)
 
 <!--more-->
 
@@ -83,7 +83,7 @@ tracker functions are available in [the wiki documentation][wiki-main]. [A set-u
 
 If you've found a bug or technical issue - please [raise an issue][issue-tracker]!
 
-<h2 id="future">5. Future of the .NET Tracker</h2>
+<h2 id="future">5. The future of the .NET Tracker</h2>
 
 We hope that Microsoft's aquistion of Xamarin will result in the .NET Standard feature =set expanding to incorporate mobile-centric APIs - which we'll always strive to move into the core library. Although the ecosystem is
 in flux today we're expecting great things in the future!

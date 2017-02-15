@@ -21,14 +21,6 @@ Read on for more information on R88, named after the [largest religious monument
 
 <!--more-->
 
-<h2> Migrating configuration </h2>
-
-Not sure if this should be in blog post or in documentation.
-
-TODO: all previous values
-
-Note that some properties changed their meaning or removed. Therefore we recommend you to use script.
-
 <h2 id="synthetic-dedupe">1. Cross-batch natural deduplication</h2>
 
 Event duplicates were problem in Snowplow pipeline since its origin and were described several times [in this blog][dupes-blog-post] and on our [discourse forum][dupes-discourse-thread]. As first step to solve the problem, in [R76][r76-changeable-hawk-eagle-release] we implemented in-batch natural deduplication which removed duplicates originated due to at-least-once delivery semantics in Snowplow pipeline. Next, in [R86][r86-petra-release] we introduced synthetic in-batch deduplication which one again drastically reduced amount of duplicates in our users' clusters and completely removed them from each particular load, but left them across distinct loads.

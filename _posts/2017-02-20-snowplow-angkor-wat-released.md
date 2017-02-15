@@ -97,7 +97,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [convert-targets]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/convert_targets.rb
 [sample-targets]: https://github.com/snowplow/snowplow/blob/master/4-storage/config/targets
-[duplicate-storage-config]: TODO
+[duplicate-storage-config]: https://github.com/snowplow/snowplow/wiki/Configuring-storage-targets#dynamodb
 
 [r76-changeable-hawk-eagle-release]: http://snowplowanalytics.com/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/
 [r86-petra-release]: http://snowplowanalytics.com/blog/2016/12/20/snowplow-r86-petra-released/
@@ -107,9 +107,9 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
 [r8x-webhooks]: TODO
-[r8x-dashdb]: TODO
-[r9x-spark]: TODO
-[r9x-storageloader]: TODO
+[r8x-dashdb]: https://github.com/snowplow/snowplow/milestone/119
+[r9x-spark]: https://github.com/snowplow/snowplow/milestone/137
+[r9x-storageloader]: https://github.com/snowplow/snowplow/milestone/121
 
 
 [issues]: https://github.com/snowplow/snowplow/issues/new

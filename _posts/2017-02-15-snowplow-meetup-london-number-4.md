@@ -26,7 +26,7 @@ Dejan Petelin, head of data science at [Gousto](https://www.gousto.co.uk/), gave
 
 See Dejan’s talk below:
 
-<iframe width="595" height="335" src="https://www.youtube.com/embed/vKvOrKpfZm0" frameborder="0" allowfullscreen></iframe>
+<iframe width="595" height="335" src="https://www.youtube.com/watch?v=XY5CVtlmA0w" frameborder="0" allowfullscreen></iframe>
 
 <!--more-->
 

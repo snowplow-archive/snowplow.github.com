@@ -104,7 +104,7 @@ For more details on this release, please check out the [release notes] [snowplow
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
 [chichen-itza-mexico]: https://en.wikipedia.org/wiki/Chichen_Itza
-[chichen-itza-mexico-img]: /assets/img/blog/2016/12/petra-jordan.jpg
+[chichen-itza-mexico-img]: /assets/img/blog/2017/02/chichen-itza-mexico.jpg
 
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r87-chichen-itza
 [2888]: https://github.com/snowplow/snowplow/issues/2888

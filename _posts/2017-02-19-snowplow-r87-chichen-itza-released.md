@@ -11,7 +11,7 @@ We are pleased to announce the immediate availability of [Snowplow 87 Chichen It
 
 This release contains a wide array of new features, stability enhancements and performance improvements for EmrEtlRunner and StorageLoader. As of this release EmrEtlRunner lets you specify EBS volumes for your Hadoop worker nodes; meanwhile StorageLoader now writes to a dedicated manifest table to record each load.
 
-Continuing with our release series named for archaelogical site, R87 is [Chichen Itza] [chichen-itza-mexico], the Mayan city in the Yucatan Peninsula in Mexico.
+Continuing with this release series named for archaelogical sites, Release 87 is [Chichen Itza] [chichen-itza-mexico], the ancient Mayan city in the Yucatan Peninsula in Mexico.
 
 Read on after the fold for:
 
@@ -77,7 +77,7 @@ To make use of the new ability to specify EBS volumes for your EMR cluster's cor
         ebs_optimized: false # Optional. Will default to true
 {% endhighlight %}
 
-The above configuration will attach an EBS volume of 200 GiB to each core instance in your EMR cluster; the volumes will be Provisioned IOPS (SSD), with performance of 400 IOPS/GiB. The volumes will *not* be EBS optimized. Note that XXXXXXX.
+The above configuration will attach an EBS volume of 200 GiB to each core instance in your EMR cluster; the volumes will be Provisioned IOPS (SSD), with performance of 400 IOPS/GiB. The volumes will *not* be EBS optimized. Note that this configuration has finally allowed us to use the EBS-only `c4` instance types for our core nodes.
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
 

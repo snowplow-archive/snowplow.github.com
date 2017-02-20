@@ -77,7 +77,7 @@ You will also need to deploy the following table for Redshift:
 As well as the cross-batch deduplication mentioned above, upcoming Snowplow releases include:
 
 * [R8x [HAD] Cross-batch natural deduplication] [r8x-crossbatch-dedupe], removing duplicates across ETL runs using an event manifest in DynamoDB
-* [R87 Chichen Itza] [r87-chichen-itza], with various stability improvements for EmrEtlRunner and StorageLoader
+* XXXX
 * [R8x [HAD] 4 webhooks] [r8x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
 
 Note that these releases are always subject to change between now and the actual release date.
@@ -97,8 +97,9 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [s3distcp]: http://docs.aws.amazon.com/emr/latest/ReleaseGuide/UsingEMR_s3distcp.html
 [2888]: https://github.com/snowplow/snowplow/issues/2888
 
-[r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
 [r8x-crossbatch-dedupe]: https://github.com/snowplow/snowplow/milestone/136
+
+[r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
 
 [issues]: https://github.com/snowplow/snowplow/issues/new
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

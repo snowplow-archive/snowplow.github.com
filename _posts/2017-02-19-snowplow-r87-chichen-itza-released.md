@@ -15,13 +15,13 @@ Continuing with our release series named for archaelogical site, R87 is [Chichen
 
 Read on after the fold for:
 
-1. [Specifying EBS volumes for Hadoop in EmrEtlRunner](/blog/2017/02/19/snowplow-r87-chichen-itza-released#ebs)
-2. [EmrEtlRunner stability and performance improvements](/blog/2017/02/19/snowplow-r87-chichen-itza-released#emretlrunner-misc)
-3. [A load manifest for Redshift](/blog/2017/02/19/snowplow-r87-chichen-itza-released#manifest)
-4. [StorageLoader stability improvements](/blog/2017/02/19/snowplow-r87-chichen-itza-released#storageloader-misc)
-5. [Upgrading](/blog/2017/02/19/snowplow-r87-chichen-itza-released#upgrading)
-6. [Roadmap](/blog/2017/02/19/snowplow-r87-chichen-itza-released#roadmap)
-7. [Getting help](/blog/2017/02/19/snowplow-r87-chichen-itza-released#help)
+1. [Specifying EBS volumes for Hadoop in EmrEtlRunner](/blog/2017/02/20/snowplow-r87-chichen-itza-released#ebs)
+2. [EmrEtlRunner stability and performance improvements](/blog/2017/02/20/snowplow-r87-chichen-itza-released#emretlrunner-misc)
+3. [A load manifest for Redshift](/blog/2017/02/20/snowplow-r87-chichen-itza-released#manifest)
+4. [StorageLoader stability improvements](/blog/2017/02/20/snowplow-r87-chichen-itza-released#storageloader-misc)
+5. [Upgrading](/blog/2017/02/20/snowplow-r87-chichen-itza-released#upgrading)
+6. [Roadmap](/blog/2017/02/20/snowplow-r87-chichen-itza-released#roadmap)
+7. [Getting help](/blog/2017/02/20/snowplow-r87-chichen-itza-released#help)
 
 ![chichen-itza-mexico][chichen-itza-mexico-img]
 
@@ -55,34 +55,49 @@ As with EmrEtlRunner, we have bumped the JRuby version for StorageLoader to 9.1.
 
 We have also fixed a critical bug for loading events into Postgres via StorageLoader ([#2888] [2888]).
 
-<h2 id="upgrading">4. Upgrading</h2>
+<h2 id="upgrading">5. Upgrading</h2>
 
-Upgrading is simple - update the `hadoop_shred` job version in your configuration YAML like so:
+<h3 id="upgrading-binaries">5.1 Upgrading EmrEtlRunner and StorageLoader</h3>
+
+The latest version of the EmrEtlRunner and StorageLoader are available from our Bintray [here][app-dl].
+
+<h3 id="upgrading-config.yml">5.2 Updating config.yml</h3>
+
+To make use of the new ability to specify EBS volumes for your EMR cluster's core nodes, update your configuration YAML like so:
 
 {% highlight yaml %}
-versions:
-  hadoop_enrich: 1.8.0        # UNCHANGED
-  hadoop_shred: 0.10.0        # WAS 0.9.0
-  hadoop_elasticsearch: 0.1.0 # UNCHANGED
+    jobflow:
+      master_instance_type: m1.medium
+      core_instance_count: 1
+      core_instance_type: c4.2xlarge
+      core_instance_ebs:   # Optional. Attach an EBS volume to each core instance.
+        volume_size: 200    # Gigabytes
+        volume_type: "io1"
+        volume_iops: 400    # Optional. Will only be used if volume_type is "io1"
+        ebs_optimized: false # Optional. Will default to true
 {% endhighlight %}
+
+The above configuration will attach an EBS volume of 200 GiB to each core instance in your EMR cluster; the volumes will be Provisioned IOPS (SSD), with performance of 400 IOPS/GiB. The volumes will *not* be EBS optimized. Note that XXXXXXX.
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
 
-You will also need to deploy the following table for Redshift:
+<h3 id="upgrading-redshift">5.3 Upgrading Redshift</h3>
 
-* [com.snowplowanalytics.snowplow/duplicate_1.sql] [duplicate-ddl]
+You will also need to deploy the following manifest table for Redshift:
 
-<h2 id="roadmap">5. Roadmap</h2>
+* [4-storage/redshift-storage/sql/manifest-def.sql ] [manifest-ddl]
 
-As well as the cross-batch deduplication mentioned above, upcoming Snowplow releases include:
+<h2 id="roadmap">6. Roadmap</h2>
+
+Upcoming Snowplow releases include:
 
 * [R8x [HAD] Cross-batch natural deduplication] [r8x-crossbatch-dedupe], removing duplicates across ETL runs using an event manifest in DynamoDB
-* XXXX
-* [R8x [HAD] 4 webhooks] [r8x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
+* [R9x [HAD] Spark port] [r9x-spark-port], which will port our Hadoop Enrich and Hadoop Shred jobs from Scalding to Apache Spark
+* [R9x [HAD] 4 webhooks] [r9x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
 
 Note that these releases are always subject to change between now and the actual release date.
 
-<h2 id="help">6. Getting help</h2>
+<h2 id="help">7. Getting help</h2>
 
 For more details on this release, please check out the [release notes] [snowplow-release] on GitHub.
 
@@ -92,14 +107,18 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [chichen-itza-mexico-img]: /assets/img/blog/2016/12/petra-jordan.jpg
 
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r87-chichen-itza
+[2888]: https://github.com/snowplow/snowplow/issues/2888
+
+[app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r87_chichen_itza.zip
+[manifest-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/manifest-def.sql
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
 [snowplow-lambda-architecture]: http://discourse.snowplowanalytics.com/t/how-to-setup-a-lambda-architecture-for-snowplow/249
 [s3distcp]: http://docs.aws.amazon.com/emr/latest/ReleaseGuide/UsingEMR_s3distcp.html
-[2888]: https://github.com/snowplow/snowplow/issues/2888
 
 [r8x-crossbatch-dedupe]: https://github.com/snowplow/snowplow/milestone/136
-
-[r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
+[r9x-spark-port]: https://github.com/snowplow/snowplow/milestone/137
+[r9x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
 
 [issues]: https://github.com/snowplow/snowplow/issues/new
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

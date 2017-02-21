@@ -31,9 +31,14 @@ Read on after the fold for:
 
 A recurring request from the Snowplow community has been for increased control over how the Snowplow batch pipeline runs on Elastic MapReduce.
 
-Over time, our plan is to give you total control over this, with our planned migration from EmrEtlRunner to our new [Dataflow Runner] [dataflow-runner], as per our [RFC] [emretlrunner-rfc]. However, this plan will take some time, and in the meantime we are continuing to invest in EmrEtlRunner.
+Over time, our plan is to give you total control over this, with our planned migration from EmrEtlRunner to our new [Dataflow Runner] [dataflow-runner], as per our [RFC] [emretlrunner-rfc]. However, this plan will take some time, and in the meantime we are continuing to invest in improving EmrEtlRunner.
 
-In this release we add XXX.
+In this release we add the ability to specify an EBS volume to attach to each core instance in your EMR cluster. This is particularly powerful for two scenarios:
+
+1. When you want to use new EBS-only instance types, such as the `c4` series, for your EMR jobs
+2. When you have significant event volumes and you would like much more finegrained control over the amount of disk you are allocating to the HDFS cluster that is formed out of the task nodes
+
+EmrEtlRunner lets you attach one EBS volume to each node, broadly exposing the XXX.
 
 <h2 id="emretlrunner-misc">2. EmrEtlRunner stability and performance improvements</h2>
 
@@ -134,6 +139,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [manifest-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/manifest-def.sql
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
+[emretlrunner-rfc]: http://discourse.snowplowanalytics.com/t/splitting-emretlrunner-into-snowplowctl-and-dataflow-runner/350
+[dataflow-runner]: https://github.com/snowplow/dataflow-runner
 [snowplow-lambda-architecture]: http://discourse.snowplowanalytics.com/t/how-to-setup-a-lambda-architecture-for-snowplow/249
 [s3distcp]: http://docs.aws.amazon.com/emr/latest/ReleaseGuide/UsingEMR_s3distcp.html
 

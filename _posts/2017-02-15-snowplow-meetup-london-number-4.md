@@ -54,7 +54,7 @@ Christophe Bogaert, Data Scientist at Snowplow, talked about how businesses are 
 
 See Christophe’s talk below.
 
-<iframe width="595" height="335" src="https://www.youtube.com/embed/Rbkt942HABc" frameborder="0" allowfullscreen></iframe>
+<iframe width="595" height="335" src="https://www.youtube.com/embed/cTBbF3WAUwg" frameborder="0" allowfullscreen></iframe>
 
 And his slides:
 

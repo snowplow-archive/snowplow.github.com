@@ -2,7 +2,7 @@
 layout: post
 title-short: Snowplow 87 Chichen Itza
 title: "Snowplow 87 Chichen Itza released"
-tags: [snowplow, ebs, emr, manifest, elasticity]
+tags: [snowplow, ebs, emr, redshift, manifest, elasticity]
 author: Alex
 category: Releases
 ---
@@ -15,13 +15,13 @@ Continuing with this release series named for archaelogical sites, Release 87 is
 
 Read on after the fold for:
 
-1. [Specifying EBS volumes for Hadoop in EmrEtlRunner](/blog/2017/02/20/snowplow-r87-chichen-itza-released#ebs)
-2. [EmrEtlRunner stability and performance improvements](/blog/2017/02/20/snowplow-r87-chichen-itza-released#emretlrunner-misc)
-3. [A load manifest for Redshift](/blog/2017/02/20/snowplow-r87-chichen-itza-released#manifest)
-4. [StorageLoader stability improvements](/blog/2017/02/20/snowplow-r87-chichen-itza-released#storageloader-misc)
-5. [Upgrading](/blog/2017/02/20/snowplow-r87-chichen-itza-released#upgrading)
-6. [Roadmap](/blog/2017/02/20/snowplow-r87-chichen-itza-released#roadmap)
-7. [Getting help](/blog/2017/02/20/snowplow-r87-chichen-itza-released#help)
+1. [Specifying EBS volumes for Hadoop in EmrEtlRunner](/blog/2017/02/21/snowplow-r87-chichen-itza-released#ebs)
+2. [EmrEtlRunner stability and performance improvements](/blog/2017/02/21/snowplow-r87-chichen-itza-released#emretlrunner-misc)
+3. [A load manifest for Redshift](/blog/2017/02/21/snowplow-r87-chichen-itza-released#manifest)
+4. [StorageLoader stability improvements](/blog/2017/02/21/snowplow-r87-chichen-itza-released#storageloader-misc)
+5. [Upgrading](/blog/2017/02/21/snowplow-r87-chichen-itza-released#upgrading)
+6. [Roadmap](/blog/2017/02/21/snowplow-r87-chichen-itza-released#roadmap)
+7. [Getting help](/blog/2017/02/21/snowplow-r87-chichen-itza-released#help)
 
 ![chichen-itza-mexico][chichen-itza-mexico-img]
 
@@ -29,7 +29,11 @@ Read on after the fold for:
 
 <h2 id="ebs">1. Specifying EBS volumes for Hadoop in EmrEtlRunner</h2>
 
-TO ADD
+A recurring request from the Snowplow community has been for increased control over how the Snowplow batch pipeline runs on Elastic MapReduce.
+
+Over time, our plan is to give you total control over this, with our planned migration from EmrEtlRunner to our new [Dataflow Runner] [dataflow-runner], as per our [RFC] [emretlrunner-rfc]. However, this plan will take some time, and in the meantime we are continuing to invest in EmrEtlRunner.
+
+In this release we add XXX.
 
 <h2 id="emretlrunner-misc">2. EmrEtlRunner stability and performance improvements</h2>
 
@@ -47,7 +51,22 @@ Finally, we have bumped the JRuby version for EmrEtlRunner to 9.1.6.0, and upgra
 
 <h2 id="manifest">3. A load manifest for Redshift</h2>
 
-TO ADD
+As of this release, StorageLoader now populates a manifest table as part of the Redshift load. The table is simply called `manifest` and lives in the same schema as your `events` and other tables.
+
+Here are the last 5 loads for one of our internal pipelines:
+
+{% highlight sql %}
+ADD ME
+{% endhighlight %}
+
+The fields are as follows:
+
+* `etl_tstamp` is the time at which the Snowplow pipeline run started
+* `xxx_tstamp` is the time at which the XXXX
+* `event_count` is the number of events loaded as part of this commit
+* `shredded_cardinality` is how many different self-describing event and context tables were loaded as part of this commit
+
+At the moment this manifest table is only informational, however in the future we would like to start using it proactively - for example to prevent a batch of events from being accidentally double-loaded into Redshift.
 
 <h2 id="storageloader-misc">4. StorageLoader stability improvements</h2>
 
@@ -86,6 +105,8 @@ For a complete example, see our [sample `config.yml` template][emretlrunner-conf
 You will also need to deploy the following manifest table for Redshift:
 
 * [4-storage/redshift-storage/sql/manifest-def.sql ] [manifest-ddl]
+
+This table should be deployed into the same schema as your `events` and other tables.
 
 <h2 id="roadmap">6. Roadmap</h2>
 

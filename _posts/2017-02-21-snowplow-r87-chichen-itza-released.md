@@ -38,7 +38,7 @@ In this release we add the ability to specify an EBS volume to attach to each co
 1. When you want to use new EBS-only instance types, such as the `c4` series, for your EMR jobs
 2. When you have significant event volumes and you would like much more finegrained control over the amount of disk you are allocating to the HDFS cluster that is formed out of the task nodes
 
-EmrEtlRunner lets you attach one EBS volume to each node, broadly exposing the XXX.
+EmrEtlRunner lets you attach one EBS volume to each node, broadly exposing the functionality described in the [EMR documentation for Amazon EBS volumes] [emr-ebs-docs]. For an example, please see the upgrade section **5.2 Updating config.yml** below.
 
 <h2 id="emretlrunner-misc">2. EmrEtlRunner stability and performance improvements</h2>
 
@@ -61,17 +61,25 @@ As of this release, StorageLoader now populates a manifest table as part of the 
 Here are the last 5 loads for one of our internal pipelines:
 
 {% highlight sql %}
-ADD ME
+snplow=# select * from atomic.manifest order by etl_tstamp desc limit 5;
+       etl_tstamp        |       commit_tstamp        | event_count | shredded_cardinality
+-------------------------+----------------------------+-------------+----------------------
+ 2017-02-21 19:01:49.648 | 2017-02-21 19:28:33.394898 |        4340 |                    8
+ 2017-02-21 15:02:02.03  | 2017-02-21 15:27:24.534884 |        2891 |                    7
+ 2017-02-21 11:02:09.63  | 2017-02-21 11:28:00.317476 |        2210 |                    7
+ 2017-02-21 08:02:14.957 | 2017-02-21 08:27:59.829461 |        1945 |                    6
+ 2017-02-21 03:01:39.476 | 2017-02-21 03:27:03.493547 |        1986 |                    8
+(5 rows)
 {% endhighlight %}
 
 The fields are as follows:
 
 * `etl_tstamp` is the time at which the Snowplow pipeline run started
-* `xxx_tstamp` is the time at which the XXXX
-* `event_count` is the number of events loaded as part of this commit
-* `shredded_cardinality` is how many different self-describing event and context tables were loaded as part of this commit
+* `commit_tstamp` is the time at which the load transaction **started**
+* `event_count` is the number of events loaded into the `events` table as part of this load transaction
+* `shredded_cardinality` is how many different self-describing event and context tables were loaded as part of this load transaction
 
-At the moment this manifest table is only informational, however in the future we would like to start using it proactively - for example to prevent a batch of events from being accidentally double-loaded into Redshift.
+At the moment this manifest table is only informational, however in the future we want to use it proactively - for example to prevent a batch of events from being accidentally double-loaded into Redshift.
 
 <h2 id="storageloader-misc">4. StorageLoader stability improvements</h2>
 
@@ -138,6 +146,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r87_chichen_itza.zip
 [manifest-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/manifest-def.sql
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+
+[emr-ebs-docs]: http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-storage-ebs.html
 
 [emretlrunner-rfc]: http://discourse.snowplowanalytics.com/t/splitting-emretlrunner-into-snowplowctl-and-dataflow-runner/350
 [dataflow-runner]: https://github.com/snowplow/dataflow-runner

@@ -30,8 +30,8 @@ We will be going there as part of the [Amazon Web Services (AWS)](https://aws.am
 Alex Dean, Diogo Pacheco, Idan Ben-Yaacov, Joshua Beemster and Yali Sassoon will be representing Snowplow at the GDC and will be in San Francisco from February the 26th to March the 4th.
 Alex Dean, our co-founder, will also be in Seattle a few days before the GDC.
 
-## Snowplow Meetups New York and Boston number 2
-Part of the Snowplow team, including Christophe Bogaert, will be in New York and Boston mid-March and we plan to hold Meetups in both cities in w/c March the 13th.
+## Snowplow team in Washington, Philadelphia, New York and Boston
+Christophe Bogaert will be in the following cities in March: Washington DC (6th and 7th), Philadelphia (8th), New York (9th to 15th) and Boston (16th and 17th).  Get in touch with him if you would like to meet up.
 
 ## Snowplow Meetup Sydney
 ‎Our partner [Snowflake Analytics](https://www.snowflake-analytics.com/) will be running a [Snowplow Meetup in Sydney](https://www.meetup.com/Snowplow-Analytics-Sydney/events/237306499/) on March the 15th.

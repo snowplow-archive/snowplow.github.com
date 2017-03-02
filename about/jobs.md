@@ -29,8 +29,9 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 
 ### London, UK
 
-1. [Data engineer][data-engineer]
+1. [Systems administrator][systems-administrator]
 2. [Technical product manager][technical-product-manager]
+3. [Data engineer][data-engineer]
 
 ### Berlin, Germany
 
@@ -45,6 +46,7 @@ Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 <strong>We do not welcome calls from recruitment consultants.</strong>
 
+[systems-administrator]: /about/jobs/systems-administrator/
 [data-engineer]: /about/jobs/data-engineer/
 [support-engineer]: /about/jobs/support-engineer/
 [technical-product-manager]: /about/jobs/technical-product-manager/

@@ -23,7 +23,7 @@ This blog post explains how Peak has been using Snowplow since July 2015 to driv
 ## About Peak
 [Peak](http://www.peak.net/) is a cognitive training platform with a difference. It provides games built by neuroscientists to exercise mental skills such as memory, mental agility, problem solving, language and more - turning your smartphone into a system for brain measurement, brain tracking and brain training.
 
-Peak’s app has over 8 million users since its launch in late 2014 and was voted Apple’s “Best App of 2014” and Google Play’s “Best of 2015”.
+Peak’s app has over 20 million users since its launch in late 2014 and was voted Apple’s “Best App of 2014” and Google Play’s “Best of 2015” and “Best of 2016”.
 
 Peak collaborates with neuroscience researchers and psychologists at Yale, Cambridge and other universities to build advanced training programs with a strong scientific foundation.
 

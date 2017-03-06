@@ -7,7 +7,7 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 88 Angkor Wat] [snowplow-release]. This release introduces additional event de-duplication functionality across many ETL jobs.
+We are pleased to announce the release of [Snowplow 88 Angkor Wat] [snowplow-release]. This release introduces additional event de-duplication functionality across many ETL jobs and rework of storage targets configuration.
 
 Read on for more information on R88, named after the [largest religious monument in the world] [angkor-wat]:
 
@@ -33,15 +33,15 @@ To start deduplicating events across batches you need to provide EmrEtlRunner a 
 
 <h2 id="storage-targets">2. New storage targets configuration</h2>
 
-In order to simplify configuration of growing number of storage targets we decided to move from old all-in-one configuration approach to self-describing JSONs. This should reduce amount of mistakes made by our users due to similarity between different storages and alleviate adding new storage targets such as [Google BigQuery][bigquery] and [DashDB][dashdb-rfc].
-With self-describing JSONs users now can see clear and detailed error message if they missed some property or used it incorrectly instead of huge contract violation traceback previously.
+In order to simplify configuration of growing number of storage targets we replaced old all-in-one configuration approach with configuration through self-describing JSONs. This should reduce amount of mistakes made by our users due to similarity between different storages and alleviate adding new storage targets such as [Google BigQuery][bigquery] and [DashDB][dashdb-rfc].
+With self-describing JSONs users now can see clear and detailed error message if they missed some property or used it incorrectly instead of huge contract violation traceback produced by EmrEtlRunner and StorageLoader before.
 
 New storage configuration consists of separate self-describing JSON for each target.
 You can find all supported targets grouped for [dedicated vendor][snowplow-storage-vendor] on Iglu Central and sample configs at [`4-storage/config`][sample-targets].
 
 It also means that older `config.yml` is no longer valid and both EmrEtlRunner and StorageLoader need to accept `--targets` option specifying directory with storage configuration JSONs and `--resolver` option to validate these JSONs.
 
-<h2 id="upgrading">4. Upgrading</h2>
+<h2 id="upgrading">3. Upgrading</h2>
 
 Upgrading can be done in five following steps:
 
@@ -61,14 +61,14 @@ versions:
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml] and [sample storage targets templates][sample-targets].
 
-<h2 id="roadmap">5. Roadmap</h2>
+<h2 id="roadmap">4. Roadmap</h2>
 
 * [R8x [HAD] 4 webhooks] [r8x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
 * [R8x [HAD] DashDB support] [r8x-dashdb], the first phase of our support for IBM's dashDB, per our [dashDB RFC] [dashdb-rfc]
 * [R9x [HAD] Spark port] [r9x-spark], which will port enrich and shred job to Apache Spark
 * [R9x [HAD] StorageLoader] [r9x-storageloader], with StorageLoader ported to Scala
 
-<h2 id="help">6. Getting help</h2>
+<h2 id="help">5. Getting help</h2>
 
 For more details on this release, please check out the [release notes] [snowplow-release] on GitHub.
 

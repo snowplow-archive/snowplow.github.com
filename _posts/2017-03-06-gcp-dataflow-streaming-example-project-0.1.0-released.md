@@ -30,7 +30,7 @@ At Snowplow, one of our long term goals is to become platform agnostic. Most of 
 
 [Google Cloud Dataflow] [dataflow] is both the name of a unified model for batch and streaming data processing and a managed service for executing data processing jobs developed under said model.
 
-[Google Cloud Pub/Sub] [pubsub] is a fully-managed messaging middleware, that allows you to interconnect several components of a complex (data processing) system, enable real-time communication between them. It implements a [Publisher-Subscriber communication model](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern).
+[Google Cloud Pub/Sub] [pubsub] is a fully-managed messaging middleware, that allows you to interconnect several components of a complex (data processing) system, enable real-time communication between them. It implements a [Publisher-Subscriber communication model] [pubsubmodel].
 
 <div class="html">
 <h2><a name="introducing-analytics-on-write">2. Introducing analytics-on-write</a></h2>
@@ -60,7 +60,7 @@ In this tutorial, we'll walk through the process of getting up and running with 
 
 <h3>Step 1: Build the project</h3>
 
-In your local terminal:
+In your local terminal, set up and ssh into your vagrant box. This should take around 10 minutes with these commands:
 
 {% highlight bash %}
  host$ git clone https://github.com/snowplow/google-cloud-dataflow-example-project
@@ -68,7 +68,7 @@ In your local terminal:
  host$ vagrant up && vagrant ssh
 {% endhighlight %}
 
-Let's now build the project. This should take around 10 minutes with these commands:
+Let's now build the project:
 
 {% highlight bash %}
 guest$ cd /vagrant
@@ -80,7 +80,7 @@ guest$ inv build_project
 You're going to need credentials to run certain parts of this project. 
 You'll also need to create a new project in GCP and enable some APIs/services.
 
-(Here's a [guide](https://github.com/snowplow/snowplow/wiki/GCP:-Getting-Started) on Snowplow's wiki on how to setup a GCP project and enable APIs/services)
+(Here's a [guide][gcp-get-started] on Snowplow's wiki on how to setup a GCP project and enable APIs/services)
 
 - Cloud Dataflow
 - Cloud Pub/Sub
@@ -92,7 +92,7 @@ After enabling these services, authenticate with your GCP account by running the
 {% highlight bash %}
 guest$ gcloud auth login
 guest$ gcloud auth application-default login
-guest$ gcloud config set project <your-project-id>
+guest$ gcloud config set project $YOUR_PROJECT_ID
 {% endhighlight %}
 
 These will prompt links you'll have to follow on your host OS, which will allow you
@@ -100,7 +100,7 @@ to use your browser to authenticate.
 
 <h3>Step 3: Create your Pub/Sub topic</h3>
 
-We're going to set up the Pub/Sub topic. Your first step is to create a topic and verify that it was successful. Use the following command to create a stream named "my-stream":
+We're going to set up the Pub/Sub topic. Your first step is to create a topic and verify that it was successful. Use the following command to create a topic named "test-topic":
 
 {% highlight bash %}
 $ inv create_pubsub_topic --topic-name=test-topic
@@ -215,6 +215,11 @@ Remember to shut off:
 <h2><a name="troubleshooting">4. Troubleshooting</a></h2>
 </div>
 
+__What Python versions is the helper script compatible with?__
+
+* Answer - The ```google-cloud``` package is incompatible with ```setuptools=<33.0```, so 
+```pip install google-cloud``` won't work with Python 3.5 or 3.6
+
 __I found an issue with the project:__
 
 * Answer - Feel free to [get in touch][talk-to-us] or [raise an issue][issues] on GitHub!
@@ -223,7 +228,8 @@ __I found an issue with the project:__
 [pubsub]: https://cloud.google.com/pubsub/
 [bigtable]: https://cloud.google.com/bigtable/
 [snowplow]: http://snowplowanalytics.com
-
+[pubsubmodel]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
+[gcp-get-started]: https://github.com/snowplow/snowplow/wiki/GCP:-Getting-Started
 [vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
 [virtualbox-install]: https://www.virtualbox.org/wiki/Downloads
 [git-install]: https://help.github.com/articles/set-up-git/

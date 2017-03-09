@@ -140,7 +140,7 @@ Your staging location will be:
 Before you can run your application, you'll need to setup a proper config file.
 There's an example in [config/config.hocon.sample][config]. If you've been using the same names as we did, you'll only need to perform some minimal changes to that example file (namely: the project ID; adjusting the Pub/Sub topic full name; setting Dataflow's correct staging location)
 
-Then, inside your Vagrant box run:
+Then, inside your Vagrant box run (assuming you've built the project, as instructed. Alternatively, you can download it from [Bintray][bintray]):
 
 {% highlight bash %}
 guest$ inv run_project --config=path/to/config/file --fat-jar-path=path/to/fat.jar
@@ -233,9 +233,10 @@ __I found an issue with the project:__
 [vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
 [virtualbox-install]: https://www.virtualbox.org/wiki/Downloads
 [git-install]: https://help.github.com/articles/set-up-git/
+[bintray]: https://bintray.com/snowplow/snowplow-generic/google-cloud-dataflow-example-project
 
 [repo]: https://github.com/snowplow/google-cloud-dataflow-example-project
-[config]: https://raw.githubusercontent.com/snowplow/google-cloud-dataflow-example-project/release/0.1.0/config/config.hocon.sample
+[config]: https://raw.githubusercontent.com/snowplow/google-cloud-dataflow-example-project/master/config/config.hocon.sample
 [bucket1.png]: /assets/img/blog/2017/03/bucket1.png
 [bucket2.png]: /assets/img/blog/2017/03/bucket2.png
 [dataflow-dag.png]: /assets/img/blog/2017/03/dataflow-dag.png

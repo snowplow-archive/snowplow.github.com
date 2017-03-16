@@ -1,0 +1,43 @@
+/*
+ * DEPENDENCIES
+ */
+
+
+
+/*!
+ * Snowplow v0.0.1 (https://github.com/snowplow/snowplow.github.com)
+ * HOME FILE
+ */
+
+/*
+ * CONFIGURATION
+ */
+
+@import "../snowplow/_variables";
+
+/*
+ * STYLES
+ */
+
+
+body.get-started
+{
+	.hero
+	{
+		background:url('../../img/common/bg-pattern-wire.png') top left repeat #31373d;
+
+		h1, h2, h3, h4, h5
+		{
+			letter-spacing:0;
+		}
+	}
+
+	form
+	{
+		button
+		{
+			width:100%;
+			display:block;
+		}
+	}
+}

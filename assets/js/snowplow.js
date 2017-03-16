@@ -7,35 +7,33 @@
 {% include_relative vendors/_concat/slick.min.js %}
 
 
-
 /*!
  * Snowplow v0.0.1 (https://github.com/snowplow/snowplow.github.com)
  * PLUGINS AND UTILITIES
  */
 
- function isElementInViewport (el)
- {
-    //http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+function isElementInViewport (el) {
+	//http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
 
-    if (typeof jQuery === "function" && el instanceof jQuery) {
-        el = el[0];
-    }
+	if (typeof jQuery === "function" && el instanceof jQuery) {
+	    el = el[0];
+	}
 
-    var rect = el.getBoundingClientRect();
+	var rect = el.getBoundingClientRect();
 
-    return rect.bottom > 0 &&
-        rect.top < (window.innerHeight || document.documentElement.clientHeight) /* or $(window).height() */;
+	return rect.bottom > 0 &&
+	    rect.top < (window.innerHeight || document.documentElement.clientHeight) /* or $(window).height() */;
 }
 
 
-
-
-function getBootstrapBreakpoint ()
-{
+function getBootstrapBreakpoint () {
 	var w = $(document).innerWidth();
 	return (w < 768) ? 'xs' : ((w < 992) ? 'sm' : ((w < 1200) ? 'md' : 'lg'));
 }
 
+if (!window.location.origin) {
+	window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+}
 
 
 
@@ -138,7 +136,7 @@ function getBootstrapBreakpoint ()
 							position: new google.maps.LatLng( mlt?mlt:lat , mlg?mlg:lng ),
 							map: map,
 							draggable: false,
-							icon: mrk ? mrk : 'assets/img/common/icon-marker.png'
+							icon: mrk ? mrk : window.location.origin + '/assets/img/common/icon-marker.png'
 						});
 					});
 				})

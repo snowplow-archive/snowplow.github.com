@@ -1,3 +1,18 @@
+# DEV NOTES, PLEASE READ.
+
+Tests are being preformed in order to achieve a dev environment where everything that belongs or is a page exists inside folder page. Everything that is a post exists inside folder post.
+The idea is to have the dev environment as clean as possible just like any new Jekyll installation.
+
+For build what we intend to have is that all pages live in root. So permalink need to be like:
+
+```
+/my-main-page/
+/my-main-page/my-sub-page/
+```
+
+This issue as been raised in [stackoverflow](https://stackoverflow.com/questions/42807944/jekyll-sub-page-and-assets)
+
+
 # What is *snowplow.github.com*?
 
 This repo contains the source code and content for the [Snowplow](http://snowplowanalytics.com) website. The site is built in [Jekyll](https://github.com/mojombo/jekyll) and served by [GitHub Pages](http://pages.github.com/). Thanks to the great people of GitHub for this fantastic service.

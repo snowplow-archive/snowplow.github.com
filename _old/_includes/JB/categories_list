@@ -1,0 +1,43 @@
+{% comment %}<!--
+The categories_list include is a listing helper for categories.
+Usage:
+  1) assign the 'categories_list' variable to a valid array of tags.
+  2) include JB/categories_list
+  example:
+    <ul>
+  	  {% assign categories_list = site.categories %}
+  	  {% include JB/categories_list %}
+  	</ul>
+
+  Notes:
+    Categories can be either a Hash of Category objects (hashes) or an Array of category-names (strings).
+    The encapsulating 'if' statement checks whether categories_list is a Hash or Array.
+    site.categories is a Hash while page.categories is an array.
+
+  This helper can be seen in use at: ../_layouts/default.html
+-->{% endcomment %}
+
+{% if site.JB.categories_list.provider == "custom" %}
+  {% include custom/categories_list %}
+{% else %}
+  {% if categories_list.first[0] == null %}
+    {% for category in categories_list %}
+      {% if category == "Inside the Plow" %}<li><a href="/blog/inside-the-plow/">{{ category }}</a> (<span>{{ site.categories[category].size }})</span></li>
+      {% elsif category == "Inside the plow" %}<!--<li><a href="/blog/inside-the-plow/">{{ category }}</a> (<span>{{ site.categories[category].size }})</span></li>-->
+      {% elsif category == "Data Modeling" %}<li><a href="/blog/data-modeling/">{{ category }}</a> (<span>{{ site.categories[category].size }})</span></li>
+      {% elsif category == "User Stories" %}<li><a href="/blog/user-stories/">{{ category }}</a> (<span>{{ site.categories[category].size }})</span></li>
+      {% else %}<li><a href="/blog/{{ category | downcase }}/">{{ category }}</a> (<span>{{ site.categories[category].size }})</span></li>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    {% for category in categories_list %}
+      {% if category[0] == "Inside the Plow" %}<li><a href="/blog/inside-the-plow/">{{ category[0] | join: "/" }}</a> (<span>{{ category[1].size }})</span></li>
+      {% elsif category[0] == "Inside the plow" %}<!--<li><a href="/blog/data-modeling/">{{ category[0] | join: "/" }}</a> (<span>{{ category[1].size }})</span></li>-->
+      {% elsif category[0] == "Data Modeling" %}<li><a href="/blog/data-modeling/">{{ category[0] | join: "/" }}</a> (<span>{{ category[1].size }})</span></li>
+      {% elsif category[0] == "User Stories" %}<li><a href="/blog/user-stories/">{{ category[0] | join: "/" }}</a> (<span>{{ category[1].size }})</span></li>
+      {% else %}<li><a href="/blog/{{ category[0] | downcase }}/">{{ category[0] | join: "/" }}</a> (<span>{{ category[1].size }})</span></li>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+{% assign categories_list = nil %}

@@ -1,0 +1,147 @@
+.slick
+{
+	.slick-dots
+	{
+		margin: 0;
+		float:left;
+		font-size: 0;
+		line-height: 0;
+		text-indent: 0;
+		list-style: none;
+		letter-spacing: 0;
+		position: relative;
+		user-select: none;
+		padding: 25px 0 0 0;
+
+		li
+		{
+			opacity: .4;
+			position: relative;
+			display:inline-block;
+			transition: opacity .4s;
+
+			&:after,
+			&:before
+			{
+				top: 0;
+				left: 50%;
+				content:'';
+				width: 3px;
+				height: 3px;
+				display: block;
+				background: $white;
+				border-radius: 50%;
+			}
+
+			&:before
+			{
+				top: 50%;
+				left: 50%;
+				width: 15px;
+				height: 15px;
+				cursor: pointer;
+				background: none;
+				position: absolute;
+				transform: translate(-50%, -50%);
+			}
+
+			& + li
+			{
+				margin-left: 12px;
+			}
+
+			button
+			{
+				left:50%;
+				top: -25px;
+				margin: 0;
+				border: 0;
+				padding: 0;
+				opacity: 0;
+				font-size: 14px;
+				background: none;
+				font-weight: 700;
+				position: absolute;
+				text-align: center;
+				transition: transform .4s;
+				transform: translateX(-50%) translateY(80%);
+			}
+
+			&:hover,
+			&:focus,
+			&.slick-active
+			{
+				opacity: 1;
+			}
+
+			&.slick-active
+			{
+				pointer-events: none;
+
+				button
+				{
+					opacity: 1;
+					transform: translateX(-50%) translateY(0);
+				}
+			}
+		}
+	}
+
+	.slick-arrow
+	{
+		margin: 0;
+		border: 0;
+		padding: 0;
+		font-size: 26px;
+		background: none;
+		transition:opacity .4s;
+
+		i
+		{
+			display:block;
+			transition:transform .4s;
+		}
+
+		&.slick-prev
+		{
+			&:hover,
+			&:focus
+			{
+				i
+				{
+					transform:translateX(-20%);
+				}
+			}
+		}
+
+		&.slick-next
+		{
+			margin-left:20px;
+
+			&:hover,
+			&:focus
+			{
+				i
+				{
+					transform:translateX(20%);
+				}
+			}
+		}
+
+		&.slick-disabled
+		{
+			opacity: .3;
+			pointer-events: none;
+		}
+	}
+
+	[role="toolbar"]
+	{
+		left: 0;
+		right: 0;
+		bottom: 25%;
+		z-index: 999;
+		text-align: right;
+		position: absolute;
+	}
+}

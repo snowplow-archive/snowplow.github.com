@@ -1,0 +1,99 @@
+---
+# comment to ensure Jekyll properly reads file.
+---
+
+@charset "utf-8";
+
+
+/*
+ * DEPENDENCIES
+ */
+
+
+
+/*!
+ * Snowplow v0.0.1 (https://github.com/snowplow/snowplow.github.com)
+ * HOME FILE
+ */
+
+/*
+ * CONFIGURATION
+ */
+
+@import "snowplow/_variables";
+
+/*
+ * STYLES
+ */
+
+ body.products
+ {
+ 	.hero
+ 	{
+ 		z-index:0;
+
+ 		.abs
+ 		{
+ 			top:50%;
+ 			left:50%;
+ 			z-index:-1;
+ 			width:80%;
+ 			height:auto;
+ 			max-width:1024px;
+			position:absolute;
+			transform:translate(-50%, -50%);
+ 		}
+
+ 		h1
+ 		{
+ 			margin-top:0;
+ 		}
+
+		h2, h3, h4, h5
+		{
+			letter-spacing:0;
+		}
+ 	}
+
+
+	#open-source-solutions
+	{
+		.well,
+		.well-sm,
+		.well-md,
+		.well-lg
+		{
+			padding:0;
+		}
+
+		.container
+		{
+			background: none;
+		}
+
+		.col
+		{
+			padding-bottom: 60px;
+			padding-top: 60px;
+
+			&:first-child + .col
+			{
+				border-left:1px solid $gray-lighter;
+				border-right:1px solid $gray-lighter;
+			}
+
+			img
+			{
+				width:100%;
+				height:auto;
+				max-width:50%;
+				margin-bottom:40px;
+			}
+		}
+	}
+
+	.jumbotron
+	{
+	}
+ }
+

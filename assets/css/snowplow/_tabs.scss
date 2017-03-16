@@ -1,0 +1,66 @@
+/*
+ * TABS
+ */
+
+.nav-tabs
+{
+	border:0;
+	margin:60px auto;
+
+	> li
+	{
+		> a
+		{
+			margin:0;
+			font-size: 14px;
+			font-weight: 400;
+			color: $gray-light;
+			border-radius: 3px;
+			padding: 15px 20px;
+			border: 1px solid $brand-primary;
+			transition:background .3s, color .3s;
+
+			&:hover,
+			&:focus
+			{
+				color: $white;
+				background: $brand-primary;
+				border: 1px solid $brand-primary;
+			}
+		}
+
+		&.active
+		{
+			>a,
+			>a:hover,
+			>a:focus
+			{
+				color: $white;
+				background: $brand-primary;
+				border: 1px solid $brand-primary;
+			}
+		}
+
+		& + li
+		{
+			margin-left:10px;
+		}
+	}
+}
+
+
+.tab-content
+{
+	transition: all .6s;
+	border: 1px solid $gray-light;
+	border-radius: $border-radius-large;
+	padding:($padding-large-horizontal * 2);
+
+	> .tabpanel
+	{
+		transition: all .6;
+	}
+}
+
+
+

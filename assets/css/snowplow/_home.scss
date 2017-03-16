@@ -1,0 +1,34 @@
+/*
+ * DEPENDENCIES
+ */
+
+
+
+/*!
+ * Snowplow v0.0.1 (https://github.com/snowplow/snowplow.github.com)
+ * HOME FILE
+ */
+
+/*
+ * CONFIGURATION
+ */
+
+@import "../snowplow/_variables";
+
+/*
+ * STYLES
+ */
+
+ body.home
+ {
+ 	.hero
+ 	{
+ 		padding-top:0;
+
+		.trusties
+		{
+			top: -150px;
+			position: relative;
+		}
+ 	}
+ }

@@ -145,3 +145,9 @@ JB :
 # Redirect
 gems:
   - jekyll-redirect-from
+
+
+# Styles
+sass:
+  sass_dir: assets/css
+  style: compressed

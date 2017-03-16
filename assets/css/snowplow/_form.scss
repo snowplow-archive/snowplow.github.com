@@ -1,0 +1,346 @@
+/*
+ * INPUTS
+ */
+
+ input
+ {
+ }
+
+
+.form-control
+{
+	line-height: 1;
+	font-size: 14px;
+	font-weight: 400;
+	white-space: nowrap;
+	padding: 1.8em 1em 1.6em;
+	transition: all .3s;
+ 	box-shadow:none;
+
+
+
+	&[class*="form-outline-"]
+	{
+		background:transparent;
+		border: 1px solid $gray-base;
+	}
+
+	&.form-outline-black   { border-color:$black; }
+	&.form-outline-white   { border-color:$white; }
+	&.form-outline-primary { border-color:$brand-primary; }
+	&.form-outline-success { border-color:$brand-success; }
+	&.form-outline-info    { border-color:$brand-info; }
+	&.form-outline-warning { border-color:$brand-warning; }
+	&.form-outline-danger  { border-color:$brand-danger; }
+
+	&:hover,
+	&:focus,
+	&:active
+	{
+		outline:none;
+		box-shadow: none;
+
+/*		&:not([class*="form-outline-"])
+		{
+			border: 0;
+		}*/
+	}
+}
+
+[class*="form-outline-"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: $gray-base;
+}
+
+[class*="form-outline-"]::-moz-placeholder { /* Firefox 19+ */
+  color: $gray-base;
+}
+[class*="form-outline-"]:-ms-input-placeholder { /* IE 10+ */
+  color: $gray-base;
+}
+
+[class*="form-outline-"]:-moz-placeholder { /* Firefox 18- */
+  color: $gray-base;
+}
+
+
+
+
+
+/*
+ * TEXT AREA
+ */
+
+textarea
+{
+	&.form-control
+	{
+		line-height: 2em;
+	}
+}
+
+
+
+
+
+/*
+ * LABELS
+ */
+
+label,
+.control-label
+{
+	display: block;
+	margin-bottom: 10px;
+	font-weight: 400;
+	letter-spacing: 0;
+	text-indent: 0;
+}
+
+
+
+
+
+/*
+ * CHECKBOX
+ */
+
+
+.form-check-label
+{
+	padding-left: 45px;
+	position: relative;
+
+	input[type="checkbox"]
+	{
+		top:0;
+		left:0;
+		margin:0;
+		opacity:0;
+		width:30px;
+		height:30px;
+		cursor: pointer;
+		position: absolute;
+	}
+
+	label
+	{
+		cursor: pointer;
+		font-size: 14px;
+		user-select:none;
+		display:inline-block;
+
+		&:before
+		{
+			top:0;
+			left:0;
+			width:30px;
+			height:30px;
+			content: '';
+			user-select:none;
+			position: absolute;
+			display:inline-block;
+			border:1px solid #ccc;
+			transition: all .3s;
+			border-radius:$border-radius-small;
+		}
+
+		&:after
+		{
+			top:0;
+			left:0;
+			color:$white;
+			cursor: pointer;
+			user-select:none;
+			position: absolute;
+			display:inline-block;
+			transition: all .3s;
+			@include snowplow_icon;
+			content: $i-check;
+			font-size: 20px;
+			width: 30px;
+			text-align: center;
+			line-height: 28px;
+			transform: scale(0);
+		}
+	}
+
+	/*
+	 * EVENTS
+	*/
+
+	input:checked + label:before
+	{
+		background-color:#ccc;
+	}
+
+	input:checked + label:after
+	{
+		transform: scale(1);
+	}
+
+	input:focus + label:before
+	{
+		border-color:$brand-info;
+	}
+
+	&:hover
+	{
+		label:before
+		{
+			border-color:$brand-info;
+			background-color:$brand-info;
+		}
+	}
+}
+
+
+
+
+
+/*
+ * RADIO BUTTON
+ */
+
+
+.form-radio-label
+{
+	padding-left: 45px;
+	position: relative;
+
+	input[type="radio"]
+	{
+		top:0;
+		left:0;
+		margin:0;
+		opacity:0;
+		width:30px;
+		height:30px;
+		cursor: pointer;
+		position: absolute;
+	}
+
+	label
+	{
+		cursor: pointer;
+		font-size: 14px;
+		user-select:none;
+		display:inline-block;
+
+		&:before
+		{
+			top:0;
+			left:0;
+			width:30px;
+			height:30px;
+			content: '';
+			user-select:none;
+			position: absolute;
+			display:inline-block;
+			border:1px solid #ccc;
+			transition: all .3s;
+			border-radius:100%;
+		}
+
+		&:after
+		{
+			top:0;
+			left:0;
+			width:30px;
+			height:30px;
+			content: '';
+			user-select:none;
+			position: absolute;
+			display:inline-block;
+			background: $brand-info;
+			transition: all .3s;
+			border-radius:100%;
+			transition: all .3s;
+			opacity:0;
+		}
+	}
+
+	/*
+	 * EVENTS
+	*/
+
+	input:checked + label:before
+	{
+		background-color:#ccc;
+	}
+
+	input:checked + label:after
+	{
+		opacity:1;
+		transform: scale(.5);
+		background:$white;
+	}
+
+	input:focus + label:before
+	{
+		border-color:#ccc;
+	}
+
+	&:hover
+	{
+		label:before
+		{
+			border-color:$brand-info;
+		}
+
+		label:after
+		{
+			opacity:1;
+		}
+	}
+}
+
+
+
+
+
+
+/*
+ * FORM INLINE HELP
+ */
+
+
+.help-inline
+{
+	letter-spacing:0;
+	font-size:12px;
+	display:block;
+	@include cfx;
+}
+
+
+.has-error 
+{
+	.control-label,
+	.help-inline,
+	.help-block,
+	.form-control-feedback {
+		color: darken($brand-danger, 15%);
+	}
+}
+
+
+.has-warning 
+{
+	.control-label,
+	.help-block,
+	.help-inline,
+	.form-control-feedback {
+		color: darken($brand-warning, 15%);
+	}
+}
+
+
+.has-success 
+{
+	.control-label,
+	.help-block,
+	.help-inline,
+	.form-control-feedback {
+		color: darken($brand-success, 15%);
+	}
+}

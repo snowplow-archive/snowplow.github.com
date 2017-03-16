@@ -1,0 +1,63 @@
+/*
+ * GRID
+*/
+
+$screen-sm-min: 768px;
+$screen-sm-max: 767px;
+$screen-md-min: 992px;
+$screen-md-max: 991px;
+$screen-lg-min: 1200px;
+$screen-lg-max: 1199px;
+
+/*
+ * COLORS
+*/
+
+$black:         black;
+$white:         white;
+
+$gray-base:     #50545c;
+$gray-darker:   #1e2128;
+$gray-dark:     #323743;
+$gray:          #50545c;
+$gray-light:    #9b9faa;
+$gray-lighter:  #b6bbc8;
+$brand-primary: #5b0098;
+$brand-success: #28d1b1;
+$brand-info:    #50a3fc;
+$brand-warning: #ffa303;
+$brand-danger:  #ff5400;
+$brand-lighter: #f5f9ff;
+
+$brand-light:   #b978f8;
+
+
+/*
+ * COMPONENTS
+ */
+
+$padding-base-vertical: 12px;
+$padding-base-horizontal: 16px;
+$padding-large-vertical: 15px;
+$padding-large-horizontal: 35px;
+$padding-small-vertical: 4px;
+$padding-small-horizontal: 14px;
+$padding-xs-vertical: 1px;
+$padding-xs-horizontal: 10px;
+$line-height-large: 1.3333333;
+$line-height-small: 1.5;
+$border-radius-base: 5px;
+$border-radius-large: 6px;
+$border-radius-small: 3px;
+$border-radius-extra-small: 2px;
+$component-active-color: $white;
+$component-active-bg: $brand-primary;
+$caret-width-base: 4px;
+$caret-width-large: 5px;
+
+
+/*
+ * TYPO
+ */
+
+$font-size-base: 18px;

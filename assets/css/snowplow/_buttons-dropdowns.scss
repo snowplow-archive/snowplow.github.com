@@ -1,0 +1,194 @@
+/*
+ * BUTTONS
+ */
+
+button
+{
+	&.btn-default,
+	&:not(.btn)
+	{
+    	background-color: $gray-lighter;
+	}
+}
+
+.btn,
+button,
+input[type=submit],
+{
+	color: $white;
+	outline:none;
+	font-weight: 400;
+	line-height: 1;
+	cursor: pointer;
+	font-size: 14px;
+	user-select: none;
+	border-radius: 5px;
+	text-align: center;
+	white-space: nowrap;
+	padding: 1.2em 2.2em;
+	display: inline-block;
+	vertical-align: middle;
+	background-image: none;
+	touch-action: manipulation;
+	-ms-touch-action: manipulation;
+	transition:background .3s, color .3s, border .3s;
+
+	&:focus, 
+	&:active:focus,
+	&.active:focus,
+	&.focus,
+	&:active.focus,
+	&.active.focus
+	{
+		outline:none;
+	}
+
+	&.btn-xs,
+	.btn-group-xs > &
+	{
+		font-size: 10px;
+		border-radius: 3px;
+	}
+
+	&.btn-sm,
+	.btn-group-sm > &
+	{
+		font-size: 12px;
+		border-radius: 4px;
+	}
+
+	&.btn-lg,
+	.btn-group-lg > &
+	{
+		padding: 1.6em 3em;
+		font-size: 16px;
+		line-height: 1;
+	}
+
+	&:not(.disabled),
+	&:not([disabled]),
+	&:not([class*="outline"])
+	{
+		border:0;
+	}
+
+	fieldset[disabled] &
+	{
+		&:not(.disabled),
+		&:not([disabled]),
+		&:not([class*="outline"])
+		{
+			border:0;
+		}
+	}
+
+	/*
+	 * BORDER
+	*/
+
+	@mixin btn-outline ( $color )
+	{
+	    color: inherit;
+	    border:1px solid $color;
+	    background-color: transparent;
+
+		&:hover,
+		&:focus
+		{
+			color:$white;
+			background-color:$color; 
+		}
+	}
+
+	&.btn-outline {
+		@include btn-outline($brand-primary);
+	}
+
+	&.btn-outline-primary {
+		@include btn-outline($brand-primary);
+	}
+
+	&.btn-outline-success {
+		@include btn-outline($brand-success);
+	}
+
+	&.btn-outline-info {
+		@include btn-outline($brand-info);
+	}
+
+	&.btn-outline-warning {
+		@include btn-outline($brand-warning);
+	}
+
+	&.btn-outline-danger {
+		@include btn-outline($brand-danger);
+	}
+}
+
+
+
+/*
+ * DROPDOWN MENU
+ */
+
+.btn-group
+{
+	&.open
+	{
+		.dropdown-toggle
+		{
+			box-shadow:none;
+		}
+	}
+}
+
+.dropdown-menu
+{
+	>li
+	{
+		>a
+		{
+			color: $gray-dark;
+			padding: 10px 16px;
+			font-size: 14px;
+			transition:background .3s, color .3s;
+		}
+	}
+}
+
+.bootstrap-select
+{
+	&.btn-group
+	{
+		 .dropdown-menu
+		 {
+			.inner
+			{
+
+			}
+		 }
+	}
+
+	>.dropdown-toggle
+	{
+		color:$gray-base;
+		background-color: $white;
+		border:1px solid $gray-lighter;
+
+		&:focus
+		{
+			outline:none!important;
+		}
+
+		&.bs-placeholder
+		{
+			color:$gray-base;
+		}
+
+		&.bs-placeholder:active,
+		&.bs-placeholder:focus
+		{
+			color:$white;
+		}
+	}
+}

@@ -1,0 +1,51 @@
+.navbar,
+.navbar-default
+{
+	border: 0;
+	margin: 0;
+	background: none;
+	border-radius: 0;
+
+	.navbar-collapse, 
+	.navbar-form
+	{
+		margin: 0;
+		border: 0;
+		padding: 0;
+		background: none;
+	}
+
+	.navbar-nav
+	{
+		>li
+		{
+			>a:not(.btn)
+			{
+				border: 0;
+				font-size: 16px;
+				background: none;
+				transition:all .2s;
+				padding-top: 20px;
+				padding-bottom: 20px;
+				font-weight: 400;
+
+				&:hover,
+				&:focus
+				{
+					background: none;
+				}
+			}
+		}
+
+		& >.open >a:not(.btn):hover,
+		& >.open >a:not(.btn):focus
+		{
+			background: none;
+		}
+	}
+}
+
+.navbar-right
+{
+	margin: 0;
+}

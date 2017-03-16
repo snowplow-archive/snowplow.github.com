@@ -1,0 +1,266 @@
+---
+# comment to ensure Jekyll properly reads file.
+---
+
+/*
+ * DEPENDENCIES
+ */
+
+
+
+/*!
+ * Snowplow v0.0.1 (https://github.com/snowplow/snowplow.github.com)
+ * HOME FILE
+ */
+
+/*
+ * CONFIGURATION
+ */
+
+@import "snowplow/_variables";
+
+/*
+ * STYLES
+ */
+
+ body.company
+ {
+ 	.mission
+ 	{
+ 		overflow: hidden;
+
+	 	.background-holder
+	 	{
+	 		background-image:url({{BASE_PATH}}/assets/img/common/bt-pattern-logo-symbol.png), url({{BASE_PATH}}/assets/img/common/bt-pattern-logo-symbol.png);
+			background-position: -546px -320px, 165% -155%;
+	 		background-repeat: no-repeat, no-repeat;
+	 		background-color: transparent, transparent;
+	 	}
+
+		.graphics
+		{
+			i
+			{
+				top: -99%;
+				left: -36%;
+				font-size: 820px;
+				position: absolute;
+				color: $brand-info;
+
+				&:last-child
+				{
+					top: 48%;
+					left: auto;
+					right: -25%;
+				}
+			}
+		}
+ 	}
+
+
+	.methods
+	{
+		.col-md-4
+		{
+		}
+
+		i.icon
+		{
+			display: block;
+			font-size: 200px;
+			margin-bottom: 40px;
+			color: $brand-info;
+		}
+
+		h4
+		{
+			font-weight: 500;
+			letter-spacing: 0;
+		}
+
+		small
+		{
+			display: block;
+			line-height: 1.5em;
+			letter-spacing: 0;
+			color: $gray-base;
+			padding-left:60px;
+			padding-right:60px;
+		}
+	}
+
+
+	.team
+	{
+		.grid
+		{
+			margin:0 auto;
+
+			/*overflow: hidden;*/
+			max-width: 940px;
+			position: relative;
+
+			&:hover,
+			&.active
+			{
+				.item
+				{
+					img
+					{
+						opacity: .4;
+					}
+				}
+			}
+
+			.item
+			{
+				position:static;
+				transition: all .4s;
+
+				&:after
+				{
+					bottom:0;
+					left: 50%;
+					border: solid transparent;
+					content: " ";
+					height: 0;
+					width: 0;
+					position: absolute;
+					pointer-events: none;
+					border-color: rgba($white, 0);
+					border-bottom-color: lighten($gray-light, 35%);
+					border-width: 20px;
+					margin-left: -20px;
+					transition:all .3s;
+					transform:translateY(100%);
+				}
+
+				img
+				{
+					transition: opacity .4s;
+				}
+
+				&:hover,
+				&:active,
+				&.active
+				{
+					pointer-events:auto;
+
+					img
+					{
+						opacity:1;
+					}	
+				}
+
+				&.active,
+				{
+					position: relative;
+
+					&:after
+					{
+						transform:translateY(0);
+					}
+
+					.bio
+					{
+						/*visibility: visible;*/
+					}
+				}
+			}
+
+		}
+
+
+		.bio
+		{
+			top:0;
+			left:0;
+			right:0;
+			z-index: 999;
+			padding: 45px;
+			text-align: left;
+			position: absolute;
+			visibility: hidden;
+			background-color: lighten($gray-light, 35%);
+
+			article
+			{
+				height:100%;
+				/*overflow-y: auto;*/
+				padding-right: 30px; /* SCROLLBAR */
+				position:relative;
+			}
+
+			.i-close
+			{
+				position: absolute;
+				right: 0;
+				top: 0;
+				height: 40px;
+				width: 40px;
+				background: none;
+				color: black;
+				padding: 0;
+				border-radius: 100%;
+			}
+
+			h4
+			{
+				font-weight:200;
+				letter-spacing: 0;
+
+				b, strong
+				{
+					font-weight:400;	
+				}
+			}
+
+			p + p
+			{
+				margin-top:30px;
+			}
+		}
+
+		.sep
+		{
+			overflow: hidden; 
+			transition: all .8s ease-in-out;
+			transform: perspective( 2000px ) rotateX(20deg);
+			background-color: lighten($gray-light, 35%);
+
+			.bio
+			{
+				opacity: 1;
+				position: static;
+				visibility: visible;
+			}
+		}
+	}
+
+	.trusties
+	{
+		.col
+		{
+			width:20%;
+			display:inline-block;
+
+			img
+			{
+				padding:50px 20px;
+				transition: all .3s;
+				border: 1px solid $gray-light;
+			}
+
+
+			&:hover,
+			&:focus
+			{
+				img
+				{
+					background:$white;
+					border-color:transparent;
+				}
+			}
+		}
+	}
+ }

@@ -1,0 +1,99 @@
+/*
+ * BACKGROUNDS
+ */
+
+.bg-black {
+	background-color:$black;
+}
+
+.bg-white {
+	background-color:$white;
+}
+
+.bg-primary-lighter {
+	background-color:$brand-lighter;
+}
+
+.bg-success {
+	background-color:$brand-success;
+}
+
+.bg-success-lighter {
+	background-color:lighten($brand-success, 93.5%);
+}
+
+.bg-info {
+	background-color:$brand-info;
+}
+
+.bg-info-lighter {
+	background-color:lighten($brand-info, 93.5%);;
+}
+
+.bg-warning {
+	background-color:$brand-warning;
+}
+
+.bg-warning-lighter {
+	background-color:lighten($brand-warning, 93.5%);
+}
+
+.bg-danger {
+	background-color:$brand-danger;
+}
+
+.bg-danger-lighter {
+	background-color:lighten($brand-danger, 93.5%);;
+}
+
+.bg-gray {
+	background-color:$gray;
+}
+
+.bg-gray-base {
+	background-color:$gray-base;
+}
+
+.bg-gray-darker {
+	background-color:$gray-darker;
+}
+
+.bg-gray-dark {
+	background-color:$gray-dark;
+}
+
+.bg-gray-darker {
+	background-color:$gray-darker;
+}
+
+.bg-gray-light {
+	background-color:$gray-light;
+}
+
+.bg-gray-lighter {
+	background-color:$gray-lighter;
+}
+
+
+
+
+
+/*
+ * COLORS
+ */
+
+.theme-light
+{
+	color:$white;
+
+	*
+	{
+		color:$white;
+	}
+}
+
+
+.text-brand-light
+{
+	color: $brand-light;
+}

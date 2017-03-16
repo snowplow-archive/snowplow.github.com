@@ -1,0 +1,52 @@
+.jumbotron
+{
+	margin:0;
+	border-radius:0;
+	position:relative;
+	padding-top: 250px;
+	padding-bottom: 360px;
+	padding-left:0!important;
+	padding-right:0!important;
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size:cover;
+
+	.text
+	{
+		max-width:50%;
+	}
+
+	h1, h2
+	{
+		font-size: 86px;
+	}
+
+	h3
+	{
+		font-size: 48px;
+		font-weight: 500;
+	}
+
+	h1, h2, h3, h4, h5, h6
+	{
+		letter-spacing: 0;
+	}
+
+
+/*	@media (min-width: $screen-sm-min)
+	{
+		height:1200px;
+		max-height:calc(100vh - 90px);
+	}*/
+}
+
+.hero
+{
+	border-radius:0;
+	position:relative;
+	padding-top: 250px;
+	padding-bottom: 180px;
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size:cover;
+}

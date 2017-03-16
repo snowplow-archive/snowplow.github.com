@@ -1,0 +1,156 @@
+footer
+{
+	color: $white;
+	padding-top: 60px;
+	padding-bottom: 60px;
+	background-color: $gray-darker;
+
+	.brand-logo
+	{
+		line-height: 1;
+
+		i
+		{
+			height: 40px;
+			line-height: 40px;
+			color: $white;
+			display: block;
+			overflow: hidden;
+			font-size: 200px;
+		}
+
+		small
+		{
+			color: $white;
+			display: block;
+			font-size: 8px;
+			text-transform: uppercase;
+			letter-spacing: .05em;
+			font-weight: 400;
+			-webkit-font-smoothing: auto;
+		}
+	}
+
+	a
+	{
+		color:$white;
+		line-height: 0;
+		font-size: 14px;
+		transition: color .3s;
+
+		&:hover,
+		&:focus
+		{
+			color: $brand-info;
+			text-decoration: none;
+		}
+	}
+
+	.newsletter
+	{
+		margin-top: 60px;
+		max-width: 400px;
+
+		input
+		{
+			border:0;
+			color: $gray-light;
+			background-color: $gray-dark;
+
+			&:hover,
+			&:focus,
+			&:active
+			{
+				background-color: $gray-base;
+			}
+		}
+	}
+
+	.links
+	{
+		margin-top: 80px;
+
+/*		.col-md-3
+		{
+			&:first-of-type
+			{
+				padding-left:0;
+			}
+
+			&:last-of-type
+			{
+				padding-right:0;
+			}
+		}*/
+
+		h6
+		{
+			font-weight: 600;
+			letter-spacing: 0;
+			text-transform: uppercase;
+		}
+
+		ul
+		{
+			padding: 0;
+			list-style: none;
+			margin: 40px 0 0 0;
+		}
+
+		@media (min-width: $screen-md-min)
+		{
+			margin-top: 0;
+		}
+	}
+
+	.credits
+	{
+		small
+		{
+			color: $gray-base;
+
+			a
+			{
+				margin-left: 40px;
+			}
+		}
+	}
+
+	.social
+	{
+		text-align: right;
+
+		ul
+		{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		li
+		{
+			display: inline-block;
+
+			& + li
+			{
+				margin-left: 18px;
+			}
+		}
+
+		.fa
+		{
+			font-size: 16px;
+		}
+	}
+
+	> .container
+	{
+		> .row
+		{
+			& + .row
+			{
+				margin-top: 80px;
+			}
+		}
+	}
+}

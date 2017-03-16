@@ -1,0 +1,42 @@
+.window
+{
+	padding:0;
+	height:100vh;
+	overflow:hidden;
+	min-height:600px;
+	max-height:1220px;
+	position:relative;
+
+	.box-text
+	{
+		top:0;
+		left:0;
+		right:50%;
+		min-height:50%;
+		position:absolute;
+
+		&.top-right
+		{
+			left:50%;
+			right:0;
+		}
+
+		&.bottom-left
+		{
+			top:auto;
+			bottom:0;
+		}
+
+		&.bottom-right
+		{
+			top:auto;
+			left:50%;
+			bottom:0;
+			right:0;
+		}
+	}
+
+	.box-image
+	{
+	}
+}

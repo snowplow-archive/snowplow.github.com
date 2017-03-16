@@ -1,0 +1,240 @@
+section
+{
+	padding-top:120px;
+	padding-bottom:120px;
+	position: relative;
+}
+
+.no-gutter
+{
+	padding-right:0;
+	padding-left:0;
+}
+
+.no-gutter-left
+{
+	padding-left:0;
+}
+
+.no-gutter-right
+{
+	padding-right:0;
+	padding-left:0;
+}
+
+.no-gutter-vertical
+{
+	padding-top:0;
+	padding-bottom:0;
+}
+
+.no-gutter-top
+{
+	padding-top:0;
+}
+
+.no-gutter-bottom
+{
+	padding-bottom:0;
+}
+
+.height-auto
+{
+	height:auto!important;
+	min-height:0!important;
+	max-height:99999px!important;
+}
+
+
+/*
+ * DISPLAY
+ */
+
+.block
+{
+	display:block;
+}
+
+.inline-block
+{
+	display:inline-block;
+}
+
+.inline
+{
+	display:inline;
+}
+
+
+/*
+ * CONTROL WIDTH
+ */
+
+@mixin max-width ( $value:100% )
+{
+	max-width:$value;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.max-width-90 { @include max-width ( 90% ); }
+.max-width-80 { @include max-width ( 80% ); }
+.max-width-70 { @include max-width ( 70% ); }
+.max-width-60 { @include max-width ( 60% ); }
+.max-width-50 { @include max-width ( 50% ); }
+.max-width-40 { @include max-width ( 40% ); }
+.max-width-30 { @include max-width ( 30% ); }
+.max-width-20 { @include max-width ( 20% ); }
+.max-width-10 { @include max-width ( 10% ); }
+
+
+
+/*
+ * GROUP ELEMETNS AND PROVIDE SOME SAFE HEIGHT
+*/
+
+.group
+{
+	padding:100px 0px;
+}
+
+
+/*
+	MARGIN
+*/
+
+.no-margin
+{
+	margin:0;
+}
+
+.no-margin-top
+{
+	margin-top:0;
+}
+
+.no-margin-right
+{
+	margin-right:0;
+}
+
+.no-margin-bottom
+{
+	margin-bottom:0;
+}
+
+.no-margin-left
+{
+	margin-left:0;
+}
+
+
+
+
+/*
+ * INLINE CSS PADDING CLASS
+ */
+
+@mixin pad ( $value:60px )
+{
+	padding-top:$value;
+	padding-bottom:$value;
+
+	&:not(.no-gutter)
+	{
+		padding-left:$value;
+		padding-right:$value;
+	}
+}
+
+.pad    { @include pad(); }
+.pad-0  { @include pad(0); }
+.pad-5  { @include pad(5px); }
+.pad-10 { @include pad(10px); }
+.pad-15 { @include pad(15px); }
+.pad-20 { @include pad(20px); }
+.pad-25 { @include pad(25px); }
+.pad-30 { @include pad(30px); }
+.pad-35 { @include pad(35px); }
+.pad-40 { @include pad(40px); }
+.pad-45 { @include pad(45px); }
+.pad-50 { @include pad(50px); }
+.pad-55 { @include pad(55px); }
+.pad-60 { @include pad(60px); }
+.pad-65 { @include pad(65px); }
+.pad-70 { @include pad(70px); }
+.pad-75 { @include pad(75px); }
+.pad-80 { @include pad(80px); }
+.pad-85 { @include pad(85px); }
+.pad-90 { @include pad(90px); }
+.pad-95 { @include pad(95px); }
+.pad-100{ @include pad(100px); }
+
+.no-padding { padding:0; }
+.no-padding-top    { padding-top:0; }
+.no-padding-bottom { padding-bottom:0; }
+.no-padding-left   { padding-left:0; }
+.no-padding-right  { padding-right:0; }
+
+
+
+
+/*
+ * INLINE CSS VERTICAL SPACER
+ */
+
+
+@mixin spacer-top ( $value:10px )
+{
+	margin-top:$value;
+}
+
+@mixin spacer-bottom ( $value:10px )
+{
+	margin-bottom:$value;
+}
+
+@mixin spacer ( $value:10px )
+{
+	@include spacer-top($value);
+	@include spacer-bottom($value);
+}
+
+.spacer    { @include spacer(); }
+.spacer-0  { @include spacer(0); }
+.spacer-10 { @include spacer(10px); }
+.spacer-20 { @include spacer(20px); }
+.spacer-30 { @include spacer(30px); }
+.spacer-40 { @include spacer(40px); }
+.spacer-50 { @include spacer(50px); }
+.spacer-60 { @include spacer(60px); }
+.spacer-70 { @include spacer(70px); }
+.spacer-80 { @include spacer(80px); }
+.spacer-90 { @include spacer(90px); }
+.spacer-100{ @include spacer(100px); }
+
+.spacer-top    { @include spacer-top(); }
+.spacer-top-0  { @include spacer-top(0); }
+.spacer-top-10 { @include spacer-top(10px); }
+.spacer-top-20 { @include spacer-top(20px); }
+.spacer-top-30 { @include spacer-top(30px); }
+.spacer-top-40 { @include spacer-top(40px); }
+.spacer-top-50 { @include spacer-top(50px); }
+.spacer-top-60 { @include spacer-top(60px); }
+.spacer-top-70 { @include spacer-top(70px); }
+.spacer-top-80 { @include spacer-top(80px); }
+.spacer-top-90 { @include spacer-top(90px); }
+.spacer-top-100{ @include spacer-top(100px); }
+
+.spacer-bottom    { @include spacer-bottom(); }
+.spacer-bottom-0  { @include spacer-bottom(0); }
+.spacer-bottom-10 { @include spacer-bottom(10px); }
+.spacer-bottom-20 { @include spacer-bottom(20px); }
+.spacer-bottom-30 { @include spacer-bottom(30px); }
+.spacer-bottom-40 { @include spacer-bottom(40px); }
+.spacer-bottom-50 { @include spacer-bottom(50px); }
+.spacer-bottom-60 { @include spacer-bottom(60px); }
+.spacer-bottom-70 { @include spacer-bottom(70px); }
+.spacer-bottom-80 { @include spacer-bottom(80px); }
+.spacer-bottom-90 { @include spacer-bottom(90px); }
+.spacer-bottom-100{ @include spacer-bottom(100px); }

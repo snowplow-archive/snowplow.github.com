@@ -1,0 +1,20 @@
+.well
+{
+	&.call-to-action
+	{
+		border:0;
+		color:$white;
+		
+		h5
+		{
+			padding: 14px 0;
+		}
+
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#50a3fc+0,28d1b1+100 */
+		background: $brand-info; /* Old browsers */
+		background: -moz-linear-gradient(left,  rgba($brand-info,1) 0%, rgba($brand-success,1) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(left,  rgba($brand-info,1) 0%,rgba($brand-success,1) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to right,  rgba($brand-info,1) 0%,rgba($brand-success,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$brand-info}', endColorstr='#{$brand-success}',GradientType=1 ); /* IE6-9 */
+	}
+}

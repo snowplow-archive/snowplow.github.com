@@ -1,0 +1,79 @@
+@import "variables";
+
+@font-face {
+  font-family: 'Snowplow';
+  src:  url('#{$icomoon-font-path}/Snowplow.eot?9nnlbg');
+  src:  url('#{$icomoon-font-path}/Snowplow.eot?9nnlbg#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/Snowplow.ttf?9nnlbg') format('truetype'),
+    url('#{$icomoon-font-path}/Snowplow.woff?9nnlbg') format('woff'),
+    url('#{$icomoon-font-path}/Snowplow.svg?9nnlbg#Snowplow') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="i-"], [class*=" i-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Snowplow' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.i-logo-type {
+  &:before {
+    content: $i-logo-type;
+  }
+}
+.i-logo-symbol {
+  &:before {
+    content: $i-logo-symbol;
+  }
+}
+.i-bullet-outline {
+  &:before {
+    content: $i-bullet-outline;
+  }
+}
+.i-bullet-fill {
+  &:before {
+    content: $i-bullet-fill;
+  }
+}
+.i-arrow-bottom {
+  &:before {
+    content: $i-arrow-bottom;
+  }
+}
+.i-arrow-left {
+  &:before {
+    content: $i-arrow-left;
+  }
+}
+.i-arrow-right {
+  &:before {
+    content: $i-arrow-right;
+  }
+}
+.i-arrow-up {
+  &:before {
+    content: $i-arrow-up;
+  }
+}
+.i-check {
+  &:before {
+    content: $i-check;
+  }
+}
+.i-close {
+  &:before {
+    content: $i-close;
+  }
+}
+

@@ -1,0 +1,257 @@
+html, body
+{
+	background-color: $white;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+body
+{
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 1.5em;
+	letter-spacing: 0.04em;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	&.scrolling
+	{
+		user-select:none;
+		/*pointer-events:none;*/
+		-webkit-overflow-scrolling: touch;
+	}
+
+	&.freeze
+	{
+		main
+		{
+			height:100vh;
+			overflow:hidden;
+		}
+	}
+}
+
+main
+{
+	margin:0 auto;
+	max-width:1300px;
+}
+
+
+
+
+img
+{
+	height: auto;
+	max-width: 100%;
+	user-select: none;
+
+	&.adapt
+	{
+		width: 100%;
+		display: block;
+		max-height: 100%;
+	}
+}
+
+
+/*
+ * CLEAR FONT
+ * When we need to clear all font size and spacing
+ */
+
+.clearfont
+{
+	font-size: 0;
+	line-height: 0;
+	text-indent: 0;
+	letter-spacing: 0;
+}
+
+
+
+
+@mixin cfx
+{
+	&:before,
+	&:after {
+	  content: "";
+	  display: table;
+	} 
+
+	&:after {
+	  clear: both;
+	}
+
+	zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+.cfx
+{
+	@include cfx;
+}
+
+
+
+
+
+/*
+ * BORDER-RADIUS
+ */
+
+.border-radius-base
+{
+	border-radius: $border-radius-base;
+}
+
+.border-radius-large
+{
+	border-radius: $border-radius-large;
+}
+
+.border-radius-small
+{
+	border-radius: $border-radius-small;
+}
+
+
+.no-border
+{
+	border-color:transparent!important; /* ITS AN OVERRIDE */
+}
+
+
+
+
+/*
+ * WELL
+ */
+
+@mixin well ( $pad:60px, $rad:$border-radius-base )
+{	
+	display:block;
+	overflow:hidden;
+	box-shadow:none;
+	padding-left:$pad;
+	padding-right:$pad;
+	border-radius: $rad;
+	padding-top:$pad;
+	padding-bottom:$pad;
+	background-color:$white;
+	border:1px solid $gray-lighter;
+
+	&.no-gutter
+	{
+		padding:0;
+	}
+
+	&.well-top
+	{
+		border-bottom-left-radius:0;
+		border-bottom-right-radius:0;
+	}
+
+	&.well-bottom
+	{
+		border-top-left-radius:0;
+		border-top-right-radius:0;
+	}
+
+	&.well-left
+	{
+		border-top-right-radius:0;
+		border-bottom-right-radius:0;
+	}
+
+	&.well-right
+	{
+		border-top-left-radius:0;
+		border-bottom-left-radius:0;
+	}
+}
+
+.well
+{
+	@include well();
+}
+
+.well-lg {
+	@include well( 90px, $border-radius-large );
+}
+
+.well-md {
+	@include well();
+}
+
+.well-sm {
+	@include well( 40px, $border-radius-small );
+}
+
+.well-xs {
+	@include well( 20px, $border-radius-extra-small );
+}
+
+
+
+
+
+
+
+.side-by-side
+{
+	overflow: hidden;
+
+	> .container
+	{
+		background-image: -webkit-linear-gradient(left, $brand-success, $brand-success 50%, $brand-info 50%);
+		background-image: -o-linear-gradient(left, $brand-success, $brand-success 50%, $brand-info 50%);
+		background-image: linear-gradient(to right, $brand-success, $brand-success 50%, $brand-info 50%);
+	  	background-repeat: no-repeat;
+	}
+}
+
+
+
+
+
+
+/*
+ * Arrange in z order
+ */
+
+ .bring-to-front
+ {
+ 	z-index:999;
+ }
+ 
+ .send-to-back
+ {
+ 	z-index:0;
+ }
+
+
+
+
+
+
+/*
+ * Images
+ */
+
+img:not(.allow-interact)
+{
+	pointer-events:none;
+	user-select:none;
+}
+
+a
+{
+	img
+	{
+		pointer-events:auto;
+		user-select:all;
+	}
+}

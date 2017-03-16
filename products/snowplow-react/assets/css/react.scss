@@ -1,0 +1,79 @@
+/*
+ * DEPENDENCIES
+ */
+
+
+
+/*!
+ * Snowplow v0.0.1 (https://github.com/snowplow/snowplow.github.com)
+ * HOME FILE
+ */
+
+/*
+ * CONFIGURATION
+ */
+
+@import "../snowplow/_variables";
+
+/*
+ * STYLES
+ */
+
+ body.react
+ {
+ 	.hero
+ 	{
+ 		h1
+ 		{
+			font-size: 90px;
+			letter-spacing: 0;
+
+			i
+			{
+				font-size: 490px;
+				vertical-align: middle;
+				line-height: 0;
+				margin: 0;
+				padding: 0;
+				margin-top: -13px;
+				display: inline-block;
+			}
+ 		}
+
+		h2, h3
+		{
+ 			letter-spacing: 0;
+		}
+ 	}
+
+
+	.data-collection
+	{
+		i.icon
+		{
+			display: block;
+			font-size: 200px;
+			margin-bottom: 40px;
+			color: $brand-info;
+		}
+
+		small
+		{
+			display: block;
+			line-height: 1.5em;
+			letter-spacing: 0;
+			color: $gray-base;
+		}
+	}
+
+
+	.jumbotron
+	{
+		padding-bottom:120px;
+
+		.call-to-action
+		{
+			margin-top: -345px;
+		}
+	}
+ }

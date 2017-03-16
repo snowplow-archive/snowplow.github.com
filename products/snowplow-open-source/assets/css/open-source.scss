@@ -1,0 +1,93 @@
+/*
+ * DEPENDENCIES
+ */
+
+
+
+/*!
+ * Snowplow v0.0.1 (https://github.com/snowplow/snowplow.github.com)
+ * HOME FILE
+ */
+
+/*
+ * CONFIGURATION
+ */
+
+@import "../snowplow/_variables";
+
+/*
+ * STYLES
+ */
+
+body.open-source
+{
+    section
+    {
+        &#open-source,
+        &#open-source-iglu,
+        &#open-source-sauna
+        {
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+    }
+
+	.hero
+	{
+		background: url('../../img/common/bg-pattern-wire.png') left top repeat $gray-light;
+
+		h1
+		{
+        font-size:48px;
+        letter-spacing: 0;
+		}
+	}
+
+
+    #solutions
+    {
+        .cols
+        {
+            padding:0;
+        }
+
+        .col
+        {
+            line-height:1;
+            padding: 60px;
+
+            &:first-child + .col
+            {
+                border-left:1px solid $gray-lighter;
+                border-right:1px solid $gray-lighter;
+            }
+
+            img
+            {
+                max-width:70%;
+            }
+
+            b
+            {
+                font-weight:500;
+            }
+
+            ul
+            {
+                &.styled
+                {
+                    font-size:16px;
+                }
+
+                li
+                {
+                    & + li
+                    {
+                        margin-top:10px;
+                    }
+                }
+            }
+        }
+    }
+}
+

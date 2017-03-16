@@ -1,0 +1,177 @@
+@mixin snowplow_icon
+{
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'Snowplow' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+.h1
+{
+	font-size:floor(($font-size-base * 3.75));
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4
+{
+	letter-spacing: 3px;
+	margin-bottom: 32px;
+}
+
+h5, .h5, h6, .h6
+{
+	font-weight: 400;
+}
+
+h5, .h5
+{
+	color:$gray-light;
+}
+
+small, .small
+{
+	font-size: 78%;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4
+{
+	& + small
+	{
+		font-weight: 400;
+		display:block;
+	}
+}
+
+a
+{
+	transition:color .3s;
+
+	&:hover
+	{
+		text-decoration:none;
+	}
+
+	&:focus,
+	&:active,
+	{
+    	outline:none;
+	}
+}
+
+b
+{
+	font-weight:500;
+}
+
+@mixin bullet-outline
+{
+	font-size:10px;
+	content:$i-bullet-outline;
+}
+
+@mixin bullet-fill
+{
+	font-size:9px;
+	content:$i-bullet-fill;
+}
+
+ul.styled
+{
+	padding:0;
+	margin:40px 0;
+	font-size:14px;
+	font-weight: 400;
+
+	li
+	{
+		list-style:none;
+		padding-top: 5px;
+		text-indent: -5px;
+		line-height: 1.4em;
+		padding-bottom: 5px;
+		padding-left: 1.7em;
+
+		&:before
+		{
+			left: -1.3em;
+			line-height: 0;
+			position: relative;
+			color:$brand-primary;
+			display:inline-block;
+			vertical-align: middle;
+			font-family: 'Snowplow';
+			@include bullet-outline;
+		}
+	}
+
+	&.theme-light
+	{
+		li
+		{
+			&:before
+			{
+				color:$white;
+			}
+		}
+	}
+
+	ul
+	{
+		margin:20px 0;
+		color: $gray-light;
+
+/*		li
+		{
+			&:before
+			{
+				@include bullet-fill;
+			}
+		}*/
+
+		ul
+		{
+			color: $gray-dark;
+
+			li
+			{
+				&:before
+				{
+					@include bullet-outline;
+				}
+			}
+		}
+	}
+}
+
+ol.styled
+{
+	margin:0;
+	font-size:16px;
+	padding-left: 2.5em;
+
+	li
+	{
+		padding-left:.7em;
+	}
+
+	ol
+	{
+		margin-top:20px;
+		list-style-type: upper-roman;
+
+		ol
+		{
+			list-style-type: upper-latin;
+		}
+	}
+}

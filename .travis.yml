@@ -9,7 +9,8 @@ install:
   - pip install awscli
 
 # Add Website build steps here!
-script: []
+script:
+  - ls new_site
 
 deploy:
   - provider: s3
@@ -26,7 +27,7 @@ deploy:
     local-dir: new_site
 
     # Set the Cache-Control header.
-    cache_control: "max-age=21600"
+    cache_control: "max-age=0"
 
     # Prevent Travis from deleting the build site.
     skip_cleanup: true
@@ -36,6 +37,6 @@ deploy:
       repo: snowplow/snowplow.github.com
       branch: develop
 
-after_deploy: []
-  #- aws configure set preview.cloudfront true
-  #- aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_NEXT --paths "/*"
+after_deploy:
+  - aws configure set preview.cloudfront true
+  - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_NEXT --paths "/*"

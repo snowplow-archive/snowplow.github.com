@@ -1,6 +1,8 @@
-https://snowplowanalytics.com: [![Build Status][travis-image-master]][travis]
 
-https://next.snowplowanalytics.com: [![Build Status][travis-image-develop]][travis]
+|  **Branch**                | **Link**                                  | **Build Status**                                |
+|:--------------------------:|:-----------------------------------------:|:-----------------------------------------------:|
+|  [Master][branch-master]   | https://snowplowanalytics.com             | [![Build Status][travis-image-master]][travis]  |
+|  [Develop][branch-develop] | https://next.snowplowanalytics.com        | [![Build Status][travis-image-develop]][travis] |
 
 # What is *snowplow.github.com*?
 
@@ -117,6 +119,9 @@ From dark to light (see it [live](http://paletton.com/#uid=53E161kpnocgvvWkYrusa
 - #C0EF94 rgb(192, 239, 148)
 
 [colours]: /assets/img/readme/colours.png
+
+[branch-master]: https://github.com/snowplow/snowplow.github.com
+[branch-develop]: https://github.com/snowplow/snowplow.github.com/tree/develop
 
 [travis]: https://travis-ci.org/snowplow/snowplow.github.com
 [travis-image-master]: https://travis-ci.org/snowplow/snowplow.github.com.svg?branch=master

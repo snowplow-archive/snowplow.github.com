@@ -13,6 +13,7 @@ script:
   - ls new_site
 
 deploy:
+  # Develop branch deployment
   - provider: s3
 
     # AWS Settings.
@@ -37,6 +38,32 @@ deploy:
       repo: snowplow/snowplow.github.com
       branch: develop
 
+  # Master branch deployment
+  - provider: s3
+
+    # AWS Settings.
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    region: "eu-west-1"
+
+    # Name of the S3 Bucket.
+    bucket: snowplowanalytics.com
+
+    # Path to the directory containing your built site.
+    local-dir: new_site
+
+    # Set the Cache-Control header.
+    cache_control: "max-age=21600"
+
+    # Prevent Travis from deleting the build site.
+    skip_cleanup: true
+    
+    # Only deploy to this bucket if we are on branch master
+    on:
+      repo: snowplow/snowplow.github.com
+      branch: master
+
 after_deploy:
   - aws configure set preview.cloudfront true
-  - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_NEXT --paths "/*"
+  - if [[ $TRAVIS_BRANCH == "develop" ]]; then aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_NEXT --paths "/*"; fi
+  - if [[ $TRAVIS_BRANCH == "master" ]]; then aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi

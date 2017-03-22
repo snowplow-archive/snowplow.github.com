@@ -1,4 +1,3 @@
-
 |  **Branch**                | **Link**                                  | **Build Status**                                |
 |:--------------------------:|:-----------------------------------------:|:-----------------------------------------------:|
 |  [Master][branch-master]   | https://snowplowanalytics.com             | [![Build Status][travis-image-master]][travis]  |

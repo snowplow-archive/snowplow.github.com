@@ -1,5 +1,6 @@
-http://snowplowanalytics.com - [![Build Status][travis-image-master]][travis] 
-http://next.snowplowanalytics.com - [![Build Status][travis-image-develop]][travis]
+https://snowplowanalytics.com: [![Build Status][travis-image-master]][travis]
+
+https://next.snowplowanalytics.com: [![Build Status][travis-image-develop]][travis]
 
 # What is *snowplow.github.com*?
 

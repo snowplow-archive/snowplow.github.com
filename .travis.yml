@@ -1,13 +1,41 @@
+language: python
+
+python:
+  - "3.5"
+
+cache: pip
+
+install:
+  - pip install awscli
+
+# Add Website build steps here!
+script: []
+
 deploy:
-  provider: s3
-  access_key_id:
-    secure: gwv62RLGqZSHegkWud3LogFQWpVY2LBrRMvdKthTmwwRX2CSHgqHRd2AEzupWdzE55Ro3vn0POxnI7uAFANUytgQMUZpqxFtUEELcrKz6EcyI4+oNGnT/vwirsKXunZJ01qmzkNe8FS4fBGcY+BjCouYt16odZUdSsLiNA1im2o=
-  secret_access_key:
-    secure: G1vpV/QIxPrs0dskI8E1cuovT0JYK3+fiVlAefCXjVHZdclrThiNrsfJKtxCTqzKSwJzQTKeDj4v8gEwJ+qXxXeyswAd1HdhkLQzExIbavgiMU/Qm1LpeBXnJ8c0ZIkP+R0xEYq5S4PoKc90+bQYzXy9nPr9E/MLcKGOPK1+EbA=
-  bucket: next.snowplowanalytics.com
-  local-dir: new_site
-  skip_cleanup: true
-  region: "eu-west-1"
-  on:
-    repo: snowplow/snowplow.github.com
-    branch: develop
+  - provider: s3
+
+    # AWS Settings.
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    region: "eu-west-1"
+
+    # Name of the S3 Bucket.
+    bucket: next.snowplowanalytics.com
+
+    # Path to the directory containing your built site.
+    local-dir: new_site
+
+    # Set the Cache-Control header.
+    cache_control: "max-age=21600"
+
+    # Prevent Travis from deleting the build site.
+    skip_cleanup: true
+    
+    # Only deploy to this bucket if we are on branch develop
+    on:
+      repo: snowplow/snowplow.github.com
+      branch: develop
+
+after_deploy: []
+  #- aws configure set preview.cloudfront true
+  #- aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_NEXT --paths "/*"

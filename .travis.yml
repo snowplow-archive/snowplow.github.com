@@ -65,5 +65,5 @@ deploy:
 
 after_deploy:
   - aws configure set preview.cloudfront true
-  - if [[ $TRAVIS_BRANCH == "develop" ]]; then aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_NEXT --paths "/*"; fi
+  #- if [[ $TRAVIS_BRANCH == "develop" ]]; then aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_NEXT --paths "/*"; fi
   - if [[ $TRAVIS_BRANCH == "master" ]]; then aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi

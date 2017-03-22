@@ -1,0 +1,13 @@
+deploy:
+  provider: s3
+  access_key_id:
+    secure: gwv62RLGqZSHegkWud3LogFQWpVY2LBrRMvdKthTmwwRX2CSHgqHRd2AEzupWdzE55Ro3vn0POxnI7uAFANUytgQMUZpqxFtUEELcrKz6EcyI4+oNGnT/vwirsKXunZJ01qmzkNe8FS4fBGcY+BjCouYt16odZUdSsLiNA1im2o=
+  secret_access_key:
+    secure: G1vpV/QIxPrs0dskI8E1cuovT0JYK3+fiVlAefCXjVHZdclrThiNrsfJKtxCTqzKSwJzQTKeDj4v8gEwJ+qXxXeyswAd1HdhkLQzExIbavgiMU/Qm1LpeBXnJ8c0ZIkP+R0xEYq5S4PoKc90+bQYzXy9nPr9E/MLcKGOPK1+EbA=
+  bucket: next.snowplowanalytics.com
+  local-dir: new_site
+  skip_cleanup: true
+  region: "eu-west-1"
+  on:
+    repo: snowplow/snowplow.github.com
+    branch: develop

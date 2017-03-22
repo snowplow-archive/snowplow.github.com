@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/snowplow/snowplow.github.com.svg?branch=master)](https://travis-ci.org/snowplow/snowplow.github.com)
+
 # What is *snowplow.github.com*?
 
 This repo contains the source code and content for the [Snowplow](http://snowplowanalytics.com) website. The site is built in [Jekyll](https://github.com/mojombo/jekyll) and served by [GitHub Pages](http://pages.github.com/). Thanks to the great people of GitHub for this fantastic service.

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/snowplow/snowplow.github.com.svg?branch=master)](https://travis-ci.org/snowplow/snowplow.github.com)
+[![Build Status Master][travis-image-master]][travis] [![Build Status Develop][travis-image-develop]][travis]
 
 # What is *snowplow.github.com*?
 
@@ -115,3 +115,7 @@ From dark to light (see it [live](http://paletton.com/#uid=53E161kpnocgvvWkYrusa
 - #C0EF94 rgb(192, 239, 148)
 
 [colours]: /assets/img/readme/colours.png
+
+[travis]: https://travis-ci.org/snowplow/snowplow.github.com
+[travis-image-master]: https://travis-ci.org/snowplow/snowplow.github.com.svg?branch=master
+[travis-image-develop]: https://travis-ci.org/snowplow/snowplow.github.com.svg?branch=develop

@@ -4,7 +4,7 @@ rvm:
   - 2.2.2
 
 install:
-  - pip install awscli
+  - pip install --user awscli
 
 script:
   - bundle exec jekyll build

@@ -8,8 +8,10 @@ All content is copyright © 2012-2016 Snowplow Analytics Ltd and not to be reuse
 2. [Adding or editing a blogpost](#2)
 3. [Adding or editing another page](#3)
 4. [Embedding images or other assets](#4)
+5. [Design](#5)
 
 <a name="1" />
+
 ## 1. Making changes
 
 Start with cloning the repo. Work from a branch, not master, unless the change is so small that it doesn't matter.
@@ -34,6 +36,7 @@ When you are happy with the updates:
 The good people at GitHub will compile the website and serve it on `http://snowplowanalytics.com`! Thank you [GitHub pages] (http://pages.github.com/).
 
 <a name="2" />
+
 ## 2. Adding or editing a blogpost
 
 This is straightforward. Create a new markdown file in the _posts directory, with the filename format `YYYY-MM--DD-title.md`.
@@ -54,6 +57,7 @@ category: Releases
 Then type in the rest of the post, in markdown, as normal.
 
 <a name="3" />
+
 ## 3. Adding or editing another page
 
 Adding a page to the rest of the site is reasonably straightforward.
@@ -76,11 +80,14 @@ description: The Snowplow Analytics Cookbook contains a wealth of recipes for us
 It is required to include a 'permalink' on **all** non-blog pages. Each permalink **must** have a trailing slash or the Jekyll build will fail.
 
 <a name="4" />
-#### 4. Embedding images or other assets
+
+## 4. Embedding images or other assets
 
 Images are committed to the appropriate `assets/img` folder (depending on which section the image belongs). It can then be referenced in the Markdown as normal.
 
-## Design
+<a name="5" />
+
+## 5. Design
 
 ### Colours
 

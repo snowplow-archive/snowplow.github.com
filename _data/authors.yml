@@ -41,12 +41,12 @@
         <a href="/blog/authors/ronny/">Ronny</a> was a data engineering intern at Snowplow. You can find him on <a href="https://github.com/ronnyml/">GitHub</a> and <a href="https://www.linkedin.com/in/ronnyml">LinkedIn</a>.
 
 - name: Ben
-  full_name: Benjamin Fradet
+  full_name: Ben Fradet
   github: BenFradet
   url: /blog/authors/ben/
   avatar: http://www.gravatar.com/avatar/1db05766b6148f890cdbe1a339764d81.png?size=120
   spiel: |
-      <a href="/blog/authors/ben/">Ben</a> was a data engineering intern at Snowplow. You can find him on <a href="https://github.com/BenFradet">GitHub</a>, <a href="https://twitter.com/BenjaminFradet">Twitter</a> and <a href="http://fr.linkedin.com/in/benfradet">LinkedIn</a>.
+      <a href="/blog/authors/ben/">Ben</a> is a data engineer at Snowplow. You can find him on <a href="https://github.com/BenFradet">GitHub</a>, <a href="https://twitter.com/fradetben">Twitter</a> and <a href="http://ie.linkedin.com/in/benfradet">LinkedIn</a>.
 
 - name: Nick
   full_name: Nick Dingwall

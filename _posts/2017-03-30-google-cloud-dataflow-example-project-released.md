@@ -261,3 +261,5 @@ Our next step is to put together a [Request for Comments][snowplow-rfcs] on our 
 [bigtable-result.png]: /assets/img/blog/2017/03/bigtable-result.png
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+
+[snowplow-rfcs]: http://discourse.snowplowanalytics.com/c/roadmap/rfcs

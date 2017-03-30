@@ -108,6 +108,14 @@
   spiel:   |
       <a href="/blog/authors/vincent/">Vincent</a> was a data engineering intern at Snowplow</a>. You can find him on <a href="https://github.com/BigsnarfDude">GitHub</a> and <a href="http://twitter.com/BigsnarfDude">Twitter</a>.
 
+- name: Gui
+  full_name: Guilherme Grijó Pires
+  github: colobas
+  url: /blog/authors/gui/
+  avatar: /assets/img/team/gui.jpg
+  spiel:   |
+      <a href="/blog/authors/gui/">Gui</a> was a data engineering intern at Snowplow</a>, responsible for our initial work porting Snowplow to Google Cloud Platform. You can find him on <a href="https://github.com/colobas">GitHub</a>.
+
 - name: Ed
   full_name: Ed Lewis
   github: ninjabear

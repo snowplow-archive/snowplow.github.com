@@ -154,3 +154,11 @@
   avatar: /assets/img/team/Giuseppe.jpg
   spiel:   |
       <a href="/blog/authors/giuseppe/">Giuseppe</a> does content marketing at Snowplow</a>. You can find him on <a href="https://www.linkedin.com/in/giuseppegaviani/">LinkedIn</a>.
+
+- name: Dilyan
+  full_name: Dilyan Damyanov
+  twitter: dilyan_damyanov
+  url: /blog/authors/dilyan/
+  avatar: /assets/img/team/Dilyan.jpeg
+  spiel:   |
+      <a href="/blog/authors/dilyan/">Dilyan</a> is a data analyst with Snowplow's Analytics team</a>.

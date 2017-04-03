@@ -15,9 +15,9 @@ classification:
 
 ![Opening Session][measurecamp10]
 
-It was a busy Saturday in Pimlico as hundreds descended on the area for the 10th edition of MeasureCamp London on 25 March. Me and my colleague Diogo were there representing Snowplow's Analytics team.
+It was a busy Saturday in Pimlico as hundreds descended on the area for the 10th edition of MeasureCamp London on 25 March. My colleague Diogo and I were there representing Snowplow's Analytics team.
 
-The dozens of sessions that attendees delivered as part of the event were heavily dominated by topics around Google Analytics and its suit of accompanying tools and services. But open-source platforms such as Snowplow got their fair share of shout outs.
+The dozens of sessions that attendees delivered as part of the event were heavily dominated by topics around Google Analytics and its suite of accompanying tools and services. But open-source platforms such as Snowplow got their fair share of shout outs.
 
 One that stood out for us was in a session about New & Affordable Analytics and Optimisation Tools by [Jorrin Quest](https://twitter.com/jorrinq) & [Ton Wesseling](https://twitter.com/tonw). The goal of this session was to share knowledge across the community and come up with a list of free or affordable tools that come recommended for professionals in the analytics and optimisation space.
 

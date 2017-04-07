@@ -26,7 +26,7 @@ Historically, the web page context has not worked well at all for single page we
 
 With version 2.7.0 of the tracker, that ID is now reset every time the `trackPageView` method occurs, making it just as easy to understant what page view to associate specific events with on single page webapps as on multi-page webapps.
 
-<h2 id="csp-compliance">2 Content Security Policy compliance</h2>
+<h2 id="csp-compliance">2. Content Security Policy compliance</h2>
 
 [Content Security Policy (CSP)][csp] is a computer security standard introduced to prevent cross-site scripting (XSS), clickjacking and other code injection attacks resulting from execution of malicious content in the trusted web page context.
 

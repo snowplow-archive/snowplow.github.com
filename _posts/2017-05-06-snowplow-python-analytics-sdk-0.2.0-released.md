@@ -50,14 +50,14 @@ dynamodb = client('dynamodb')
 
 dynamodb_run_manifests_table = 'snowplow-run-manifests'
 enriched_events_archive = 's3://acme-snowplow-data/storage/enriched-archive/'
-run_manifest = RunManifest(dynamodb, dynamodb_run_manifests_table)
+run_manifests = RunManifests(dynamodb, dynamodb_run_manifests_table)
 
-run_manifest.create()   # This should be called only once
+run_manifests.create()   # This should be called only once
 
-for run_id in list_run_ids(s3, enriched_events_archive):
-    if not run_manifest.contains(run_id):
+for run_id in list_runids(s3, enriched_events_archive):
+    if not run_manifests.contains(run_id):
         process(run_id)
-        run_manifest.add(run_id)
+        run_manifests.add(run_id)
     else:
         pass
 ```
@@ -68,7 +68,7 @@ These cliens are provided via [boto3][boto3] Python AWS SDK and can be initializ
 Then we list all run ids in particular S3 path and process (by user-provided `process` function) only those that were not processed already.
 Note that `run_id` is simple string with S3 key of particular job run.
 
-`RunManifest` class is a simple API wrapper to DynamoDB, using which you can:
+`RunManifests` class is a simple API wrapper to DynamoDB, using which you can:
 
 * `create` DynamoDB table for manifests, 
 * `add` run to table 

@@ -7,22 +7,22 @@ author: Anton
 category: Releases
 ---
 
-Today we are happy to announce the 0.2.0 release of the [Snowplow Python Analytics SDK][sdk-repo], a library probiding you basic primitives to process and analyze Snowplow enriched event format in Python-compatible in data processing frameworks such as [Apache Spark][spark] and [AWS Lambda][lambda].
-This release brings new load manifest functionality along with many internal changes.
+Today we are happy to announce the 0.2.0 release of the [Snowplow Python Analytics SDK][sdk-repo], a library providing you basic primitives to process and analyze Snowplow enriched event format in Python-compatible in data processing frameworks such as [Apache Spark][spark] and [AWS Lambda][lambda].
+This release brings new run manifest functionality along with many internal changes.
 
 In the rest of this post we will cover:
 
-1. [Load manifests](/blog/2017/04/07/snowplow-python-analytics-sdk-0.2.0-released#load-manifests)
-2. [Using load manifests](/blog/2017/04/07/snowplow-python-analytics-sdk-0.2.0-released#using-manifests)
+1. [Run manifests](/blog/2017/04/07/snowplow-python-analytics-sdk-0.2.0-released#run-manifests)
+2. [Using run manifests](/blog/2017/04/07/snowplow-python-analytics-sdk-0.2.0-released#using-manifests)
 3. [Upgrading](/blog/2017/04/07/snowplow-python-analytics-sdk-0.2.0-released#upgrading)
 4. [Getting help](/blog/2017/04/07/snowplow-python-analytics-sdk-0.2.0-released#help)
 
 <!--more-->
 
-<h2 id="load-manifests">1. Load manifests</h2>
+<h2 id="run-manifests">1. Run manifests</h2>
 
-Biggest new feature in 0.2.0 release is event load manifests.
-Load manifests provide you an easy and standard way to solve one very common in Big Data world, namely data load tracking.
+Biggest new feature in 0.2.0 release is run manifests.
+Run manifests provide you an easy and standard way to solve one very common in Big Data world, namely data load tracking.
 
 Historically, engineers used to mark data as being processed by moving whole folders with data to another location, avoiding data to being reprocessed.
 But filemoving approach has several major flaws:
@@ -30,40 +30,49 @@ But filemoving approach has several major flaws:
 * Filemoves are very time-consuming
 * Filemoves are very error-prone - a failure to move a file will cause the job to fail and require manual intervention
 
-Instead of relying on distributed filesystems, where filemoves can take up to hours, we offer an API for AWS DynamoDB table using which you can keep track of parts of enriched data have been loaded into data modeling jobs.
+Instead of relying on distributed filesystems, where filemoves can take up to hours, we offer an API for [AWS DynamoDB][dynamodb] table using which you can keep track of parts of enriched data have been loaded into data modeling jobs.
 
-Another benefit of using load manifests for your Snowplow would be that it is going to be a standard way of load tracking for analytics-on-write stacks.
+Another benefit of using run manifests for your Snowplow would be that it is going to be a standard way of load tracking for analytics-on-write stacks.
 
 
-<h2 id="using-manifests">2. Using load manifests</h2>
+<h2 id="using-manifests">2. Using run manifests</h2>
 
-Load manifests functionality resides in new `snowplow_analytics_sdk.load_manifests` module.
+Run manifests functionality resides in new `snowplow_analytics_sdk.run_manifests` module.
 
 Here's a short usage example:
 
 ```python
 from boto3 import client
-from snowplow_analytics_sdk.load_manifests import add_to_manifest, is_in_manifest, list_run_ids
+from snowplow_analytics_sdk.run_manifests import *
 
 s3 = client('s3')
 dynamodb = client('dynamodb')
 
-dynamodb_load_manifests_table = 'snowplow-load-manifests'
+dynamodb_run_manifests_table = 'snowplow-run-manifests'
 enriched_events_archive = 's3://acme-snowplow-data/storage/enriched-archive/'
+run_manifest = RunManifest(dynamodb, dynamodb_run_manifests_table)
+
+run_manifest.create()   # This should be called only once
 
 for run_id in list_run_ids(s3, enriched_events_archive):
-    if not is_in_manifest(dynamodb, dynamodb_load_manifests_table run_id):
+    if not run_manifest.contains(run_id):
         process(run_id)
-        add_to_manifest(dynamodb, dynamodb_load_manifests_table, run_id)
+        run_manifest.add(run_id)
     else:
         pass
 ```
 
 In above example, we create two AWS service clients for S3 (to list job runs) and for DynamoDB (to access manifests).
-These cliens are avaiable in [boto3][boto3] Python AWS SDK and Snowplow Python Analytics SDK doesn't include them as a dependency, so you must include them into your project and initalize by yourself.
+These cliens are provided via [boto3][boto3] Python AWS SDK and can be initialized with static credentials or with system-provided credentials.
 
-Then we list all run ids in particular S3 path and process (by user-provided `process` function) only those which were not processed already.
-Note that `run_id` is simple string with full S3 path to particular job run.
+Then we list all run ids in particular S3 path and process (by user-provided `process` function) only those that were not processed already.
+Note that `run_id` is simple string with S3 key of particular job run.
+
+`RunManifest` class is a simple API wrapper to DynamoDB, using which you can:
+
+* `create` DynamoDB table for manifests, 
+* `add` run to table 
+* check if table `contains` run id
 
 <h2 id="upgrading">3. Upgrading</h2>
 
@@ -84,6 +93,7 @@ And if there's another Snowplow Analytics SDK you'd like us to prioritize creati
 [sdk-docs]: https://github.com/snowplow/snowplow/wiki/Python-Analytics-SDK
 
 [boto3]: https://boto3.readthedocs.io/en/latest/
+[dynamodb]: https://aws.amazon.com/dynamodb/
 
 [event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/
 

@@ -41,12 +41,12 @@
         <a href="/blog/authors/ronny/">Ronny</a> was a data engineering intern at Snowplow. You can find him on <a href="https://github.com/ronnyml/">GitHub</a> and <a href="https://www.linkedin.com/in/ronnyml">LinkedIn</a>.
 
 - name: Ben
-  full_name: Benjamin Fradet
+  full_name: Ben Fradet
   github: BenFradet
   url: /blog/authors/ben/
   avatar: http://www.gravatar.com/avatar/1db05766b6148f890cdbe1a339764d81.png?size=120
   spiel: |
-      <a href="/blog/authors/ben/">Ben</a> was a data engineering intern at Snowplow. You can find him on <a href="https://github.com/BenFradet">GitHub</a>, <a href="https://twitter.com/BenjaminFradet">Twitter</a> and <a href="http://fr.linkedin.com/in/benfradet">LinkedIn</a>.
+      <a href="/blog/authors/ben/">Ben</a> is a data engineer at Snowplow. You can find him on <a href="https://github.com/BenFradet">GitHub</a>, <a href="https://twitter.com/fradetben">Twitter</a> and <a href="http://ie.linkedin.com/in/benfradet">LinkedIn</a>.
 
 - name: Nick
   full_name: Nick Dingwall
@@ -108,6 +108,14 @@
   spiel:   |
       <a href="/blog/authors/vincent/">Vincent</a> was a data engineering intern at Snowplow</a>. You can find him on <a href="https://github.com/BigsnarfDude">GitHub</a> and <a href="http://twitter.com/BigsnarfDude">Twitter</a>.
 
+- name: Gui
+  full_name: Guilherme Grijó Pires
+  github: colobas
+  url: /blog/authors/gui/
+  avatar: /assets/img/team/gui.jpg
+  spiel:   |
+      <a href="/blog/authors/gui/">Gui</a> was a data engineering intern at Snowplow</a>, responsible for our initial work porting Snowplow to Google Cloud Platform. You can find him on <a href="https://github.com/colobas">GitHub</a>.
+
 - name: Ed
   full_name: Ed Lewis
   github: ninjabear
@@ -146,3 +154,11 @@
   avatar: /assets/img/team/Giuseppe.jpg
   spiel:   |
       <a href="/blog/authors/giuseppe/">Giuseppe</a> does content marketing at Snowplow</a>. You can find him on <a href="https://www.linkedin.com/in/giuseppegaviani/">LinkedIn</a>.
+
+- name: Dilyan
+  full_name: Dilyan Damyanov
+  twitter: dilyan_damyanov
+  url: /blog/authors/dilyan/
+  avatar: /assets/img/team/Dilyan.jpeg
+  spiel:   |
+      <a href="/blog/authors/dilyan/">Dilyan</a> is a data analyst with Snowplow's Analytics team</a>.

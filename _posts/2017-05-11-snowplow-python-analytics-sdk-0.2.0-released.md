@@ -39,7 +39,7 @@ In this case, we store our manifest in a [AWS DynamoDB][dynamodb] table, and we 
 
 <h2 id="using-the-manifest">2. Using the run manifest</h2>
 
-The new manifests functionality resides in new `snowplow_analytics_sdk.run_manifests` module.
+The new manifests functionality resides in the new `snowplow_analytics_sdk.run_manifests` module.
 
 Here's a short usage example:
 

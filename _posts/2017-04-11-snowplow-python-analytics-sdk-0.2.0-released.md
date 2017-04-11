@@ -13,12 +13,12 @@ This release adds new run manifest functionality, along with many internal chang
 
 In the rest of this post we will cover:
 
-1. [Run manifests](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#run-manifests)
-2. [Using the run manifest](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#using-manifests)
-3. [Documentation](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#documentation)
-4. [Other changes](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#other)
-5. [Upgrading](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#upgrading)
-6. [Getting help](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#help)
+1. [Run manifests](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#run-manifests)
+2. [Using the run manifest](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#using-manifests)
+3. [Documentation](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#documentation)
+4. [Other changes](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#other)
+5. [Upgrading](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#upgrading)
+6. [Getting help](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#help)
 
 <!--more-->
 

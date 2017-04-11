@@ -13,10 +13,12 @@ This release adds new run manifest functionality, along with many internal chang
 
 In the rest of this post we will cover:
 
-1. [Run manifests](/blog/2017/05/11/snowplow-python-analytics-sdk-0.2.0-released#run-manifests)
-2. [Using the run manifest](/blog/2017/05/11/snowplow-python-analytics-sdk-0.2.0-released#using-manifests)
-3. [Upgrading](/blog/2017/05/11/snowplow-python-analytics-sdk-0.2.0-released#upgrading)
-4. [Getting help](/blog/2017/05/11/snowplow-python-analytics-sdk-0.2.0-released#help)
+1. [Run manifests](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#run-manifests)
+2. [Using the run manifest](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#using-manifests)
+3. [Documentation](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#documentation)
+4. [Other changes](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#other)
+5. [Upgrading](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#upgrading)
+6. [Getting help](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#help)
 
 <!--more-->
 
@@ -82,7 +84,17 @@ The Snowplow Python Analytics SDK is available on [PyPI][pypi]:
 pip install -U snowplow_analytics_sdk==0.2.0
 {% endhighlight %}
 
-<h2 id="help">4. Getting help</h2>
+<h2 id="documentation">4. Documentation refactoring</h2>
+
+As Analytics SDK becomes more featureful it's becoming harder to maintain up-to-date README in project's repository.
+Therefore, in 0.2.0 release we refactored documentation from a single README to several wiki pages each dedicated to particular feature.
+You can find [Python Analytics SDK index page][sdk-docs] in main Snowplow wiki.
+
+<h2 id="other">5. Other changes</h2>
+
+Python Analytics SDK 0.2.0 also includes few internal changes and enhancements, such as added Vagrant environment ([#5][issue-5]), multiple versions of Python ([#16][issue-16]) and strict PEP8 linting ([#4][issue-4]) in CI tests.
+
+<h2 id="help">6. Getting help</h2>
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
@@ -100,7 +112,10 @@ And if there's another Snowplow Analytics SDK you'd like us to prioritize creati
 [spark]: http://spark.apache.org/
 [lambda]: https://aws.amazon.com/lambda/
 
-[issues]: https://github.com/snowplow/snowplow-python-analytics-sdk
+[issues]: https://github.com/snowplow/snowplow-python-analytics-sdk/issues
+[issue-4]: https://github.com/snowplow/snowplow-python-analytics-sdk/issues/4
+[issue-5]: https://github.com/snowplow/snowplow-python-analytics-sdk/issues/5
+[issue-16]: https://github.com/snowplow/snowplow-python-analytics-sdk/issues/16
 
 [pypi]: https://pypi.python.org/pypi/snowplow_analytics_sdk
 

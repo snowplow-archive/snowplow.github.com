@@ -13,12 +13,12 @@ This release adds new run manifest functionality, along with many internal chang
 
 In the rest of this post we will cover:
 
-1. [Run manifests](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#run-manifests)
-2. [Using the run manifest](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#using-manifests)
-3. [Documentation](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#documentation)
-4. [Other changes](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#other)
-5. [Upgrading](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#upgrading)
-6. [Getting help](/blog/2017/04/11/snowplow-python-analytics-sdk-0.2.0-released#help)
+1. [Run manifests](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#run-manifests)
+2. [Using the run manifest](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#using-manifests)
+3. [Documentation](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#documentation)
+4. [Other changes](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#other)
+5. [Upgrading](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#upgrading)
+6. [Getting help](/blog/2017/04/12/snowplow-python-analytics-sdk-0.2.0-released#help)
 
 <!--more-->
 
@@ -41,7 +41,7 @@ In this case, we store our manifest in a [AWS DynamoDB][dynamodb] table, and we 
 
 <h2 id="using-the-manifest">2. Using the run manifest</h2>
 
-The new manifests functionality resides in the new `snowplow_analytics_sdk.run_manifests` module.
+The run manifest functionality resides in the new `snowplow_analytics_sdk.run_manifests` module.
 
 Here's a short usage example:
 
@@ -68,31 +68,36 @@ for run_id in list_runids(s3, enriched_events_archive):
 
 In above example, we create two AWS service clients, one for S3 (to list job runs) and for DynamoDB (to access our manifest). These clients are provided via [boto3][boto3] Python AWS SDK and can be initialized with static credentials or with system-provided credentials.
 
-Then we list all Snowplow runs in a particular S3 path, and then process (with the user-provided `process` function) **only** those that were not processed already. Note that `run_id` is just a simple string with the S3 key of particular job run.
+Then we list all Snowplow runs in a particular S3 path, and then process (with the user-provided `process` function) **only** those Snowplow runs that had not been previously processed. Note that `run_id` is just a simple string with the S3 key of particular job run.
 
 `RunManifests` class, then, is a simple API wrapper to DynamoDB, which lets you:
 
 * `create` a DynamoDB table for manifests
 * `add` a Snowplow run to the table 
-* check if table `contains` run id
+* check if table `contains` a given run ID
 
-<h2 id="upgrading">3. Upgrading</h2>
+<h2 id="documentation">3. Documentation</h2>
 
-The Snowplow Python Analytics SDK is available on [PyPI][pypi]:
+As an SDK becomes more featureful it becomes harder to keep all the required documentation in the project's README.
+In this release we have split out the README into several wiki pages, each dedicated to a particular feature.
+
+Check out the [Python Analytics SDK][sdk-docs] in the main Snowplow wiki.
+
+<h2 id="other">4. Other changes</h2>
+
+Version 0.2.0 also includes a few internal changes and minor enhancements, including:
+
+* Adding a Vagrant environment ([issue #5][issue-5])
+* Support for multiple versions of Python ([issue #16][issue-16])
+* Strict PEP8 linting ([issue #4][issue-4]) for the CI tests
+
+<h2 id="upgrading">5. Upgrading</h2>
+
+As before, the Snowplow Python Analytics SDK is available on [PyPI][pypi]:
 
 {% highlight python %}
 pip install -U snowplow_analytics_sdk==0.2.0
 {% endhighlight %}
-
-<h2 id="documentation">4. Documentation refactoring</h2>
-
-As Analytics SDK becomes more featureful it's becoming harder to maintain up-to-date README in project's repository.
-Therefore, in 0.2.0 release we refactored documentation from a single README to several wiki pages each dedicated to particular feature.
-You can find [Python Analytics SDK index page][sdk-docs] in main Snowplow wiki.
-
-<h2 id="other">5. Other changes</h2>
-
-Python Analytics SDK 0.2.0 also includes few internal changes and enhancements, such as added Vagrant environment ([#5][issue-5]), multiple versions of Python ([#16][issue-16]) and strict PEP8 linting ([#4][issue-4]) in CI tests.
 
 <h2 id="help">6. Getting help</h2>
 

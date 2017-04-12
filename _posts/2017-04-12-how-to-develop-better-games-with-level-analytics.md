@@ -93,6 +93,7 @@ Here, using Snowplow enabled dashboards, we have identified the two mid-game non
 *	Introducing a mandatory sign-up before this level, then reaching out to users who left (in order to retain those that simply didn’t think to bookmark the game)
 
 Classroom users are likely to reach ‘Cupboards of Kithgard’ (level 13) in their first trial session. We might look into:
+
 *	Comparing those that do exit after this level with those that don’t. Are there features of user experience in the first 13 levels that predict user loss? (eg. high error counts)
 *	Test the introduction of a multiplayer level, or some other incentive to increase engagement for classroom users before they reach this point
 

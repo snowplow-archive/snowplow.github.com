@@ -105,6 +105,7 @@ With Snowplow, you maintain ownership and control of your own data and can analy
 If you are curious as to what that might mean for your product, or just would like to know more about what we do, please don’t hesitate to [request a demo](http://snowplowanalytics.com/trial/) or [contact us](http://snowplowanalytics.com/contact/).
 
 
+
 [codecombat-screenshot-1]: /assets/img/blog/2017/04/codecombat_screenshot_1.png
 
 [codecombat-screenshot-2]: /assets/img/blog/2017/04/codecombat_screenshot_2.png

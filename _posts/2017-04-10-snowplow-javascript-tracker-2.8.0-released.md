@@ -16,7 +16,7 @@ Read on below the fold for:
 2. [Opt-out cookie](
 /blog/2017/04/10/snowplow-javascript-tracker-2.8.0-released/#opt-out)
 3. [Better form tracking for passwords](
-/blog/2017/04/10/snowplow-javascript-tracker-2.8.0-release/#passwords)
+/blog/2017/04/10/snowplow-javascript-tracker-2.8.0-released/#passwords)
 4. [New OptimizelyX and Parrable contexts](
 /blog/2017/04/10/snowplow-javascript-tracker-2.8.0-released/#contexts)
 5. [Extracting key data from the tracker](
@@ -33,20 +33,58 @@ Read on below the fold for:
 <h2 id="storage-strategy">1. State storage strategy</h2>
 
 This release introduces the [`stateStorageStrategy`][sss] property to the
-tracker configuration, taking one of three values: `cookie`, `localStorage` or `none`.
+tracker configuration, taking one of four values: `cookieAndLocalStorage`,
+`cookie`, `localStorage` or `none`.
 
-The `cookie` value (the default) will store the id and session data in
-cookies, which was the prior behavior if you set [`useCookies`][uc] to true or left it unspecified. The outgoing event buffer (previously controlled using [`useLocalStorage`][uls]) will continue to use local storage.
+The `cookieAndLocalStorage` value (the default) will follow the same behavior
+than the previous versions of the tracker: the id and session data will be
+stored in cookies (similar to if you had set [`useCookies`][uc] to true or left
+it unspecified) and outgoing events will be buffered in local storage
+(previously controlled using [`useLocalStorage`][uls]).
 
-**BEN IS THIS CORRECT RE local storage for the event buffer ^^?**
+The `cookie` value will store the id and session data in
+cookies. However, outgoing events won't be buffered in local storage.
 
 The `localStorage` value will store those two first-party cookies in local
 storage. This approach is recommended if you are reaching the maximum HTTP
-header size of 4kb present on most servers. The outgoing event buffer will continue to use local storage.
+header size of 4kb present on most servers. The outgoing event buffer will
+continue to use local storage.
 
-The last possible value is `none`. In this case, **nothing** will be stored, neither
-in cookies nor in local storage. This is equivalent to setting the old [`useCookies`][uc] _and_
-[`useLocalStorage`][uls] settings both to false.
+The last possible value is `none`. In this case, **nothing** will be stored,
+neither in cookies nor in local storage. This is equivalent to setting the old
+[`useCookies`][uc] _and_ [`useLocalStorage`][uls] settings both to false.
+
+This table recaps everything said so far:
+
+<table class="table">
+<tbody>
+<tr>
+<th>stateStorageStrategy</th>
+<th>location of the id and session data</th>
+<th>outgoing events buffered?</th>
+</tr>
+<tr>
+<td>cookieAndLocalStorage (default)</td>
+<td>cookies</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>cookie</td>
+<td>cookies</td>
+<td>no</td>
+</tr>
+<tr>
+<td>localStorage</td>
+<td>local storage</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>none</td>
+<td>not stored</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
 
 Since the `useLocalStorage` and `useCookies` argmap parameters have been made
 redundant by the introduction of `stateStorageStrategy`, they've been
@@ -150,30 +188,35 @@ In an effort to give you more control, we've exposed a few properties internal
 to the tracker such as cookie names, page view IDs and domain session indices.
 
 For example, you can retrieve the complete cookie name for the domain cookie
-with:
+with through a callback to avoid problems if the tracker isn't done loading:
 
 {% highlight javascript %}
-window.snowplow_name_here('getCookieName', 'id');
+window.snowplow_name_here(function () {
+  doSomethingWithDomainCookieName(this.getCookieName('id'));
+});
 {% endhighlight %}
 
-**BEN CAN YOU EXPLAIN WHAT THE COOKIE BASENAME - HERE 'id' SIGNIFIES?**
+Where 'id' is the basename of the cookie you want to retrieve. Here it is the
+basename of the domain cookie, the basename for the session cookie being 'ses'.
+The returned value should be made of the cookie prefix (the 'cookieName' tracker
+configuration option, which defaults to '_sp_'), its basename as well as a
+suffix based on a hash of the cookie domain.
 
 Same goes for the page view ID:
 
 {% highlight javascript %}
-window.snowplow_name_here('getPageViewId');
+window.snowplow_name_here(function() {
+  doSomethingWithPageViewId(this.getPageViewId());
+});
 {% endhighlight %}
 
 And the domain session index:
 
 {% highlight javascript %}
-window.snowplow_name_here('getDomainSessionIndex');
+window.snowplow_name_here(function() {
+  doSomethingWithDomainSessionIndex(this.getDomainSessionIndex());
+});
 {% endhighlight %}
-
-**HOW DO THESE get()s WORK IN AN ASYNC TRACKER? THEY FEEL VERY SYNCHRONOUS**
-
-5. [Extracting key data from the tracker](
-/blog/2017/04/10/snowplow-javascript-tracker-2.8.0-released/#)
 
 <h2 id="page-activity">6. Improved page activity handling</h2>
 
@@ -185,7 +228,9 @@ a video).
 You can trigger the activity handler yourself with:
 
 {% highlight javascript %}
-window.snowplow_name_here('updatePageActivity');
+window.snowplow_name_here(function() {
+  this.updatePageActivity();
+});
 {% endhighlight %}
 
 This use case and the accompanying implementation was contributed by
@@ -217,8 +262,7 @@ There are no breaking API changes introduced with this release, but the followin
 Please migrate these to the new `stateStorageStrategy` parameter as detailed above.
 
 If you enable the OptimizelyX context, you will need to deploy the following table to your Redshift cluster:
-
-**BEN PLEASE ADD**
+[com.optimizely.optimizelyx/summary_1.sql][optimizelyx-table].
 
 If you enable the Parrable context, you will also need to update the configuration of your Snowplow pipeline to make best use of this. A tutorial on doing this will follow soon.
 
@@ -245,7 +289,8 @@ Finally, if you run into any issues or have any questions, please
 [parrable]: https://www.parrable.com/
 [parrable-context]: http://iglucentral.com/schemas/com.parrable/encrypted_payload/jsonschema/1-0-0
 [optimizelyx]: https://www.optimizely.com/products/developers/
-[optimizelyx-context]: http://iglucentral.com/schemas/schemas/com.optimizely.optimizelyx/summary/jsonschema/1-0-0
+[optimizelyx-context]: http://iglucentral.com/schemas/com.optimizely.optimizelyx/summary/jsonschema/1-0-0
+[optimizelyx-table]: https://github.com/snowplow/iglu-central/blob/master/sql/com.optimizely.optimizelyx/summary_1.sql
 [chantal]: https://github.com/chantalgo
 [miike]: https://github.com/miike
 [dean]: https://github.com/lookaflyingdonkey

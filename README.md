@@ -33,7 +33,7 @@ When you are happy with the updates:
 1. Merge them with the master branch
 2. Push the master branch to origin
 
-The good people at GitHub will compile the website and serve it on `http://snowplowanalytics.com`! Thank you [GitHub pages] (http://pages.github.com/).
+The good people at GitHub will compile the website and serve it on `http://snowplowanalytics.com`! Thank you [GitHub pages](http://pages.github.com/).
 
 <a name="2" />
 

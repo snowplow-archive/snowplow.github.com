@@ -59,7 +59,11 @@ The main action is submitting new job requests for Factotum, sent via the `/subm
 
 Factotum jobs are executed using the CLI for Factotum, which needs to be available on the same box that the server is running on (otherwise you will have a nice shiny HTTP server that does not do much!). This is currently the **only installation dependency**.
 
-We have adopted a "worker queue" model for scheduling. New requests are appended to a queue of job requests and the next available worker is notified to check the queue. The worker processes the job by executing Factotum in a separate thread, allowing multiple workers to process jobs concurrently. Once complete, the worker will record the outcome and check the queue again for any further requests.
+We have adopted a "worker queue" model for scheduling:
+
+- New requests are appended to a queue of job requests and the next available worker is notified to check the queue
+- The worker processes the job by executing Factotum in a separate thread, allowing multiple workers to process jobs concurrently
+- The worker will record the outcome on completion and check the queue again for any further requests
 
 Consul is used as state storage where entries are created for each unique job (the ID is equivalent to the job reference generated in Factotum). Each entry persists the state (`Queued`/`Working`/`Done`), the job request JSON, the server ID the job was last run from, and whether the last run was a success or failure.
 

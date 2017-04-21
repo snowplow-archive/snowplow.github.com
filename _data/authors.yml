@@ -170,3 +170,11 @@
   avatar: /assets/img/team/colm.jpg
   spiel:   |
       <a href="/blog/authors/colm/">Colm</a> is a data analyst with Snowplow's Analytics team</a>. You can find him on <a href="https://www.linkedin.com/in/colm-o-griobhtha-594b9877">LinkedIn</a>.
+
+- name: Nicholas
+  full_name: Nicholas Ung
+  github: ungn
+  url: /blog/authors/nicholas/
+  avatar: https://avatars2.githubusercontent.com/u/4160988?v=3&s=460
+  spiel: |
+      <a href="/blog/authors/nicholas/">Nicholas</a> is a TechOps engineer at Snowplow. You can find him on <a href="https://github.com/ungn">GitHub</a> and <a href="https://www.linkedin.com/in/nicholasung">LinkedIn</a>.

@@ -53,7 +53,7 @@ Cron is a ubiquitous time-based job scheduler and does that very well in isolati
 
 <h2 id="factotum">2. Factotum Server 0.1.0</h2>
 
-Factotum Server, like Factotum, is written in [Rust][rust-lang]. Version 0.1.0 is mostly a port of our internal Golang project to Rust with a few additional optimisations, such as Consul integration.
+Factotum Server, like Factotum, is written in [Rust][rust-lang]. Version 0.1.0 is mostly a port of our internal Golang project to Rust with a few additional optimisations, such as [Consul][consul-io] integration.
 
 The main action is submitting new job requests for Factotum, sent via the `/submit` HTTP endpoint, which is described in the example [below](#submitting).
 
@@ -146,5 +146,6 @@ As with Factotum, Factotum Server is completely open source. If you would like t
 [factotum-server-repo]: https://github.com/snowplow/factotum-server
 [factotum-repo]: https://github.com/snowplow/factotum
 [rust-lang]: https://www.rust-lang.org/
+[consul-io]: https://www.consul.io/
 
 [factotum-server-issues]: https://github.com/snowplow/factotum-server/issues/new

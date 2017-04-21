@@ -11,7 +11,7 @@ We are pleased to announce the release of [Factotum Server][factotum-server-repo
 
 In [previous posts][snowplow-job-make], we have talked about how our pipeline orchestration journey started with `cron` and `make`, before moving on to release [Factotum][factotum-first-blog]. Initially, the only way to interact with Factotum has been through the CLI, but now we have Factotum Server.
 
-Where Factotum fills the gap of our previous Make-based solution, Factotum Server replaces much of our `cron` usage in a form that is accessible via HTTP requests. It is the next natural step for what we already have - read on to find out more.
+Where Factotum fills the gap of our previous Make-based solution, Factotum Server replaces much of our Cron usage in a form that is accessible via HTTP requests. It is the next natural step for what we already have - read on to find out more.
 
 1. [Why Factotum Server?](#why)
 2. [Factotum Server 0.1.0](#factotum)
@@ -24,7 +24,7 @@ Where Factotum fills the gap of our previous Make-based solution, Factotum Serve
 
 <h2 id="why">1. Why Factotum Server?</h2>
 
-Factotum Server is an extension of the existing Factotum project, but with a different responsibility, hence the separate project. The server started off as an internal project written in Golang as we reached the limitations of a purely `cron` solution:
+Factotum Server is an extension of the existing Factotum project, but with a different responsibility, hence the separate project. The server started off as an internal project written in Golang as we reached the limitations of a purely Cron solution:
 
 <h4>Accessibility</h4>
 The desire to use Factotum with all the available options is great, but all that is moot if you have no idea what box to execute the command from or do not even have access to the box itself. Until access is granted, the user is effectively blocked. These are unnecessary barriers for users to perform simple actions.
@@ -71,27 +71,27 @@ Factotum Server is currently built for `Linux/x86_64` and `Darwin/x86_64`. As Fa
 
 Assuming you are running **64 bit Linux**:
 
-```{bash}
+{% highlight bash %}
 $ wget http://dl.bintray.com/snowplow/snowplow-generic/factotum_server_0.1.0_linux_x86_64.zip
 $ unzip factotum_server_0.1.0_linux_x86_64.zip
 $ ./factotum-server --help
-```
+{% endhighlight %}
 
 You can then run Factotum Server in the following way:
 
-```{bash}
+{% highlight bash %}
 $ ./factotum-server --factotum-bin=<PATH>
-```
+{% endhighlight %}
 
 This starts up Factotum Server with [preset defaults][factotum-server-defaults], ready to execute job requests using the Factotum binary at the `--factotum-bin` path.
 
 If Factotum is **not** already available:
 
-```{bash}
+{% highlight bash %}
 $ wget http://dl.bintray.com/snowplow/snowplow-generic/factotum_0.4.1_linux_x86_64.zip
 $ unzip factotum_0.4.1_linux_x86_64.zip
 $ wget https://raw.githubusercontent.com/snowplow/factotum/master/samples/echo.factfile
-```
+{% endhighlight %}
 
 These commands will download the 0.4.1 Factotum release, unzip it in your current working directory, and download a sample job for you to run.
 
@@ -103,17 +103,21 @@ Assuming the steps [above](#install) have been followed, you now have Factotum S
 
 To submit a job, all you need to do is POST the following JSON to `http://localhost:3000/submit`:
 
-```{json}
+{% highlight json %}
 {
     "jobName": "echotest",
     "factfilePath": "/<PATH>/echo.factfile",
     "factfileArgs": [ "--tag", "foo,bar", "--no-colour" ]
 }
-```
+{% endhighlight %}
 
-If you have run Factotum commands before, you will notice that the JSON looks very similar to the arguments passed to the Factotum CLI. `factfilePath` specifies the location of the factfile to run and `factfileArgs` is an array containing the additional options passed to the CLI for running the factfile. `jobName` is a reference used within the server as the name of the request being sent.
+If you have run Factotum commands before, you will notice that the JSON looks very similar to the arguments passed to the Factotum CLI.
 
-Check out [the samples][job-samples] for more sample factfiles or the [wiki][wiki-home] for more information about all things Factotum.
+ - `jobName` is an internal reference used within the server as the name of the request being sent
+ - `factfilePath` specifies the location of the factfile to run
+ - `factfileArgs` is an array containing the additional options passed to the CLI for running the factfile
+
+Check out [the samples][job-samples] for more sample factfiles or the [wiki][wiki-home] for more information.
 
 <h2 id="roadmap">5. Roadmap for Factotum Server</h2>
 

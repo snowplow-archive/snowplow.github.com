@@ -2,15 +2,14 @@
 layout: post
 title-short: Snowplow 88 Angkor Wat
 title: "Snowplow 88 Angkor Wat released"
-tags: [snowplow, duplicates, event duplication, de-dupe, de-duplication, dynamodb, spark]
+tags: [snowplow, duplicates, event duplication, de-dupe, de-duplication, dynamodb]
 author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 88 Angkor Wat][snowplow-release]. 
-This release introduces additional event de-duplication functionality across many ETL jobs and important configuration refactoring.
+We are pleased to announce the release of [Snowplow 88 Angkor Wat][snowplow-release]. This release introduces event de-duplication functionality across different pipeline runs, powered by DynamoDB, along with an important refactoring of the batch pipeline configuration.
 
-Read on for more information on R88, named after the [largest religious monument in the world][angkor-wat]:
+Read on for more information on R88 Angkor Wat, named after the [largest religious monument in the world][angkor-wat]:
 
 1. [Cross-batch natural deduplication](/blog/2017/02/20/snowplow-r88-angkor-wat-released#crossbatch-natural-deduplication)
 2. [New storage targets configuration](/blog/2017/02/20/snowplow-r88-angkor-wat-released#storage-targets)

@@ -11,11 +11,11 @@ We are pleased to announce the release of [Snowplow 88 Angkor Wat][snowplow-rele
 
 Read on for more information on R88 Angkor Wat, named after the [largest religious monument in the world][angkor-wat]:
 
-1. [Cross-batch natural deduplication](/blog/2017/02/20/snowplow-r88-angkor-wat-released#crossbatch-natural-deduplication)
-2. [New storage targets configuration](/blog/2017/02/20/snowplow-r88-angkor-wat-released#storage-targets)
-3. [Upgrading](/blog/2017/02/20/snowplow-r88-angkor-wat-released#upgrading)
-4. [Roadmap](/blog/2017/02/20/snowplow-r88-angkor-wat-released#roadmap)
-5. [Getting help](/blog/2017/02/20/snowplow-r88-angkor-wat-released#help)
+1. [Cross-batch natural deduplication](/blog/2017/04/20/snowplow-r88-angkor-wat-released#crossbatch-natural-deduplication)
+2. [New storage targets configuration](/blog/2017/04/20/snowplow-r88-angkor-wat-released#storage-targets)
+3. [Upgrading](/blog/2017/04/20/snowplow-r88-angkor-wat-released#upgrading)
+4. [Roadmap](/blog/2017/04/20/snowplow-r88-angkor-wat-released#roadmap)
+5. [Getting help](/blog/2017/04/20/snowplow-r88-angkor-wat-released#help)
 
 ![angkor-wat][angkor-wat-img]
 
@@ -60,6 +60,17 @@ The latest version of the EmrEtlRunner and StorageLoader are available from our 
 
 Storage targets configuration JSONs should be created using [`3-enrich/emr-etl-runner/config/convert_targets.rb`][convert-targets] script and placed into a single directory.
 
+snowplow_config
+├── config.yml.tmpl
+├── enrichments
+│   ├── campaign_attribution.json
+│   ├── ...
+│   ├── user_agent_utils_config.json
+├── iglu_resolver.json
+├── targets
+│   ├── duplicate_dynamodb.json.tmpl
+│   ├── enriched_redshift.json.tmpl
+
 <h3>3.3 Updating config.yml</h3>
 
 1. Remove whole `storage.targets` section (leaving `storage.download.folder`) from your `config.yml` file
@@ -85,10 +96,13 @@ In order to start deduplicating events you need to add new [`dynamodb_config` ta
 
 <h2 id="roadmap">4. Roadmap</h2>
 
-* [R89 Plain of Jars] [r89-plain-of-jars], which ports enrich and shred job to Apache Spark
-* [R9x [HAD] 4 webhooks] [r9x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
-* [R9x [HAD] DashDB support] [r9x-dashdb], the first phase of our support for IBM's dashDB, per our [dashDB RFC] [dashdb-rfc]
-* [R9x [HAD] StorageLoader] [r9x-storageloader], with StorageLoader ported to Scala
+Upcoming Snowplow releases include:
+
+* [R89 Plain of Jars][r89-plain-of-jars], which will port our Hadoop Enrich and Hadoop Shred jobs from Scalding to Apache Spark
+* [R9x [HAD] 4 webhooks][r9x-webhooks], which will add support for 4 new webhooks (Mailgun, Olark, Unbounce, StatusGator)
+* [R9x [HAD] GCP support pt. 1][r9x-gcp], the first phase of our support for running Snowplow real-time on Google Cloud Platform
+* [R9x [HAD] EmrEtlRunner robustness][r9x-emretlrunner], continuing our work making EmrEtlRunner more reliable and modular
+* [R9x [HAD] StorageLoader reboot][r9x-storageloader], which will port our StorageLoader app to Scala
 
 <h2 id="help">5. Getting help</h2>
 
@@ -124,7 +138,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [r89-plain-of-jars]: https://github.com/snowplow/snowplow/milestone/137
 [r9x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
-[r9x-dashdb]: https://github.com/snowplow/snowplow/milestone/119
+[r9x-gcp]: https://github.com/snowplow/snowplow/milestone/138
+[r9x-emretlrunner]: https://github.com/snowplow/snowplow/milestone/141
 [r9x-storageloader]: https://github.com/snowplow/snowplow/milestone/121
 
 [issues]: https://github.com/snowplow/snowplow/issues/new

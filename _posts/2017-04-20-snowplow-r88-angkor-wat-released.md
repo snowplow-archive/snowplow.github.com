@@ -23,9 +23,13 @@ Read on for more information on R88 Angkor Wat, named after the [largest religio
 
 <h2 id="synthetic-dedupe">1. Cross-batch natural deduplication</h2>
 
+<h3 id="dedupe-history">1.1 The deduplication story so far</h3>
+
 Event duplicates were problem in Snowplow pipeline since its origin and were described several times [in this blog][dupes-blog-post] and on our [discourse forum][dupes-discourse-thread]. 
 As first step to solve the problem, in [R76][r76-changeable-hawk-eagle-release] we implemented in-batch natural deduplication which removed duplicates originated due to at-least-once delivery semantics in Snowplow pipeline. 
 Next, in [R86][r86-petra-release] we introduced synthetic in-batch deduplication which one again drastically reduced amount of duplicates in our users' clusters and completely removed them from each particular load, but left them across distinct loads.
+
+<h3 id="dedupe-dynamodb">1.2 Cross-batch deduplication using DynamoDB</h3>
 
 Today we're going further and introducing new cross-batch deduplication that works with natural dupes across many loads, effectively eliminating duplicates problem.
 
@@ -33,12 +37,29 @@ To solve this problem across ETLs we're using [Amazon DynamoDB][amazon-dynamodb]
 Mechanics of this process is quite simple and what is most important fast - you can find more technical information on dedicated [wiki page][shs-wiki]. 
 However, unlike previous in-batch deduplications, it is not built-in into ETL job and needs to be explicitly enabled.
 
+<h3 id="dedupe-usage">1.3 How to enable the new deduplication process</h3>
+
 To start deduplicating events across batches you need to provide EmrEtlRunner a [duplicate storage configuration][duplicate-storage-config] via new `--targets` option. 
-After EmrEtlRunner passed storage configuration to Scala Hadoop Shred job, it will try to connect to table, if table doesn't exist it will be automatically created with predefined [provisioned throughput][provisioned-throughput] 
-For many cases it will just work, however, it is highly recommended to tweak provisioned throughput depending on your cluster size.
+After EmrEtlRunner passed storage configuration to Scala Hadoop Shred job, ANTON TO EXPLAIN HOW THIS WORKS WITH SCREENSHOT OF DYNAMODB TABLE CONTENTS.
+
+ANTON TO ADD NOTE THAT THIS IS TOTALLY OPTIONAL.
+
+<h3 id="dedupe-usage">1.4 Cost impact of running this process</h3>
+
+ANTON TO WRITE
+
+<h3 id="dedupe-cold-start">1.5 Solving the cold start problem</h3>
 
 To facilitate our users "cold start" deduplication problem we provide new [Event Manifest Populator][event-manifest-populator] Spark job, 
 which loads old events into duplicate storage, which means you don't need to wait several months to get deduplication work at full power.
+
+ANTON TO ADD SOME BASIC USAGE INFORMATION FOR COLD START
+
+<h3 id="dedupe-roadmap">1.6 What's coming next for deduplication</h3>
+
+ANTON TO ADD ABOUT ONE-OFF PYTHON SCRIPT TO CLEAN UP EXISTING DUPLICATES IN REDSHIFT.
+
+ANTON TO MENTION CROSS-BATCH SYNTHETIC DUPES - NOT A PRIORITY BECAUSE...
 
 <h2 id="storage-targets">2. New storage targets configuration</h2>
 
@@ -58,8 +79,11 @@ The latest version of the EmrEtlRunner and StorageLoader are available from our 
 
 <h3>3.2 Creating new targets configuration</h3>
 
-Storage targets configuration JSONs should be created using [`3-enrich/emr-etl-runner/config/convert_targets.rb`][convert-targets] script and placed into a single directory.
+Storage targets configuration JSONs can be generated from your existing `config.yml`, using the [`3-enrich/emr-etl-runner/config/convert_targets.rb`][convert-targets] script. These files should be stored in a folder, for example called `targets`, alongside your existing `enrichments` folder.
 
+When complete, your folder layout will look something like this:
+
+{% highlight bash %}
 snowplow_config
 ├── config.yml.tmpl
 ├── enrichments
@@ -70,6 +94,7 @@ snowplow_config
 ├── targets
 │   ├── duplicate_dynamodb.json.tmpl
 │   ├── enriched_redshift.json.tmpl
+{% endhighlight %}
 
 <h3>3.3 Updating config.yml</h3>
 
@@ -83,16 +108,25 @@ versions:
   hadoop_elasticsearch: 0.1.0 # UNCHANGED
 {% endhighlight %}
 
-For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml] and [sample storage targets templates][sample-targets].
+For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml] and [sample storage target templates][sample-targets].
 
 <h3>3.4 Update EmrEtlRunner and StorageLoader scripts</h3>
 
-1. Append options `--targets $TARGETS_DIR` to both `snowplow-emr-etl-runner` and `snowplow-storage-loader` applications 
-2. Append option `--resolver $IGLU_RESOLVER` to `snowplow-storage-loader` application
+1. Append the option `--targets $TARGETS_DIR` to both `snowplow-emr-etl-runner` and `snowplow-storage-loader` applications 
+2. Append the option `--resolver $IGLU_RESOLVER` to `snowplow-storage-loader` application. This is required to validate the storage target configurations
 
 <h3>3.5 Enabling cross-batch deduplication</h3>
 
-In order to start deduplicating events you need to add new [`dynamodb_config` target][duplicate_storage_config] to newly created targets directory.
+In order to start deduplicating events you need to add a new [`dynamodb_config` target][duplicate_storage_config] to your newly created `targets` directory.
+
+When Hadoop Shred runs, if the table doesn't exist then it will be automatically created with predefined [provisioned throughput][provisioned-throughput] 
+For many cases it will just work, however, it is highly recommended to tweak provisioned throughput depending on your cluster size.
+
+ANTON TO ADD MORE ON AUTO-CREATION OF TABLE
+
+ANTON TO ADD MORE ON DEFAULT TTL, DEFAULT THROUGHPUTS
+
+ANTON TO ADD MORE ON TUNING
 
 <h2 id="roadmap">4. Roadmap</h2>
 

@@ -7,7 +7,10 @@ author: Ben
 category: Releases
 ---
 
-We are pleased to announce a new release of the [Snowplow JavaScript Tracker][js-tracker]. [Version 2.8.0][2.8.0-tag] gives you much more flexibility flexibility and control in the area of in-browser user privacy, as well as adding new integrations for Parrable and OptimizelyX.
+We are pleased to announce a new release of the
+[Snowplow JavaScript Tracker][js-tracker]. [Version 2.8.0][2.8.0-tag] gives you
+much more flexibility and control in the area of in-browser user privacy, as
+well as adding new integrations for Parrable and OptimizelyX.
 
 Read on below the fold for:
 
@@ -19,7 +22,7 @@ Read on below the fold for:
 /blog/2017/04/10/snowplow-javascript-tracker-2.8.0-released/#passwords)
 4. [New OptimizelyX and Parrable contexts](
 /blog/2017/04/10/snowplow-javascript-tracker-2.8.0-released/#contexts)
-5. [Extracting key data from the tracker](
+5. [Extracting valuable metadata from the tracker](
 /blog/2017/04/10/snowplow-javascript-tracker-2.8.0-released/#get-data)
 6. [Improved page activity handling](
 /blog/2017/04/10/snowplow-javascript-tracker-2.8.0-released/#page-activity)
@@ -182,13 +185,15 @@ Otherwise, all variation names will be `null`.
 Thanks to [Snowflake Analytics' Mike Robins][mike] for adding the support for
 OptimizelyX.
 
-<h2 id="get-data">5. Extracting key data from the tracker</h2>
+<h2 id="get-data">5. Extracting valuable metadata from the tracker</h2>
 
 In an effort to give you more control, we've exposed a few properties internal
 to the tracker such as cookie names, page view IDs and domain session indices.
 
-For example, you can retrieve the complete cookie name for the domain cookie
-with through a callback to avoid problems if the tracker isn't done loading:
+The recommended way of retrieving these data points is via a [tracker callback][callback],
+which prevents problems if the tracker hasn't finished loading.
+
+For example, you can retrieve the complete cookie name for the domain cookie like so:
 
 {% highlight javascript %}
 window.snowplow_name_here(function () {
@@ -218,6 +223,8 @@ window.snowplow_name_here(function() {
 });
 {% endhighlight %}
 
+If you have any other suggestions for tracker data that we should expose via `get()` methods, please add these to [issue 548][548] in GitHub.
+
 <h2 id="page-activity">6. Improved page activity handling</h2>
 
 In this release, we are also allowing external triggering of the
@@ -228,9 +235,7 @@ a video).
 You can trigger the activity handler yourself with:
 
 {% highlight javascript %}
-window.snowplow_name_here(function() {
-  this.updatePageActivity();
-});
+window.snowplow_name_here('updatePageActivity');
 {% endhighlight %}
 
 This use case and the accompanying implementation was contributed by
@@ -288,6 +293,7 @@ Finally, if you run into any issues or have any questions, please
 [dnt]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#respect-do-not-track
 [parrable]: https://www.parrable.com/
 [parrable-context]: http://iglucentral.com/schemas/com.parrable/encrypted_payload/jsonschema/1-0-0
+[callback]: https://github.com/snowplow/snowplow/wiki/3-Advanced-usage-of-the-JavaScript-Tracker#41-callbacks
 [optimizelyx]: https://www.optimizely.com/products/developers/
 [optimizelyx-context]: http://iglucentral.com/schemas/com.optimizely.optimizelyx/summary/jsonschema/1-0-0
 [optimizelyx-table]: https://github.com/snowplow/iglu-central/blob/master/sql/com.optimizely.optimizelyx/summary_1.sql
@@ -297,6 +303,7 @@ Finally, if you run into any issues or have any questions, please
 [uls]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.7#2213-configuring-localstorage
 [uc]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.7#2216-disabling-cookies
 [sss]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#2214-storage-stategy
+[548]: https://github.com/snowplow/snowplow-javascript-tracker/issues/548
 [571]: https://github.com/snowplow/snowplow-javascript-tracker/issues/571
 [572]: https://github.com/snowplow/snowplow-javascript-tracker/issues/572
 [set-interval]: https://www.w3schools.com/jsref/met_win_setinterval.asp

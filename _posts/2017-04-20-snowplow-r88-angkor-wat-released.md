@@ -81,14 +81,11 @@ This process introduces two additional costs to running your Snowplow batch pipe
 1. Increased EMR jobflow times, which has associated financial costs in terms of Normalized Instance Hours
 2. Additional AWS costs associated with the DynamoDB table used for the event manifest
 
-The EMR jobflow time increases because Hadoop Shred job processes many events in parallel, while DynamoDB relies on a mechanism called [provisioned throughput][provisioned-throughput] to cap reads and writes. Provisioned throughput effectively throttles whole job flow when volume reaches specified capacity units.
-Throttling means that no matter how big your EMR cluster - job won't advance faster than provisioned throughput specified for DynamoDB table.
+The EMR jobflow time increases because Hadoop Shred job processes many events in parallel, while DynamoDB relies on a mechanism called [provisioned throughput][provisioned-throughput] to cap reads and writes. Provisioned throughput throttles the jobflow when DynamoDB writes reach the specified capacity units. Throttling means that, no matter how powerful your EMR cluster, the job will proceed only as fast as the throttled writes can make it through to the DynamoDB table.
 
-Default write capacity for duplicate storage is 100 units, which roughly costs 50USD per month.
-It slows down shredding on EMR cluster consisting of m1.medium master and one m4.large node up to 5 times.
-At the same time, increasing write capacity to 500 units makes cross-batch deduplication slow-down effect neglectable, but increases DynamoDB costs roughly to 250USD.
+The default write capacity we use for storing the event manifest is 100 units, which roughly costs 50 USD per month. If this slows down your job considerably, then you can increase the DynamoDB write capacity to e.g. 500 units, but this increases DynamoDB costs roughly to 250 USD.
 
-There's no golden rule for calculating write capacity and cluster size, but it's up to user to measure performance and tweak DynamoDB throughput according with budget.
+There's no golden rule for calculating write capacity and cluster configuration - you should experiment with different options to find the best cost-performance profile for your event volumes. The DynamoDB monitoring UI in AWS is helpful here because it shows you the level of throttling on your DynamoDB writes.
 
 <h3 id="dedupe-cold-start">2.5 Solving the cold start problem</h3>
 

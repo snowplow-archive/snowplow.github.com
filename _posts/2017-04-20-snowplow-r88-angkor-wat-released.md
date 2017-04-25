@@ -7,12 +7,12 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 88 Angkor Wat][snowplow-release]. This release introduces event de-duplication functionality across different pipeline runs, powered by DynamoDB, along with an important refactoring of the batch pipeline configuration.
+We are pleased to announce the release of [Snowplow 88 Angkor Wat][snowplow-release]. This release introduces event de-duplication across different pipeline runs, powered by DynamoDB, along with an important refactoring of the batch pipeline configuration.
 
 Read on for more information on R88 Angkor Wat, named after the [largest religious monument in the world][angkor-wat]:
 
-1. [Cross-batch natural deduplication](/blog/2017/04/20/snowplow-r88-angkor-wat-released#crossbatch-natural-deduplication)
-2. [New storage targets configuration](/blog/2017/04/20/snowplow-r88-angkor-wat-released#storage-targets)
+1. [New storage targets configuration](/blog/2017/04/20/snowplow-r88-angkor-wat-released#storage-targets)
+2. [Cross-batch natural deduplication](/blog/2017/04/20/snowplow-r88-angkor-wat-released#crossbatch-natural-deduplication)
 3. [Upgrading](/blog/2017/04/20/snowplow-r88-angkor-wat-released#upgrading)
 4. [Roadmap](/blog/2017/04/20/snowplow-r88-angkor-wat-released#roadmap)
 5. [Getting help](/blog/2017/04/20/snowplow-r88-angkor-wat-released#help)
@@ -21,38 +21,67 @@ Read on for more information on R88 Angkor Wat, named after the [largest religio
 
 <!--more-->
 
-<h2 id="synthetic-dedupe">1. Cross-batch natural deduplication</h2>
+<h2 id="storage-targets">1. New storage targets configuration</h2>
 
-<h3 id="dedupe-history">1.1 The deduplication story so far</h3>
+In order to simplify configuration of growing number of storage targets we replaced old all-in-one configuration approach with configuration through self-describing JSONs. This should reduce amount of mistakes made by our users due to similarity between different storages and alleviate adding new storage targets such as [Google BigQuery][bigquery] and [DashDB][dashdb-rfc].
+With self-describing JSONs users now can see clear and detailed error message if they missed some property or used it incorrectly instead of huge contract violation traceback produced by EmrEtlRunner and StorageLoader before.
 
-Event duplicates were problem in Snowplow pipeline since its origin and were described several times [in this blog][dupes-blog-post] and on our [discourse forum][dupes-discourse-thread].
-As first step to solve the problem, in [R76][r76-changeable-hawk-eagle-release] we implemented in-batch natural deduplication which removed duplicates originated due to at-least-once delivery semantics in Snowplow pipeline.
-Next, in [R86][r86-petra-release] we introduced synthetic in-batch deduplication which one again drastically reduced amount of duplicates in our users' clusters and completely removed them from each particular load, but left them across distinct loads.
+New storage configuration consists of separate self-describing JSON for each target.
+You can find all supported targets grouped for [dedicated vendor][snowplow-storage-vendor] on Iglu Central and sample configs at [`4-storage/config`][sample-targets].
 
-<h3 id="dedupe-dynamodb">1.2 Cross-batch deduplication using DynamoDB</h3>
+It also means that older `config.yml` is no longer valid and both EmrEtlRunner and StorageLoader need to accept `--targets` option specifying directory with storage configuration JSONs and `--resolver` option to validate these JSONs.
 
-Today we're going further and introducing new cross-batch deduplication that works with natural dupes across many loads, effectively eliminating duplicates problem.
+<h2 id="synthetic-dedupe">2. Cross-batch natural deduplication</h2>
 
-To solve this problem across ETLs we're using [Amazon DynamoDB][amazon-dynamodb] storage, which allows to store information about events we processed in previous ETLs and incredibly fast check that event was (or was not) processed before.
-Mechanics of this process is quite simple and what is most important fast - you can find more technical information on dedicated [wiki page][shs-wiki].
-However, unlike previous in-batch deduplications, it is not built-in into ETL job and needs to be explicitly enabled.
+<h3 id="dedupe-history">2.1 The deduplication story so far</h3>
 
-<h3 id="dedupe-usage">1.3 How to enable the new deduplication process</h3>
+Event duplicates can prove a challenge in any event pipeline - we have described the problem [in this blog post][dupes-blog-post] and on our [Discourse forum][dupes-discourse-thread].
 
-To start deduplicating events across batches you need to provide EmrEtlRunner a [duplicate storage configuration][duplicate-storage-config] via new `--targets` option.
+As a first step to solving the problem, in [R76 Changeable Hawk Eagle][r76-changeable-hawk-eagle-release] we implemented in-batch natural deduplication, which removed duplicates originating due to at-least-once delivery semantics in Snowplow pipeline. Next, in [R86 Petra][r86-petra-release], we introduced synthetic in-batch deduplication which one again drastically reduced amount of duplicates in our users' clusters and completely removed them from each particular load, but left them across separate loads.
+
+<h3 id="dedupe-dynamodb">2.2 Cross-batch deduplication using DynamoDB</h3>
+
+Today we're going further and introducing new cross-batch deduplication that works with natural dupes across many loads, eliminating the duplicates problem for many users.
+
+To solve this problem across pipeline runs we're using [Amazon DynamoDB][amazon-dynamodb] storage, which allows us to keep track of which events we have processed across multiple runs; essentially we maintain an "event manifest" in DynamoDB with just some essential information about each event:
 
 ![duplicate-storage-screenshot-img]
 
-However, you should note that if you won't add duplicate storage configuration - your Hadoop Shred job will work as usual.
-This is because cross-batch deduplication is completely optional - and many pipelines don't suffer from duplicates problem to the point where enabled by default in-batch natural and synthetic deduplication aren't enough.
+The mechanics of this process are relatively simple and fast - you can find more technical information on the dedicated [wiki page][shs-wiki].
 
-<h3 id="dedupe-usage">1.4 Cost impact of running this process</h3>
+It's important to note that, unlike previous in-batch deduplication logic, this new functionality needs to be explicitly enabled.
 
-As stated above - many users do not need cross-batch deduplication and indeed many users have reasons to enable it.
-Two main reasons are increased job time and increased AWS expenses.
+<h3 id="dedupe-usage">2.3 How to enable the new deduplication process</h3>
 
-Execution time increases because Hadoop Shred job processes events in batches sequentially, while,
-DynamoDB mechanism called [provisioned throughput][provisioned-throughput] effectively throttles whole job flow when volume reaches specified capacity units.
+To start deduplicating events across batches you need to provide EmrEtlRunner a [duplicate storage configuration][duplicate-storage-config] via the new `--targets` option.
+
+Here is an example configuration:
+
+{% highlight "json" %}
+{
+    "schema": "iglu:com.snowplowanalytics.snowplow.storage/amazon_dynamodb_config/jsonschema/1-0-0",
+    "data": {
+        "name": "AWS DynamoDB duplicates storage",
+        "accessKeyId": "...",
+        "secretAccessKey": "...",
+        "awsRegion": "eu-west-1",
+        "dynamodbTable": "snowplow-event-manifest",
+        "purpose": "DUPLICATE_TRACKING"
+    }
+}
+
+{% endhighlight %}
+
+If you *don't* add duplicate storage configuration, then your Hadoop Shred job will continue work as before. Cross-batch deduplication is completely optional - you may decide that the cost-benefit calculus for enabling cross-batch duplication is not right for you.
+
+<h3 id="dedupe-usage">2.4 Cost impact of running this process</h3>
+
+This process introduces two additional costs to running your Snowplow batch pipeline:
+
+1. Increased EMR jobflow times, which has associated financial costs in terms of Normalized Instance Hours
+2. Additional AWS costs associated with the DynamoDB table used for the event manifest
+
+The EMR jobflow time increases because Hadoop Shred job processes many events in parallel, while DynamoDB relies on a mechanism called [provisioned throughput][provisioned-throughput] to cap reads and writes. Provisioned throughput effectively throttles whole job flow when volume reaches specified capacity units.
 Throttling means that no matter how big your EMR cluster - job won't advance faster than provisioned throughput specified for DynamoDB table.
 
 Default write capacity for duplicate storage is 100 units, which roughly costs 50USD per month.
@@ -61,7 +90,7 @@ At the same time, increasing write capacity to 500 units makes cross-batch dedup
 
 There's no golden rule for calculating write capacity and cluster size, but it's up to user to measure performance and tweak DynamoDB throughput according with budget.
 
-<h3 id="dedupe-cold-start">1.5 Solving the cold start problem</h3>
+<h3 id="dedupe-cold-start">2.5 Solving the cold start problem</h3>
 
 To facilitate our users "cold start" deduplication problem we provide new [Event Manifest Populator][event-manifest-populator] Spark job,
 intended to load old events into duplicate storage, which means you don't need to wait several months to get deduplication work at full power.
@@ -88,26 +117,16 @@ Date is specified with `YYYY-MM-dd` format.
 
 You can find more about usage of Event Manifest Populator and its interface at dedicated [wiki page][event-manifest-populator].
 
-<h3 id="dedupe-roadmap">1.6 What's coming next for deduplication</h3>
+<h3 id="dedupe-roadmap">2.6 What's coming next for deduplication</h3>
 
 By introducing cross-batch natural deduplication we made problem of duplicates in Snowplow Batch pipeline neglectable.
 However, some place for improvement still exists.
 
-First of all, in upcoming [R89 release][r89-plain-of-jars] we're planning to release a [Python script][python-deduplication-script] to generate SQL Runner playbook allowing you to clean out all duplicates from before the upgrade to cross-batch deduplication was enabled for your pipeline.
+First of all, in an upcoming release we are planning to release a [Python script][python-deduplication-script] to generate SQL Runner playbook allowing you to clean out all duplicates from before the upgrade to cross-batch deduplication was enabled for your pipeline.
 
 In a more distant future, we want to embed similar DynamoDB-powered deduplication logic into our real-time pipeline, where at present moment all natural duplicates are being simply erased. It also means current deduplication logic will eventually be released as separate library.
 
 Last feature we need to release in order to claim win over duplicates is cross-batch synthetic deduplication, which should combine primary features of [R86 Petra][r86-petra-release] (synthetic deduplication) and R88 Angkor Wat (cross-batch deduplication) to provide you a way to eliminate synthetic duplicates across batches.
-
-<h2 id="storage-targets">2. New storage targets configuration</h2>
-
-In order to simplify configuration of growing number of storage targets we replaced old all-in-one configuration approach with configuration through self-describing JSONs. This should reduce amount of mistakes made by our users due to similarity between different storages and alleviate adding new storage targets such as [Google BigQuery][bigquery] and [DashDB][dashdb-rfc].
-With self-describing JSONs users now can see clear and detailed error message if they missed some property or used it incorrectly instead of huge contract violation traceback produced by EmrEtlRunner and StorageLoader before.
-
-New storage configuration consists of separate self-describing JSON for each target.
-You can find all supported targets grouped for [dedicated vendor][snowplow-storage-vendor] on Iglu Central and sample configs at [`4-storage/config`][sample-targets].
-
-It also means that older `config.yml` is no longer valid and both EmrEtlRunner and StorageLoader need to accept `--targets` option specifying directory with storage configuration JSONs and `--resolver` option to validate these JSONs.
 
 <h2 id="upgrading">3. Upgrading</h2>
 

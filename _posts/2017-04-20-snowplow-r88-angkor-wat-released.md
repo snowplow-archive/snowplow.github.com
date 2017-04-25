@@ -45,9 +45,14 @@ Today we're going further and introducing new cross-batch deduplication that wor
 
 To solve this problem across pipeline runs we're using [Amazon DynamoDB][amazon-dynamodb] storage, which allows us to keep track of which events we have processed across multiple runs; essentially we maintain an "event manifest" in DynamoDB with just some essential information about each event:
 
+* Event id - used to identify event
+* Event fingerprint - used in conjunction with event id to identify natural duplicates
+* ETL timestamp - used to check if previous Hadoop Shred was aborted and event is being reprocessed
+* Time to live - timestamp allowing DynamoDB automatically clean-up stale objects (set to `etl_tstamp` plus 180 days)
+
 ![duplicate-storage-screenshot-img]
 
-The mechanics of this process are relatively simple and fast - you can find more technical information on the dedicated [wiki page][shs-wiki].
+The mechanics of the manifest set-and-check are relatively simple - you can find more technical information on the dedicated [wiki page][shs-wiki].
 
 It's important to note that, unlike previous in-batch deduplication logic, this new functionality needs to be explicitly enabled.
 
@@ -87,43 +92,41 @@ The default write capacity we use for storing the event manifest is 100 units, w
 
 There's no golden rule for calculating write capacity and cluster configuration - you should experiment with different options to find the best cost-performance profile for your event volumes. The DynamoDB monitoring UI in AWS is helpful here because it shows you the level of throttling on your DynamoDB writes.
 
-<h3 id="dedupe-cold-start">2.5 Solving the cold start problem</h3>
+<h3 id="dedupe-cold-start">2.5 Solving the "cold start" problem</h3>
 
-To facilitate our users "cold start" deduplication problem we provide new [Event Manifest Populator][event-manifest-populator] Spark job,
-intended to load old events into duplicate storage, which means you don't need to wait several months to get deduplication work at full power.
+The new cross-batch deduplication is powerful, but how do you handle the "cold start" problem where the event manifest table in DynamoDB starts off empty? 
 
-Event Manifest Populator can be started on EMR with PyInvoke script provided by us.
-In order to run it you'll need to download script itself and install `boto` and `pyinvoke`:
+To help, we have developed a new [Event Manifest Populator][event-manifest-populator] Spark job, which lets you pre-load the DynamoDB table
+from your enriched event archive.
+
+Event Manifest Populator can be started on EMR with a PyInvoke script provided by us. To run it, you'll need to download script itself and install `boto` and `pyinvoke`:
 
 {% highlight "bash" %}
 $ wget https://raw.githubusercontent.com/snowplow/snowplow/release/r88-angkor-wat/5-data-modeling/event-manifest-populator/tasks.py
 $ pip install boto pyinvoke
 {% endhighlight %}
 
-Last step is to start actual job:
+Last step is to run the actual job:
 
 {% highlight "bash" %}
 $ inv run_emr $ENRICHED_ARCHIVE_S3_PATH $STORAGE_CONFIG_PATH $IGLU_RESOLVER_PATH
 {% endhighlight %}
 
-Above, `inv` is CLI util installed with `pyinvoke` and `run_emr` is actual task.
-It receives only three required positional arguments: `$ENRICHED_ARCHIVE_S3_PATH` is the path to enriched events archive that can be found at `aws.s3.buckets.enriched.archive` in `config.yml`, `$STORAGE_CONFIG_PATH` should be substituted with path to duplicate storage configuration JSON (not with path to `targets` directory) and last `$IGLU_RESOLVER_PATH` is well-known Iglu resolver JSON configuration.
+Here, the `run_emr` task sent to PyInvoke takes three positional arguments:
 
-You can also add one particularly useful positional argument: `--since` which specifies timespan of events you want to load to duplicate storage.
-Date is specified with `YYYY-MM-dd` format.
+1. `$ENRICHED_ARCHIVE_S3_PATH` is the path to enriched events archive that can be found at `aws.s3.buckets.enriched.archive` in `config.yml`
+2. `$STORAGE_CONFIG_PATH` should be substituted with path to duplicate storage configuration JSON (not with path to `targets` directory)
+3. `$IGLU_RESOLVER_PATH` is your Iglu resolver JSON configuration
+
+You can also add one extra argument: `--since`, which specifies timespan of events you want to load to duplicate storage. Date is specified with `YYYY-MM-dd` format.
 
 You can find more about usage of Event Manifest Populator and its interface at dedicated [wiki page][event-manifest-populator].
 
 <h3 id="dedupe-roadmap">2.6 What's coming next for deduplication</h3>
 
-By introducing cross-batch natural deduplication we made problem of duplicates in Snowplow Batch pipeline neglectable.
-However, some place for improvement still exists.
+Firstly, in an upcoming release we will release a [Python script][python-deduplication-script] to generate SQL allowing you to clean out all historic event duplicates, which were loaded into your Redshift cluster by earlier, pre-deduplication versions of Hadoop Shred.
 
-First of all, in an upcoming release we are planning to release a [Python script][python-deduplication-script] to generate SQL Runner playbook allowing you to clean out all duplicates from before the upgrade to cross-batch deduplication was enabled for your pipeline.
-
-In a more distant future, we want to embed similar DynamoDB-powered deduplication logic into our real-time pipeline, where at present moment all natural duplicates are being simply erased. It also means current deduplication logic will eventually be released as separate library.
-
-Last feature we need to release in order to claim win over duplicates is cross-batch synthetic deduplication, which should combine primary features of [R86 Petra][r86-petra-release] (synthetic deduplication) and R88 Angkor Wat (cross-batch deduplication) to provide you a way to eliminate synthetic duplicates across batches.
+Looking further ahead, we are interested in extracting our DynamoDB-powered deduplication logic into a standalone library, so that this can be used with the loaders for other storage targets, such as S3/Parquet/Avro or Snowflake. our real-time pipeline, where at present moment all natural duplicates are being simply erased.
 
 <h2 id="upgrading">3. Upgrading</h2>
 
@@ -139,15 +142,15 @@ When complete, your folder layout will look something like this:
 
 {% highlight bash %}
 snowplow_config
-├── config.yml.tmpl
+├── config.yml
 ├── enrichments
 │   ├── campaign_attribution.json
 │   ├── ...
 │   ├── user_agent_utils_config.json
 ├── iglu_resolver.json
 ├── targets
-│   ├── duplicate_dynamodb.json.tmpl
-│   ├── enriched_redshift.json.tmpl
+│   ├── duplicate_dynamodb.json
+│   ├── enriched_redshift.json
 {% endhighlight %}
 
 <h3>3.3 Updating config.yml</h3>
@@ -171,20 +174,15 @@ For a complete example, see our [sample `config.yml` template][emretlrunner-conf
 
 <h3>3.5 Enabling cross-batch deduplication</h3>
 
+**Please be aware that enabling this will have a potentially high cost and performance impact on your Snowplow batch pipeline.** 
+
 If you want to start to deuplicate events across batches you need to add a new [`dynamodb_config` target][duplicate_storage_config] to your newly created `targets` directory.
 
-Optionally, before first run of Shred job with cross-batch deduplication, you may want to run [Spark job](#dedupe-cold-start) to backpopulate DynamoDB table.
+Optionally, before first run of Shred job with cross-batch deduplication, you may want to run [Event Manifest Populator](#dedupe-cold-start) to back-fill the DynamoDB table.
 
-When Hadoop Shred runs, if the table doesn't exist then it will be automatically created with [provisioned throughput][provisioned-throughput] by default set to 100 write capacity units and all required schema to store and deduplicate events.
+When Hadoop Shred runs, if the table doesn't exist then it will be automatically created with [provisioned throughput][provisioned-throughput] by default set to 100 write capacity units and the required schema to store and deduplicate events.
 
-After EmrEtlRunner passed storage configuration to Scala Hadoop Shred job, DynamoDB table specified in configuration will start populating with four attributes extracted from event:
-
-* Event id - used to identify event
-* Event fingerprint - used in conjunction with event id to identify natural duplicates
-* ETL timestamp - used to check if previous Hadoop Shred was aborted and event is being reprocessed
-* Time to live - timestamp allowing DynamoDB automatically clean-up stale objects (ETL timestamp plus 180 days)
-
-For many cases it will just work, however, it is highly recommended to tweak provisioned throughput depending on your cluster size.
+For relatively low (1m events per run) cases, the default settings will likely "just work". However, we do **strongly recommend** monitoring the EMR job, and AWS billing impact, closely and tweaking DynamoDB provisioned throughput and your EMR cluster specification accordingly.
 
 <h2 id="roadmap">4. Roadmap</h2>
 

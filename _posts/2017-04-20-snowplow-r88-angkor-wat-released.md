@@ -101,17 +101,17 @@ The new cross-batch deduplication is powerful, but how do you handle the "cold s
 To help, we have developed a new [Event Manifest Populator][event-manifest-populator] Spark job, which lets you pre-load the DynamoDB table
 from your enriched event archive.
 
-Event Manifest Populator can be started on EMR with a PyInvoke script provided by us. To run it, you'll need to download script itself and install `boto` and `pyinvoke`:
+Event Manifest Populator can be started on EMR with a PyInvoke script provided by us. To run it, you'll need to download script itself and install `boto2`:
 
 {% highlight "bash" %}
-$ wget https://raw.githubusercontent.com/snowplow/snowplow/release/r88-angkor-wat/5-data-modeling/event-manifest-populator/tasks.py
-$ pip install boto invoke
+$ wget https://raw.githubusercontent.com/snowplow/snowplow/release/r88-angkor-wat/5-data-modeling/event-manifest-populator/run.py
+$ pip install boto
 {% endhighlight %}
 
 Last step is to run the actual job:
 
 {% highlight "bash" %}
-$ inv run_emr $ENRICHED_ARCHIVE_S3_PATH $STORAGE_CONFIG_PATH $IGLU_RESOLVER_PATH
+$ python run.py $ENRICHED_ARCHIVE_S3_PATH $STORAGE_CONFIG_PATH $IGLU_RESOLVER_PATH
 {% endhighlight %}
 
 Here, the `run_emr` task sent to PyInvoke takes three positional arguments:

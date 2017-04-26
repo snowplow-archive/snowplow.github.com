@@ -23,13 +23,15 @@ Read on for more information on R88 Angkor Wat, named after the [largest religio
 
 <h2 id="storage-targets">1. New storage targets configuration</h2>
 
-In order to simplify configuration of growing number of storage targets we replaced old all-in-one configuration approach with configuration through self-describing JSONs. This should reduce amount of mistakes made by our users due to similarity between different storages and alleviate adding new storage targets such as [Google BigQuery][bigquery] and [DashDB][dashdb-rfc].
-With self-describing JSONs users now can see clear and detailed error message if they missed some property or used it incorrectly instead of huge contract violation traceback produced by EmrEtlRunner and StorageLoader before.
+Historically storage targets for the Snowplow batch pipeline have been configured from a shared set of properties in the EmrEtlRunner and StorageLoader `config.yml` YAML file.
 
-New storage configuration consists of separate self-describing JSON for each target.
-You can find all supported targets grouped for [dedicated vendor][snowplow-storage-vendor] on Iglu Central and sample configs at [`4-storage/config`][sample-targets].
+Using the same YAML properties to configure very different databases, such as Redshift and Elasticsearch, has been difficult and error-prone, especially for new Snowplow users. Continuing to overload these YAML properties as we add additional databases such as [Google BigQuery][bigquery], [Snowflake] [snowflake] and [Azure SQL Data Warehouse][azure-sql-dw] is unsustainable.
 
-It also means that older `config.yml` is no longer valid and both EmrEtlRunner and StorageLoader need to accept `--targets` option specifying directory with storage configuration JSONs and `--resolver` option to validate these JSONs.
+As of this release, storage targets for the Snowplow batch pipeline are configured through database-specific self-describing JSONs - the same way that our enrichments are configured. This should reduce the scope for errors - not least because Snowplow will validate that these configuration JSONs are correct and complete.
+
+You can find all the supported target configurations [in Iglu Central][snowplow-storage-vendor], and sample configs in the Snowplow repo at [`4-storage/config`][sample-targets].
+
+This change means that the older `config.yml` format is no longer valid; both EmrEtlRunner and StorageLoader now need to accept `--targets` option specifying directory with storage configuration JSONs, plus the `--resolver` option to validate these JSONs.
 
 <h2 id="synthetic-dedupe">2. Cross-batch natural deduplication</h2>
 
@@ -103,7 +105,7 @@ Event Manifest Populator can be started on EMR with a PyInvoke script provided b
 
 {% highlight "bash" %}
 $ wget https://raw.githubusercontent.com/snowplow/snowplow/release/r88-angkor-wat/5-data-modeling/event-manifest-populator/tasks.py
-$ pip install boto pyinvoke
+$ pip install boto invoke
 {% endhighlight %}
 
 Last step is to run the actual job:
@@ -114,13 +116,13 @@ $ inv run_emr $ENRICHED_ARCHIVE_S3_PATH $STORAGE_CONFIG_PATH $IGLU_RESOLVER_PATH
 
 Here, the `run_emr` task sent to PyInvoke takes three positional arguments:
 
-1. `$ENRICHED_ARCHIVE_S3_PATH` is the path to enriched events archive that can be found at `aws.s3.buckets.enriched.archive` in `config.yml`
-2. `$STORAGE_CONFIG_PATH` should be substituted with path to duplicate storage configuration JSON (not with path to `targets` directory)
+1. `$ENRICHED_ARCHIVE_S3_PATH` is the path to the enriched events archive in S3, as found at `aws.s3.buckets.enriched.archive` in `config.yml`. This path **must** have a trailing slash on its end
+2. `$STORAGE_CONFIG_PATH` is the duplicate storage configuration JSON
 3. `$IGLU_RESOLVER_PATH` is your Iglu resolver JSON configuration
 
 You can also add one extra argument: `--since`, which specifies timespan of events you want to load to duplicate storage. Date is specified with `YYYY-MM-dd` format.
 
-You can find more about usage of Event Manifest Populator and its interface at dedicated [wiki page][event-manifest-populator].
+You can find more about usage of Event Manifest Populator and its interface at its dedicated [wiki page][event-manifest-populator].
 
 <h3 id="dedupe-roadmap">2.6 What's coming next for deduplication</h3>
 
@@ -180,9 +182,9 @@ If you want to start to deuplicate events across batches you need to add a new [
 
 Optionally, before first run of Shred job with cross-batch deduplication, you may want to run [Event Manifest Populator](#dedupe-cold-start) to back-fill the DynamoDB table.
 
-When Hadoop Shred runs, if the table doesn't exist then it will be automatically created with [provisioned throughput][provisioned-throughput] by default set to 100 write capacity units and the required schema to store and deduplicate events.
+When Hadoop Shred runs, if the table doesn't exist then it will be automatically created with [provisioned throughput][provisioned-throughput] by default set to 100 write capacity units and 100 read capacity units and the required schema to store and deduplicate events.
 
-For relatively low (1m events per run) cases, the default settings will likely "just work". However, we do **strongly recommend** monitoring the EMR job, and AWS billing impact, closely and tweaking DynamoDB provisioned throughput and your EMR cluster specification accordingly.
+For relatively low (1m events per run) cases, the default settings will likely "just work". However, we do **strongly recommend** monitoring the EMR job, and its AWS billing impact, closely and tweaking DynamoDB provisioned throughput and your EMR cluster specification accordingly.
 
 <h2 id="roadmap">4. Roadmap</h2>
 
@@ -196,7 +198,7 @@ Upcoming Snowplow releases include:
 
 <h2 id="help">5. Getting help</h2>
 
-For more details on this release, please check out the [release notes] [snowplow-release] on GitHub.
+For more details on this release, as always please check out the [release notes] [snowplow-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
@@ -206,8 +208,9 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r88-angkor-wat
 
 [amazon-dynamodb]: https://aws.amazon.com/dynamodb/
-[dashdb-rfc]: http://discourse.snowplowanalytics.com/t/loading-enriched-events-into-ibm-dashdb/768
+[snowflake]: https://www.snowflake.net/
 [bigquery]: https://cloud.google.com/bigquery/
+[azure-sql-dw]: https://azure.microsoft.com/en-gb/services/sql-data-warehouse/
 [shs-wiki]: https://github.com/snowplow/snowplow/wiki/Scala-Hadoop-Shred#33-cross-batch-natural-de-duplication
 [provisioned-throughput]: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ProvisionedThroughput.html
 [duplicate-storage-screenshot-img]: /assets/img/blog/2017/04/duplicates-screenshot.png

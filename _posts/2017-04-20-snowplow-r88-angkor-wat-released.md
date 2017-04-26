@@ -43,7 +43,7 @@ As a first step to solving the problem, in [R76 Changeable Hawk Eagle][r76-chang
 
 Today we're going further and introducing new cross-batch deduplication that works with natural dupes across many loads, eliminating the duplicates problem for many users.
 
-To solve this problem across pipeline runs we're using [Amazon DynamoDB][amazon-dynamodb] storage, which allows us to keep track of which events we have processed across multiple runs; essentially we maintain an "event manifest" in DynamoDB with just some essential information about each event:
+To solve this problem across pipeline runs we're using [Amazon DynamoDB][amazon-dynamodb] storage, which allows us to keep track of which events we have processed across multiple runs; essentially we maintain an "event manifest" in DynamoDB with just some important information about each event:
 
 * Event id - used to identify event
 * Event fingerprint - used in conjunction with event id to identify natural duplicates

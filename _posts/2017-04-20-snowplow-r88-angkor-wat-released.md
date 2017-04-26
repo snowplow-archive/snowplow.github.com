@@ -116,7 +116,7 @@ $ python run.py $ENRICHED_ARCHIVE_S3_PATH $STORAGE_CONFIG_PATH $IGLU_RESOLVER_PA
 
 Here, the `run_emr` task sent to PyInvoke takes three positional arguments:
 
-1. `$ENRICHED_ARCHIVE_S3_PATH` is the path to the enriched events archive in S3, as found at `aws.s3.buckets.enriched.archive` in `config.yml`. This path **must** have a trailing slash on its end
+1. `$ENRICHED_ARCHIVE_S3_PATH` is the path to the enriched events archive in S3, as found at `aws.s3.buckets.enriched.archive` in `config.yml`
 2. `$STORAGE_CONFIG_PATH` is the duplicate storage configuration JSON
 3. `$IGLU_RESOLVER_PATH` is your Iglu resolver JSON configuration
 

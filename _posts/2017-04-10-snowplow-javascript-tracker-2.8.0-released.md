@@ -193,11 +193,23 @@ to the tracker such as cookie names, page view IDs and domain session indices.
 The recommended way of retrieving these data points is via a [tracker callback][callback],
 which prevents problems if the tracker hasn't finished loading.
 
+The following examples assume you have configured a tracker in the following way:
+
+{% highlight javascript %}
+// Configure a tracker instance named cf
+snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
+    appId: 'snowplowExampleApp',
+    platform: 'web'
+});
+{% endhighlight %}
+
 For example, you can retrieve the complete cookie name for the domain cookie like so:
 
 {% highlight javascript %}
-window.snowplow_name_here(function () {
-  doSomethingWithDomainCookieName(this.getCookieName('id'));
+snowplow(function () {
+  var cf = this.cf;
+  var cookieName = cf.getCookieName('id');
+  doSomethingWithDomainCookieName(cookieName);
 });
 {% endhighlight %}
 
@@ -210,16 +222,20 @@ suffix based on a hash of the cookie domain.
 Same goes for the page view ID:
 
 {% highlight javascript %}
-window.snowplow_name_here(function() {
-  doSomethingWithPageViewId(this.getPageViewId());
+snowplow(function() {
+  var cf = this.cf;
+  var pageViewId = cf.getPageViewId();
+  doSomethingWithPageViewId(pageViewId);
 });
 {% endhighlight %}
 
 And the domain session index:
 
 {% highlight javascript %}
-window.snowplow_name_here(function() {
-  doSomethingWithDomainSessionIndex(this.getDomainSessionIndex());
+snowplow(function() {
+  var cf = this.cf;
+  var domainSessionIndex = cf.getDomainSessionIndex();
+  doSomethingWithDomainSessionIndex(domainSessionIndex);
 });
 {% endhighlight %}
 
